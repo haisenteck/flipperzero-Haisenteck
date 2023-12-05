@@ -4,7 +4,7 @@
 #include <furi_hal_usb_hid.h>
 #include <gui/elements.h>
 
-#include "TikTok_Remote_icons.h"
+#include "tiktok_remote_icons.h"
 
 struct BtTikTikTok {
     View* view;
