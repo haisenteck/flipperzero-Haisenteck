@@ -1,6 +1,6 @@
 {
-    "firmware_build_date": "01-12-2023",
-    "firmware_commit": "1b631cc1",
+    "firmware_build_date": "04-12-2023",
+    "firmware_commit": "24d330ef",
     "firmware_branch": "Haisenteck",
     "firmware_target": 7,
     "firmware_version": "V1.2.7"
