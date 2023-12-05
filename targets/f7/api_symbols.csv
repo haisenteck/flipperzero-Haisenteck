@@ -1,5 +1,5 @@
 entry,status,name,type,params
-Version,+,52.0,,
+Version,+,53.1,,
 Header,+,applications/drivers/subghz/cc1101_ext/cc1101_ext_interconnect.h,,
 Header,+,applications/services/bt/bt_service/bt.h,,
 Header,+,applications/services/cli/cli.h,,
@@ -90,8 +90,13 @@ Header,+,lib/libusb_stm32/inc/usb_std.h,,
 Header,+,lib/libusb_stm32/inc/usb_tmc.h,,
 Header,+,lib/libusb_stm32/inc/usbd_core.h,,
 Header,+,lib/mbedtls/include/mbedtls/des.h,,
+Header,+,lib/mbedtls/include/mbedtls/ecdh.h,,
+Header,+,lib/mbedtls/include/mbedtls/ecdsa.h,,
+Header,+,lib/mbedtls/include/mbedtls/ecp.h,,
+Header,+,lib/mbedtls/include/mbedtls/md.h,,
+Header,+,lib/mbedtls/include/mbedtls/md5.h,,
 Header,+,lib/mbedtls/include/mbedtls/sha1.h,,
-Header,+,lib/micro-ecc/uECC.h,,
+Header,+,lib/mbedtls/include/mbedtls/sha256.h,,
 Header,+,lib/mlib/m-algo.h,,
 Header,+,lib/mlib/m-array.h,,
 Header,+,lib/mlib/m-bptree.h,,
@@ -140,6 +145,7 @@ Header,+,lib/nfc/protocols/mf_ultralight/mf_ultralight_poller_sync.h,,
 Header,+,lib/nfc/protocols/slix/slix.h,,
 Header,+,lib/nfc/protocols/st25tb/st25tb.h,,
 Header,+,lib/nfc/protocols/st25tb/st25tb_poller.h,,
+Header,+,lib/nfc/protocols/st25tb/st25tb_poller_sync.h,,
 Header,+,lib/one_wire/maxim_crc.h,,
 Header,+,lib/one_wire/one_wire_host.h,,
 Header,+,lib/one_wire/one_wire_slave.h,,
@@ -174,7 +180,6 @@ Header,+,lib/stm32wb_hal/Inc/stm32wbxx_ll_usart.h,,
 Header,+,lib/stm32wb_hal/Inc/stm32wbxx_ll_utils.h,,
 Header,+,lib/stm32wb_hal/Inc/stm32wbxx_ll_wwdg.h,,
 Header,+,lib/subghz/blocks/const.h,,
-Header,+,lib/subghz/blocks/custom_btn.h,,
 Header,+,lib/subghz/blocks/decoder.h,,
 Header,+,lib/subghz/blocks/encoder.h,,
 Header,+,lib/subghz/blocks/generic.h,,
@@ -182,16 +187,15 @@ Header,+,lib/subghz/blocks/math.h,,
 Header,+,lib/subghz/devices/cc1101_configs.h,,
 Header,+,lib/subghz/devices/cc1101_int/cc1101_int_interconnect.h,,
 Header,+,lib/subghz/environment.h,,
+Header,+,lib/subghz/protocols/public_api.h,,
 Header,+,lib/subghz/protocols/raw.h,,
 Header,+,lib/subghz/receiver.h,,
 Header,+,lib/subghz/registry.h,,
-Header,+,lib/subghz/subghz_file_encoder_worker.h,,
 Header,+,lib/subghz/subghz_protocol_registry.h,,
 Header,+,lib/subghz/subghz_setting.h,,
 Header,+,lib/subghz/subghz_tx_rx_worker.h,,
 Header,+,lib/subghz/subghz_worker.h,,
 Header,+,lib/subghz/transmitter.h,,
-Header,+,lib/subghz/weather_station_types.h,,
 Header,+,lib/toolbox/api_lock.h,,
 Header,+,lib/toolbox/args.h,,
 Header,+,lib/toolbox/bit_buffer.h,,
@@ -202,13 +206,11 @@ Header,+,lib/toolbox/float_tools.h,,
 Header,+,lib/toolbox/hex.h,,
 Header,+,lib/toolbox/manchester_decoder.h,,
 Header,+,lib/toolbox/manchester_encoder.h,,
-Header,+,lib/toolbox/md5.h,,
 Header,+,lib/toolbox/name_generator.h,,
 Header,+,lib/toolbox/path.h,,
 Header,+,lib/toolbox/pretty_format.h,,
 Header,+,lib/toolbox/protocols/protocol_dict.h,,
 Header,+,lib/toolbox/saved_struct.h,,
-Header,+,lib/toolbox/sha256.h,,
 Header,+,lib/toolbox/simple_array.h,,
 Header,+,lib/toolbox/stream/buffered_file_stream.h,,
 Header,+,lib/toolbox/stream/file_stream.h,,
@@ -523,7 +525,6 @@ Function,-,_system_r,int,"_reent*, const char*"
 Function,-,_tempnam_r,char*,"_reent*, const char*, const char*"
 Function,-,_tmpfile_r,FILE*,_reent*
 Function,-,_tmpnam_r,char*,"_reent*, char*"
-Function,-,_tzset_r,void,_reent*
 Function,-,_ungetc_r,int,"_reent*, int, FILE*"
 Function,-,_unsetenv_r,int,"_reent*, const char*"
 Function,-,_vasiprintf_r,int,"_reent*, char**, const char*, __gnuc_va_list"
@@ -571,8 +572,6 @@ Function,+,args_read_hex_bytes,_Bool,"FuriString*, uint8_t*, size_t"
 Function,+,args_read_int_and_trim,_Bool,"FuriString*, int*"
 Function,+,args_read_probably_quoted_string_and_trim,_Bool,"FuriString*, FuriString*"
 Function,+,args_read_string_and_trim,_Bool,"FuriString*, FuriString*"
-Function,-,asctime,char*,const tm*
-Function,-,asctime_r,char*,"const tm*, char*"
 Function,-,asin,double,double
 Function,-,asinf,float,float
 Function,-,asinh,double,double
@@ -771,7 +770,6 @@ Function,+,cli_read_timeout,size_t,"Cli*, uint8_t*, size_t, uint32_t"
 Function,+,cli_session_close,void,Cli*
 Function,+,cli_session_open,void,"Cli*, void*"
 Function,+,cli_write,void,"Cli*, const uint8_t*, size_t"
-Function,-,clock,clock_t,
 Function,+,composite_api_resolver_add,void,"CompositeApiResolver*, const ElfApiInterface*"
 Function,+,composite_api_resolver_alloc,CompositeApiResolver*,
 Function,+,composite_api_resolver_free,void,CompositeApiResolver*
@@ -795,8 +793,6 @@ Function,-,cosl,long double,long double
 Function,+,crc32_calc_buffer,uint32_t,"uint32_t, const void*, size_t"
 Function,+,crc32_calc_file,uint32_t,"File*, const FileCrcProgressCb, void*"
 Function,-,ctermid,char*,char*
-Function,-,ctime,char*,const time_t*
-Function,-,ctime_r,char*,"const time_t*, char*"
 Function,-,cuserid,char*,char*
 Function,+,dialog_ex_alloc,DialogEx*,
 Function,+,dialog_ex_disable_extended_events,void,DialogEx*
@@ -822,7 +818,6 @@ Function,+,dialog_message_set_icon,void,"DialogMessage*, const Icon*, uint8_t, u
 Function,+,dialog_message_set_text,void,"DialogMessage*, const char*, uint8_t, uint8_t, Align, Align"
 Function,+,dialog_message_show,DialogMessageButton,"DialogsApp*, const DialogMessage*"
 Function,+,dialog_message_show_storage_error,void,"DialogsApp*, const char*"
-Function,-,difftime,double,"time_t, time_t"
 Function,+,digital_sequence_add_signal,void,"DigitalSequence*, uint8_t"
 Function,-,digital_sequence_alloc,DigitalSequence*,"uint32_t, const GpioPin*"
 Function,-,digital_sequence_clear,void,DigitalSequence*
@@ -1762,8 +1757,6 @@ Function,-,getenv,char*,const char*
 Function,-,gets,char*,char*
 Function,-,getsubopt,int,"char**, char**, char**"
 Function,-,getw,int,FILE*
-Function,-,gmtime,tm*,const time_t*
-Function,-,gmtime_r,tm*,"const time_t*, tm*"
 Function,+,gui_add_framebuffer_callback,void,"Gui*, GuiCanvasCommitCallback, void*"
 Function,+,gui_add_view_port,void,"Gui*, ViewPort*, GuiLayer"
 Function,+,gui_direct_draw_acquire,Canvas*,Gui*
@@ -2084,8 +2077,6 @@ Function,+,locale_get_time_format,LocaleTimeFormat,
 Function,+,locale_set_date_format,void,LocaleDateFormat
 Function,+,locale_set_measurement_unit,void,LocaleMeasurementUnits
 Function,+,locale_set_time_format,void,LocaleTimeFormat
-Function,-,localtime,tm*,const time_t*
-Function,-,localtime_r,tm*,"const time_t*, tm*"
 Function,-,log,double,double
 Function,-,log10,double,double
 Function,-,log10f,float,float
@@ -2129,29 +2120,167 @@ Function,-,mbedtls_des_init,void,mbedtls_des_context*
 Function,-,mbedtls_des_key_check_key_parity,int,const unsigned char[8]
 Function,-,mbedtls_des_key_check_weak,int,const unsigned char[8]
 Function,-,mbedtls_des_key_set_parity,void,unsigned char[8]
-Function,-,mbedtls_des_self_test,int,int
 Function,-,mbedtls_des_setkey,void,"uint32_t[32], const unsigned char[8]"
 Function,-,mbedtls_des_setkey_dec,int,"mbedtls_des_context*, const unsigned char[8]"
 Function,-,mbedtls_des_setkey_enc,int,"mbedtls_des_context*, const unsigned char[8]"
+Function,+,mbedtls_ecdh_calc_secret,int,"mbedtls_ecdh_context*, size_t*, unsigned char*, size_t, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_ecdh_can_do,int,mbedtls_ecp_group_id
+Function,+,mbedtls_ecdh_compute_shared,int,"mbedtls_ecp_group*, mbedtls_mpi*, const mbedtls_ecp_point*, const mbedtls_mpi*, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_ecdh_free,void,mbedtls_ecdh_context*
+Function,+,mbedtls_ecdh_gen_public,int,"mbedtls_ecp_group*, mbedtls_mpi*, mbedtls_ecp_point*, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_ecdh_get_params,int,"mbedtls_ecdh_context*, const mbedtls_ecp_keypair*, mbedtls_ecdh_side"
+Function,+,mbedtls_ecdh_init,void,mbedtls_ecdh_context*
+Function,+,mbedtls_ecdh_make_params,int,"mbedtls_ecdh_context*, size_t*, unsigned char*, size_t, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_ecdh_make_public,int,"mbedtls_ecdh_context*, size_t*, unsigned char*, size_t, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_ecdh_read_params,int,"mbedtls_ecdh_context*, const unsigned char**, const unsigned char*"
+Function,+,mbedtls_ecdh_read_public,int,"mbedtls_ecdh_context*, const unsigned char*, size_t"
+Function,+,mbedtls_ecdh_setup,int,"mbedtls_ecdh_context*, mbedtls_ecp_group_id"
+Function,+,mbedtls_ecdsa_can_do,int,mbedtls_ecp_group_id
+Function,+,mbedtls_ecdsa_free,void,mbedtls_ecdsa_context*
+Function,+,mbedtls_ecdsa_from_keypair,int,"mbedtls_ecdsa_context*, const mbedtls_ecp_keypair*"
+Function,+,mbedtls_ecdsa_genkey,int,"mbedtls_ecdsa_context*, mbedtls_ecp_group_id, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_ecdsa_init,void,mbedtls_ecdsa_context*
+Function,+,mbedtls_ecdsa_read_signature,int,"mbedtls_ecdsa_context*, const unsigned char*, size_t, const unsigned char*, size_t"
+Function,+,mbedtls_ecdsa_read_signature_restartable,int,"mbedtls_ecdsa_context*, const unsigned char*, size_t, const unsigned char*, size_t, mbedtls_ecdsa_restart_ctx*"
+Function,+,mbedtls_ecdsa_sign,int,"mbedtls_ecp_group*, mbedtls_mpi*, mbedtls_mpi*, const mbedtls_mpi*, const unsigned char*, size_t, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_ecdsa_sign_restartable,int,"mbedtls_ecp_group*, mbedtls_mpi*, mbedtls_mpi*, const mbedtls_mpi*, const unsigned char*, size_t, int (*)(void*, unsigned char*, size_t), void*, int (*)(void*, unsigned char*, size_t), void*, mbedtls_ecdsa_restart_ctx*"
+Function,+,mbedtls_ecdsa_verify,int,"mbedtls_ecp_group*, const unsigned char*, size_t, const mbedtls_ecp_point*, const mbedtls_mpi*, const mbedtls_mpi*"
+Function,+,mbedtls_ecdsa_verify_restartable,int,"mbedtls_ecp_group*, const unsigned char*, size_t, const mbedtls_ecp_point*, const mbedtls_mpi*, const mbedtls_mpi*, mbedtls_ecdsa_restart_ctx*"
+Function,+,mbedtls_ecdsa_write_signature,int,"mbedtls_ecdsa_context*, mbedtls_md_type_t, const unsigned char*, size_t, unsigned char*, size_t, size_t*, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_ecdsa_write_signature_restartable,int,"mbedtls_ecdsa_context*, mbedtls_md_type_t, const unsigned char*, size_t, unsigned char*, size_t, size_t*, int (*)(void*, unsigned char*, size_t), void*, mbedtls_ecdsa_restart_ctx*"
+Function,+,mbedtls_ecp_check_privkey,int,"const mbedtls_ecp_group*, const mbedtls_mpi*"
+Function,+,mbedtls_ecp_check_pub_priv,int,"const mbedtls_ecp_keypair*, const mbedtls_ecp_keypair*, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_ecp_check_pubkey,int,"const mbedtls_ecp_group*, const mbedtls_ecp_point*"
+Function,+,mbedtls_ecp_copy,int,"mbedtls_ecp_point*, const mbedtls_ecp_point*"
+Function,+,mbedtls_ecp_curve_info_from_grp_id,const mbedtls_ecp_curve_info*,mbedtls_ecp_group_id
+Function,+,mbedtls_ecp_curve_info_from_name,const mbedtls_ecp_curve_info*,const char*
+Function,+,mbedtls_ecp_curve_info_from_tls_id,const mbedtls_ecp_curve_info*,uint16_t
+Function,+,mbedtls_ecp_curve_list,const mbedtls_ecp_curve_info*,
+Function,+,mbedtls_ecp_export,int,"const mbedtls_ecp_keypair*, mbedtls_ecp_group*, mbedtls_mpi*, mbedtls_ecp_point*"
+Function,+,mbedtls_ecp_gen_key,int,"mbedtls_ecp_group_id, mbedtls_ecp_keypair*, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_ecp_gen_keypair,int,"mbedtls_ecp_group*, mbedtls_mpi*, mbedtls_ecp_point*, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_ecp_gen_keypair_base,int,"mbedtls_ecp_group*, const mbedtls_ecp_point*, mbedtls_mpi*, mbedtls_ecp_point*, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_ecp_gen_privkey,int,"const mbedtls_ecp_group*, mbedtls_mpi*, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_ecp_get_type,mbedtls_ecp_curve_type,const mbedtls_ecp_group*
+Function,+,mbedtls_ecp_group_copy,int,"mbedtls_ecp_group*, const mbedtls_ecp_group*"
+Function,+,mbedtls_ecp_group_free,void,mbedtls_ecp_group*
+Function,+,mbedtls_ecp_group_init,void,mbedtls_ecp_group*
+Function,+,mbedtls_ecp_group_load,int,"mbedtls_ecp_group*, mbedtls_ecp_group_id"
+Function,+,mbedtls_ecp_grp_id_list,const mbedtls_ecp_group_id*,
+Function,+,mbedtls_ecp_is_zero,int,mbedtls_ecp_point*
+Function,+,mbedtls_ecp_keypair_free,void,mbedtls_ecp_keypair*
+Function,+,mbedtls_ecp_keypair_init,void,mbedtls_ecp_keypair*
+Function,+,mbedtls_ecp_mul,int,"mbedtls_ecp_group*, mbedtls_ecp_point*, const mbedtls_mpi*, const mbedtls_ecp_point*, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_ecp_mul_restartable,int,"mbedtls_ecp_group*, mbedtls_ecp_point*, const mbedtls_mpi*, const mbedtls_ecp_point*, int (*)(void*, unsigned char*, size_t), void*, mbedtls_ecp_restart_ctx*"
+Function,+,mbedtls_ecp_muladd,int,"mbedtls_ecp_group*, mbedtls_ecp_point*, const mbedtls_mpi*, const mbedtls_ecp_point*, const mbedtls_mpi*, const mbedtls_ecp_point*"
+Function,+,mbedtls_ecp_muladd_restartable,int,"mbedtls_ecp_group*, mbedtls_ecp_point*, const mbedtls_mpi*, const mbedtls_ecp_point*, const mbedtls_mpi*, const mbedtls_ecp_point*, mbedtls_ecp_restart_ctx*"
+Function,+,mbedtls_ecp_point_cmp,int,"const mbedtls_ecp_point*, const mbedtls_ecp_point*"
+Function,+,mbedtls_ecp_point_free,void,mbedtls_ecp_point*
+Function,+,mbedtls_ecp_point_init,void,mbedtls_ecp_point*
+Function,+,mbedtls_ecp_point_read_binary,int,"const mbedtls_ecp_group*, mbedtls_ecp_point*, const unsigned char*, size_t"
+Function,+,mbedtls_ecp_point_read_string,int,"mbedtls_ecp_point*, int, const char*, const char*"
+Function,+,mbedtls_ecp_point_write_binary,int,"const mbedtls_ecp_group*, const mbedtls_ecp_point*, int, size_t*, unsigned char*, size_t"
+Function,+,mbedtls_ecp_read_key,int,"mbedtls_ecp_group_id, mbedtls_ecp_keypair*, const unsigned char*, size_t"
+Function,+,mbedtls_ecp_set_zero,int,mbedtls_ecp_point*
+Function,+,mbedtls_ecp_tls_read_group,int,"mbedtls_ecp_group*, const unsigned char**, size_t"
+Function,+,mbedtls_ecp_tls_read_group_id,int,"mbedtls_ecp_group_id*, const unsigned char**, size_t"
+Function,+,mbedtls_ecp_tls_read_point,int,"const mbedtls_ecp_group*, mbedtls_ecp_point*, const unsigned char**, size_t"
+Function,+,mbedtls_ecp_tls_write_group,int,"const mbedtls_ecp_group*, size_t*, unsigned char*, size_t"
+Function,+,mbedtls_ecp_tls_write_point,int,"const mbedtls_ecp_group*, const mbedtls_ecp_point*, int, size_t*, unsigned char*, size_t"
+Function,+,mbedtls_ecp_write_key,int,"mbedtls_ecp_keypair*, unsigned char*, size_t"
+Function,+,mbedtls_internal_md5_process,int,"mbedtls_md5_context*, const unsigned char[64]"
 Function,-,mbedtls_internal_sha1_process,int,"mbedtls_sha1_context*, const unsigned char[64]"
-Function,-,mbedtls_platform_gmtime_r,tm*,"const mbedtls_time_t*, tm*"
+Function,+,mbedtls_internal_sha256_process,int,"mbedtls_sha256_context*, const unsigned char[64]"
+Function,+,mbedtls_md,int,"const mbedtls_md_info_t*, const unsigned char*, size_t, unsigned char*"
+Function,+,mbedtls_md5,int,"const unsigned char*, size_t, unsigned char[16]"
+Function,+,mbedtls_md5_clone,void,"mbedtls_md5_context*, const mbedtls_md5_context*"
+Function,+,mbedtls_md5_finish,int,"mbedtls_md5_context*, unsigned char[16]"
+Function,+,mbedtls_md5_free,void,mbedtls_md5_context*
+Function,+,mbedtls_md5_init,void,mbedtls_md5_context*
+Function,+,mbedtls_md5_starts,int,mbedtls_md5_context*
+Function,+,mbedtls_md5_update,int,"mbedtls_md5_context*, const unsigned char*, size_t"
+Function,+,mbedtls_md_clone,int,"mbedtls_md_context_t*, const mbedtls_md_context_t*"
+Function,+,mbedtls_md_finish,int,"mbedtls_md_context_t*, unsigned char*"
+Function,+,mbedtls_md_free,void,mbedtls_md_context_t*
+Function,+,mbedtls_md_get_name,const char*,const mbedtls_md_info_t*
+Function,+,mbedtls_md_get_size,unsigned char,const mbedtls_md_info_t*
+Function,+,mbedtls_md_get_type,mbedtls_md_type_t,const mbedtls_md_info_t*
+Function,+,mbedtls_md_hmac,int,"const mbedtls_md_info_t*, const unsigned char*, size_t, const unsigned char*, size_t, unsigned char*"
+Function,+,mbedtls_md_hmac_finish,int,"mbedtls_md_context_t*, unsigned char*"
+Function,+,mbedtls_md_hmac_reset,int,mbedtls_md_context_t*
+Function,+,mbedtls_md_hmac_starts,int,"mbedtls_md_context_t*, const unsigned char*, size_t"
+Function,+,mbedtls_md_hmac_update,int,"mbedtls_md_context_t*, const unsigned char*, size_t"
+Function,+,mbedtls_md_info_from_ctx,const mbedtls_md_info_t*,const mbedtls_md_context_t*
+Function,+,mbedtls_md_info_from_string,const mbedtls_md_info_t*,const char*
+Function,+,mbedtls_md_info_from_type,const mbedtls_md_info_t*,mbedtls_md_type_t
+Function,+,mbedtls_md_init,void,mbedtls_md_context_t*
+Function,+,mbedtls_md_list,const int*,
+Function,+,mbedtls_md_setup,int,"mbedtls_md_context_t*, const mbedtls_md_info_t*, int"
+Function,+,mbedtls_md_starts,int,mbedtls_md_context_t*
+Function,+,mbedtls_md_update,int,"mbedtls_md_context_t*, const unsigned char*, size_t"
+Function,+,mbedtls_mpi_add_abs,int,"mbedtls_mpi*, const mbedtls_mpi*, const mbedtls_mpi*"
+Function,+,mbedtls_mpi_add_int,int,"mbedtls_mpi*, const mbedtls_mpi*, mbedtls_mpi_sint"
+Function,+,mbedtls_mpi_add_mpi,int,"mbedtls_mpi*, const mbedtls_mpi*, const mbedtls_mpi*"
+Function,+,mbedtls_mpi_bitlen,size_t,const mbedtls_mpi*
+Function,+,mbedtls_mpi_cmp_abs,int,"const mbedtls_mpi*, const mbedtls_mpi*"
+Function,+,mbedtls_mpi_cmp_int,int,"const mbedtls_mpi*, mbedtls_mpi_sint"
+Function,+,mbedtls_mpi_cmp_mpi,int,"const mbedtls_mpi*, const mbedtls_mpi*"
+Function,+,mbedtls_mpi_copy,int,"mbedtls_mpi*, const mbedtls_mpi*"
+Function,+,mbedtls_mpi_div_int,int,"mbedtls_mpi*, mbedtls_mpi*, const mbedtls_mpi*, mbedtls_mpi_sint"
+Function,+,mbedtls_mpi_div_mpi,int,"mbedtls_mpi*, mbedtls_mpi*, const mbedtls_mpi*, const mbedtls_mpi*"
+Function,+,mbedtls_mpi_exp_mod,int,"mbedtls_mpi*, const mbedtls_mpi*, const mbedtls_mpi*, const mbedtls_mpi*, mbedtls_mpi*"
+Function,+,mbedtls_mpi_fill_random,int,"mbedtls_mpi*, size_t, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_mpi_free,void,mbedtls_mpi*
+Function,+,mbedtls_mpi_gcd,int,"mbedtls_mpi*, const mbedtls_mpi*, const mbedtls_mpi*"
+Function,+,mbedtls_mpi_gen_prime,int,"mbedtls_mpi*, size_t, int, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_mpi_get_bit,int,"const mbedtls_mpi*, size_t"
+Function,+,mbedtls_mpi_grow,int,"mbedtls_mpi*, size_t"
+Function,+,mbedtls_mpi_init,void,mbedtls_mpi*
+Function,+,mbedtls_mpi_inv_mod,int,"mbedtls_mpi*, const mbedtls_mpi*, const mbedtls_mpi*"
+Function,+,mbedtls_mpi_is_prime_ext,int,"const mbedtls_mpi*, int, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_mpi_lsb,size_t,const mbedtls_mpi*
+Function,+,mbedtls_mpi_lset,int,"mbedtls_mpi*, mbedtls_mpi_sint"
+Function,+,mbedtls_mpi_lt_mpi_ct,int,"const mbedtls_mpi*, const mbedtls_mpi*, unsigned*"
+Function,+,mbedtls_mpi_mod_int,int,"mbedtls_mpi_uint*, const mbedtls_mpi*, mbedtls_mpi_sint"
+Function,+,mbedtls_mpi_mod_mpi,int,"mbedtls_mpi*, const mbedtls_mpi*, const mbedtls_mpi*"
+Function,+,mbedtls_mpi_mul_int,int,"mbedtls_mpi*, const mbedtls_mpi*, mbedtls_mpi_uint"
+Function,+,mbedtls_mpi_mul_mpi,int,"mbedtls_mpi*, const mbedtls_mpi*, const mbedtls_mpi*"
+Function,+,mbedtls_mpi_random,int,"mbedtls_mpi*, mbedtls_mpi_sint, const mbedtls_mpi*, int (*)(void*, unsigned char*, size_t), void*"
+Function,+,mbedtls_mpi_read_binary,int,"mbedtls_mpi*, const unsigned char*, size_t"
+Function,+,mbedtls_mpi_read_binary_le,int,"mbedtls_mpi*, const unsigned char*, size_t"
+Function,+,mbedtls_mpi_read_string,int,"mbedtls_mpi*, int, const char*"
+Function,+,mbedtls_mpi_safe_cond_assign,int,"mbedtls_mpi*, const mbedtls_mpi*, unsigned char"
+Function,+,mbedtls_mpi_safe_cond_swap,int,"mbedtls_mpi*, mbedtls_mpi*, unsigned char"
+Function,+,mbedtls_mpi_set_bit,int,"mbedtls_mpi*, size_t, unsigned char"
+Function,+,mbedtls_mpi_shift_l,int,"mbedtls_mpi*, size_t"
+Function,+,mbedtls_mpi_shift_r,int,"mbedtls_mpi*, size_t"
+Function,+,mbedtls_mpi_shrink,int,"mbedtls_mpi*, size_t"
+Function,+,mbedtls_mpi_size,size_t,const mbedtls_mpi*
+Function,+,mbedtls_mpi_sub_abs,int,"mbedtls_mpi*, const mbedtls_mpi*, const mbedtls_mpi*"
+Function,+,mbedtls_mpi_sub_int,int,"mbedtls_mpi*, const mbedtls_mpi*, mbedtls_mpi_sint"
+Function,+,mbedtls_mpi_sub_mpi,int,"mbedtls_mpi*, const mbedtls_mpi*, const mbedtls_mpi*"
+Function,+,mbedtls_mpi_swap,void,"mbedtls_mpi*, mbedtls_mpi*"
+Function,+,mbedtls_mpi_write_binary,int,"const mbedtls_mpi*, unsigned char*, size_t"
+Function,+,mbedtls_mpi_write_binary_le,int,"const mbedtls_mpi*, unsigned char*, size_t"
+Function,+,mbedtls_mpi_write_string,int,"const mbedtls_mpi*, int, char*, size_t, size_t*"
 Function,-,mbedtls_platform_zeroize,void,"void*, size_t"
 Function,+,mbedtls_sha1,int,"const unsigned char*, size_t, unsigned char[20]"
 Function,-,mbedtls_sha1_clone,void,"mbedtls_sha1_context*, const mbedtls_sha1_context*"
 Function,-,mbedtls_sha1_finish,int,"mbedtls_sha1_context*, unsigned char[20]"
 Function,-,mbedtls_sha1_free,void,mbedtls_sha1_context*
 Function,-,mbedtls_sha1_init,void,mbedtls_sha1_context*
-Function,-,mbedtls_sha1_self_test,int,int
 Function,-,mbedtls_sha1_starts,int,mbedtls_sha1_context*
 Function,-,mbedtls_sha1_update,int,"mbedtls_sha1_context*, const unsigned char*, size_t"
+Function,+,mbedtls_sha256,int,"const unsigned char*, size_t, unsigned char*, int"
+Function,+,mbedtls_sha256_clone,void,"mbedtls_sha256_context*, const mbedtls_sha256_context*"
+Function,+,mbedtls_sha256_finish,int,"mbedtls_sha256_context*, unsigned char*"
+Function,+,mbedtls_sha256_free,void,mbedtls_sha256_context*
+Function,+,mbedtls_sha256_init,void,mbedtls_sha256_context*
+Function,+,mbedtls_sha256_starts,int,"mbedtls_sha256_context*, int"
+Function,+,mbedtls_sha256_update,int,"mbedtls_sha256_context*, const unsigned char*, size_t"
 Function,-,mblen,int,"const char*, size_t"
 Function,-,mbstowcs,size_t,"wchar_t*, const char*, size_t"
 Function,-,mbtowc,int,"wchar_t*, const char*, size_t"
-Function,+,md5,void,"const unsigned char*, size_t, unsigned char[16]"
-Function,+,md5_finish,void,"md5_context*, unsigned char[16]"
-Function,+,md5_process,void,"md5_context*, const unsigned char[64]"
-Function,+,md5_starts,void,md5_context*
-Function,+,md5_update,void,"md5_context*, const unsigned char*, size_t"
 Function,-,memccpy,void*,"void*, const void*, int, size_t"
 Function,+,memchr,void*,"const void*, int, size_t"
 Function,+,memcmp,int,"const void*, const void*, size_t"
@@ -2205,7 +2334,9 @@ Function,+,mf_classic_is_sector_trailer,_Bool,uint8_t
 Function,+,mf_classic_is_value_block,_Bool,"MfClassicSectorTrailer*, uint8_t"
 Function,+,mf_classic_load,_Bool,"MfClassicData*, FlipperFormat*, uint32_t"
 Function,+,mf_classic_poller_auth,MfClassicError,"MfClassicPoller*, uint8_t, MfClassicKey*, MfClassicKeyType, MfClassicAuthContext*"
+Function,+,mf_classic_poller_auth_nested,MfClassicError,"MfClassicPoller*, uint8_t, MfClassicKey*, MfClassicKeyType, MfClassicAuthContext*"
 Function,+,mf_classic_poller_get_nt,MfClassicError,"MfClassicPoller*, uint8_t, MfClassicKeyType, MfClassicNt*"
+Function,+,mf_classic_poller_get_nt_nested,MfClassicError,"MfClassicPoller*, uint8_t, MfClassicKeyType, MfClassicNt*"
 Function,+,mf_classic_poller_halt,MfClassicError,MfClassicPoller*
 Function,+,mf_classic_poller_read_block,MfClassicError,"MfClassicPoller*, uint8_t, MfClassicBlock*"
 Function,+,mf_classic_poller_sync_auth,MfClassicError,"Nfc*, uint8_t, MfClassicKey*, MfClassicKeyType, MfClassicAuthContext*"
@@ -2303,7 +2434,6 @@ Function,-,mkostemps,int,"char*, int, int"
 Function,-,mkstemp,int,char*
 Function,-,mkstemps,int,"char*, int"
 Function,-,mktemp,char*,char*
-Function,-,mktime,time_t,tm*
 Function,-,modf,double,"double, double*"
 Function,-,modff,float,"float, float*"
 Function,-,modfl,long double,"long double, long double*"
@@ -2650,11 +2780,6 @@ Function,-,setkey,void,const char*
 Function,-,setlinebuf,int,FILE*
 Function,-,setstate,char*,char*
 Function,-,setvbuf,int,"FILE*, char*, int, size_t"
-Function,+,sha256,void,"const unsigned char*, unsigned int, unsigned char[32]"
-Function,+,sha256_finish,void,"sha256_context*, unsigned char[32]"
-Function,+,sha256_process,void,sha256_context*
-Function,+,sha256_start,void,sha256_context*
-Function,+,sha256_update,void,"sha256_context*, const unsigned char*, unsigned int"
 Function,+,signal_reader_alloc,SignalReader*,"const GpioPin*, uint32_t"
 Function,+,signal_reader_free,void,SignalReader*
 Function,+,signal_reader_set_polarity,void,"SignalReader*, SignalReaderPolarity"
@@ -2743,15 +2868,21 @@ Function,+,st25tb_free,void,St25tbData*
 Function,+,st25tb_get_base_data,St25tbData*,const St25tbData*
 Function,+,st25tb_get_block_count,uint8_t,St25tbType
 Function,+,st25tb_get_device_name,const char*,"const St25tbData*, NfcDeviceNameType"
+Function,+,st25tb_get_type_from_uid,St25tbType,const uint8_t*
 Function,+,st25tb_get_uid,const uint8_t*,"const St25tbData*, size_t*"
 Function,+,st25tb_is_equal,_Bool,"const St25tbData*, const St25tbData*"
 Function,+,st25tb_load,_Bool,"St25tbData*, FlipperFormat*, uint32_t"
-Function,+,st25tb_poller_activate,St25tbError,"St25tbPoller*, St25tbData*"
 Function,+,st25tb_poller_get_uid,St25tbError,"St25tbPoller*, uint8_t*"
 Function,+,st25tb_poller_halt,St25tbError,St25tbPoller*
 Function,+,st25tb_poller_initiate,St25tbError,"St25tbPoller*, uint8_t*"
 Function,+,st25tb_poller_read_block,St25tbError,"St25tbPoller*, uint32_t*, uint8_t"
+Function,+,st25tb_poller_select,St25tbError,"St25tbPoller*, uint8_t*"
 Function,+,st25tb_poller_send_frame,St25tbError,"St25tbPoller*, const BitBuffer*, BitBuffer*, uint32_t"
+Function,+,st25tb_poller_sync_detect_type,St25tbError,"Nfc*, St25tbType*"
+Function,+,st25tb_poller_sync_read,St25tbError,"Nfc*, St25tbData*"
+Function,+,st25tb_poller_sync_read_block,St25tbError,"Nfc*, uint8_t, uint32_t*"
+Function,+,st25tb_poller_sync_write_block,St25tbError,"Nfc*, uint8_t, uint32_t"
+Function,+,st25tb_poller_write_block,St25tbError,"St25tbPoller*, uint32_t, uint8_t"
 Function,+,st25tb_reset,void,St25tbData*
 Function,+,st25tb_save,_Bool,"const St25tbData*, FlipperFormat*"
 Function,+,st25tb_set_uid,_Bool,"St25tbData*, const uint8_t*, size_t"
@@ -2857,8 +2988,6 @@ Function,+,stream_write_vaformat,size_t,"Stream*, const char*, va_list"
 Function,-,strerror,char*,int
 Function,-,strerror_l,char*,"int, locale_t"
 Function,-,strerror_r,char*,"int, char*, size_t"
-Function,-,strftime,size_t,"char*, size_t, const char*, const tm*"
-Function,-,strftime_l,size_t,"char*, size_t, const char*, const tm*, locale_t"
 Function,+,string_stream_alloc,Stream*,
 Function,-,strlcat,size_t,"char*, const char*, size_t"
 Function,+,strlcpy,size_t,"char*, const char*, size_t"
@@ -2873,8 +3002,6 @@ Function,-,strndup,char*,"const char*, size_t"
 Function,-,strnlen,size_t,"const char*, size_t"
 Function,-,strnstr,char*,"const char*, const char*, size_t"
 Function,-,strpbrk,char*,"const char*, const char*"
-Function,-,strptime,char*,"const char*, const char*, tm*"
-Function,-,strptime_l,char*,"const char*, const char*, tm*, locale_t"
 Function,+,strrchr,char*,"const char*, int"
 Function,-,strsep,char*,"char**, const char*"
 Function,-,strsignal,char*,int
@@ -2905,11 +3032,6 @@ Function,+,subghz_block_generic_deserialize_check_count_bit,SubGhzProtocolStatus
 Function,-,subghz_block_generic_deserialize_wheather,SubGhzProtocolStatus,"SubGhzBlockGeneric*, FlipperFormat*"
 Function,+,subghz_block_generic_get_preset_name,void,"const char*, FuriString*"
 Function,+,subghz_block_generic_serialize,SubGhzProtocolStatus,"SubGhzBlockGeneric*, FlipperFormat*, SubGhzRadioPreset*"
-Function,+,subghz_custom_btn_get,uint8_t,
-Function,+,subghz_custom_btn_get_original,uint8_t,
-Function,+,subghz_custom_btn_is_allowed,_Bool,
-Function,+,subghz_custom_btn_set,_Bool,uint8_t
-Function,+,subghz_custom_btns_reset,void,
 Function,-,subghz_device_cc1101_ext_ep,const FlipperAppPluginDescriptor*,
 Function,+,subghz_devices_begin,_Bool,const SubGhzDevice*
 Function,+,subghz_devices_deinit,void,
@@ -2955,14 +3077,6 @@ Function,+,subghz_environment_set_alutech_at_4n_rainbow_table_file_name,void,"Su
 Function,+,subghz_environment_set_came_atomo_rainbow_table_file_name,void,"SubGhzEnvironment*, const char*"
 Function,+,subghz_environment_set_nice_flor_s_rainbow_table_file_name,void,"SubGhzEnvironment*, const char*"
 Function,+,subghz_environment_set_protocol_registry,void,"SubGhzEnvironment*, const SubGhzProtocolRegistry*"
-Function,+,subghz_file_encoder_worker_alloc,SubGhzFileEncoderWorker*,
-Function,+,subghz_file_encoder_worker_callback_end,void,"SubGhzFileEncoderWorker*, SubGhzFileEncoderWorkerCallbackEnd, void*"
-Function,+,subghz_file_encoder_worker_free,void,SubGhzFileEncoderWorker*
-Function,+,subghz_file_encoder_worker_get_level_duration,LevelDuration,void*
-Function,+,subghz_file_encoder_worker_get_text_progress,void,"SubGhzFileEncoderWorker*, FuriString*"
-Function,+,subghz_file_encoder_worker_is_running,_Bool,SubGhzFileEncoderWorker*
-Function,+,subghz_file_encoder_worker_start,_Bool,"SubGhzFileEncoderWorker*, const char*, const char*"
-Function,+,subghz_file_encoder_worker_stop,void,SubGhzFileEncoderWorker*
 Function,-,subghz_keystore_alloc,SubGhzKeystore*,
 Function,-,subghz_keystore_free,void,SubGhzKeystore*
 Function,-,subghz_keystore_get_data,SubGhzKeyArray_t*,SubGhzKeystore*
@@ -2997,6 +3111,7 @@ Function,+,subghz_protocol_decoder_base_get_hash_data,uint8_t,SubGhzProtocolDeco
 Function,+,subghz_protocol_decoder_base_get_string,_Bool,"SubGhzProtocolDecoderBase*, FuriString*"
 Function,+,subghz_protocol_decoder_base_serialize,SubGhzProtocolStatus,"SubGhzProtocolDecoderBase*, FlipperFormat*, SubGhzRadioPreset*"
 Function,-,subghz_protocol_decoder_base_set_decoder_callback,void,"SubGhzProtocolDecoderBase*, SubGhzProtocolDecoderBaseRxCallback, void*"
+Function,+,subghz_protocol_decoder_bin_raw_data_input_rssi,void,"SubGhzProtocolDecoderBinRAW*, float"
 Function,+,subghz_protocol_decoder_raw_alloc,void*,SubGhzEnvironment*
 Function,+,subghz_protocol_decoder_raw_deserialize,SubGhzProtocolStatus,"void*, FlipperFormat*"
 Function,+,subghz_protocol_decoder_raw_feed,void,"void*, _Bool, uint32_t"
@@ -3008,6 +3123,7 @@ Function,+,subghz_protocol_encoder_raw_deserialize,SubGhzProtocolStatus,"void*, 
 Function,+,subghz_protocol_encoder_raw_free,void,void*
 Function,+,subghz_protocol_encoder_raw_stop,void,void*
 Function,+,subghz_protocol_encoder_raw_yield,LevelDuration,void*
+Function,+,subghz_protocol_keeloq_create_data,_Bool,"void*, FlipperFormat*, uint32_t, uint8_t, uint16_t, const char*, SubGhzRadioPreset*"
 Function,+,subghz_protocol_raw_file_encoder_worker_set_callback_end,void,"SubGhzProtocolEncoderRAW*, SubGhzProtocolEncoderRAWCallbackEnd, void*"
 Function,+,subghz_protocol_raw_gen_fff_data,void,"FlipperFormat*, const char*, const char*"
 Function,+,subghz_protocol_raw_get_sample_write,size_t,SubGhzProtocolDecoderRAW*
@@ -3017,6 +3133,8 @@ Function,+,subghz_protocol_raw_save_to_file_stop,void,SubGhzProtocolDecoderRAW*
 Function,+,subghz_protocol_registry_count,size_t,const SubGhzProtocolRegistry*
 Function,+,subghz_protocol_registry_get_by_index,const SubGhzProtocol*,"const SubGhzProtocolRegistry*, size_t"
 Function,+,subghz_protocol_registry_get_by_name,const SubGhzProtocol*,"const SubGhzProtocolRegistry*, const char*"
+Function,+,subghz_protocol_secplus_v1_check_fixed,_Bool,uint32_t
+Function,+,subghz_protocol_secplus_v2_create_data,_Bool,"void*, FlipperFormat*, uint32_t, uint8_t, uint32_t, SubGhzRadioPreset*"
 Function,+,subghz_receiver_alloc_init,SubGhzReceiver*,SubGhzEnvironment*
 Function,+,subghz_receiver_decode,void,"SubGhzReceiver*, _Bool, uint32_t"
 Function,+,subghz_receiver_free,void,SubGhzReceiver*
@@ -3121,7 +3239,6 @@ Function,+,text_input_set_validator,void,"TextInput*, TextInputValidatorCallback
 Function,-,tgamma,double,double
 Function,-,tgammaf,float,float
 Function,-,tgammal,long double,long double
-Function,-,time,time_t,time_t*
 Function,-,timingsafe_bcmp,int,"const void*, const void*, size_t"
 Function,-,timingsafe_memcmp,int,"const void*, const void*, size_t"
 Function,-,tmpfile,FILE*,
@@ -3135,25 +3252,6 @@ Function,-,toupper_l,int,"int, locale_t"
 Function,-,trunc,double,double
 Function,-,truncf,float,float
 Function,-,truncl,long double,long double
-Function,-,tzset,void,
-Function,-,uECC_compress,void,"const uint8_t*, uint8_t*, uECC_Curve"
-Function,+,uECC_compute_public_key,int,"const uint8_t*, uint8_t*, uECC_Curve"
-Function,-,uECC_curve_private_key_size,int,uECC_Curve
-Function,-,uECC_curve_public_key_size,int,uECC_Curve
-Function,-,uECC_decompress,void,"const uint8_t*, uint8_t*, uECC_Curve"
-Function,-,uECC_get_rng,uECC_RNG_Function,
-Function,-,uECC_make_key,int,"uint8_t*, uint8_t*, uECC_Curve"
-Function,-,uECC_secp160r1,uECC_Curve,
-Function,-,uECC_secp192r1,uECC_Curve,
-Function,-,uECC_secp224r1,uECC_Curve,
-Function,-,uECC_secp256k1,uECC_Curve,
-Function,+,uECC_secp256r1,uECC_Curve,
-Function,+,uECC_set_rng,void,uECC_RNG_Function
-Function,-,uECC_shared_secret,int,"const uint8_t*, const uint8_t*, uint8_t*, uECC_Curve"
-Function,+,uECC_sign,int,"const uint8_t*, const uint8_t*, unsigned, uint8_t*, uECC_Curve"
-Function,-,uECC_sign_deterministic,int,"const uint8_t*, const uint8_t*, unsigned, const uECC_HashContext*, uint8_t*, uECC_Curve"
-Function,-,uECC_valid_public_key,int,"const uint8_t*, uECC_Curve"
-Function,-,uECC_verify,int,"const uint8_t*, const uint8_t*, unsigned, const uint8_t*, uECC_Curve"
 Function,+,uint8_to_hex_chars,void,"const uint8_t*, uint8_t*, int"
 Function,+,ulTaskGenericNotifyTake,uint32_t,"UBaseType_t, BaseType_t, TickType_t"
 Function,+,ulTaskGenericNotifyValueClear,uint32_t,"TaskHandle_t, UBaseType_t, uint32_t"
@@ -3389,13 +3487,10 @@ Variable,-,MSIRangeTable,const uint32_t[16],
 Variable,-,SmpsPrescalerTable,const uint32_t[4][6],
 Variable,+,SystemCoreClock,uint32_t,
 Variable,+,_ctype_,const char[],
-Variable,-,_daylight,int,
 Variable,+,_global_impure_ptr,_reent*,
 Variable,+,_impure_ptr,_reent*,
 Variable,-,_sys_errlist,const char*[],
 Variable,-,_sys_nerr,int,
-Variable,-,_timezone,long,
-Variable,-,_tzname,char*[2],
 Variable,+,cli_vcp,CliSession,
 Variable,+,firmware_api_interface,const ElfApiInterface*,
 Variable,+,furi_hal_i2c_bus_external,FuriHalI2cBus,
