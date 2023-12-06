@@ -61,6 +61,7 @@
 #include "mbedtls/error.h"
 #include "mbedtls/gcm.h"
 #include "mbedtls/md5.h"
+#include "mbedtls/md.h"
 #include "mbedtls/pk.h"
 #include "pk_wrap.h"
 #include "mbedtls/platform_util.h"
@@ -1848,8 +1849,6 @@ static psa_status_t psa_start_key_creation(
         return PSA_ERROR_INVALID_ARGUMENT;
     }
 #endif /* MBEDTLS_PSA_CRYPTO_SE_C */
-
-    slot->status = PSA_SLOT_OCCUPIED;
 
     return PSA_SUCCESS;
 }
@@ -6627,7 +6626,7 @@ static psa_status_t psa_tls12_prf_psk_to_ms_set_key(
     memcpy(cur, data, data_length);
     cur += data_length;
 
-    status = psa_tls12_prf_set_key(prf, pms, (size_t) (cur - pms));
+    status = psa_tls12_prf_set_key(prf, pms, cur - pms);
 
     mbedtls_zeroize_and_free(pms, pms_len);
     return status;

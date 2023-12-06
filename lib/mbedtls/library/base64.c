@@ -116,7 +116,7 @@ int mbedtls_base64_encode(unsigned char *dst, size_t dlen, size_t *olen,
         *p++ = '=';
     }
 
-    *olen = (size_t) (p - dst);
+    *olen = p - dst;
     *p = 0;
 
     return 0;
@@ -225,7 +225,7 @@ int mbedtls_base64_decode(unsigned char *dst, size_t dlen, size_t *olen,
         }
     }
 
-    *olen = (size_t) (p - dst);
+    *olen = p - dst;
 
     return 0;
 }

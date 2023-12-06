@@ -94,10 +94,6 @@ static int ssl_tls13_parse_key_exchange_modes_ext(mbedtls_ssl_context *ssl,
 #define SSL_TLS1_3_OFFERED_PSK_MATCH       0
 
 #if defined(MBEDTLS_SSL_SESSION_TICKETS)
-MBEDTLS_CHECK_RETURN_CRITICAL
-static int ssl_tls13_check_psk_key_exchange(mbedtls_ssl_context *ssl);
-MBEDTLS_CHECK_RETURN_CRITICAL
-static int ssl_tls13_check_psk_ephemeral_key_exchange(mbedtls_ssl_context *ssl);
 
 MBEDTLS_CHECK_RETURN_CRITICAL
 static int ssl_tls13_offered_psks_check_identity_match_ticket(
@@ -109,12 +105,10 @@ static int ssl_tls13_offered_psks_check_identity_match_ticket(
 {
     int ret = MBEDTLS_ERR_ERROR_CORRUPTION_DETECTED;
     unsigned char *ticket_buffer;
-    unsigned int key_exchanges;
 #if defined(MBEDTLS_HAVE_TIME)
-    mbedtls_ms_time_t now;
-    mbedtls_ms_time_t server_age;
-    uint32_t client_age;
-    mbedtls_ms_time_t age_diff;
+    mbedtls_time_t now;
+    uint64_t age_in_s;
+    int64_t age_diff_in_ms;
 #endif
 
     ((void) obfuscated_ticket_age);
@@ -153,12 +147,6 @@ static int ssl_tls13_offered_psks_check_identity_match_ticket(
     /* We delete the temporary buffer */
     mbedtls_free(ticket_buffer);
 
-    if (ret == 0 && session->tls_version != MBEDTLS_SSL_VERSION_TLS1_3) {
-        MBEDTLS_SSL_DEBUG_MSG(3, ("Ticket TLS version is not 1.3."));
-        /* TODO: Define new return value for this case. */
-        ret = MBEDTLS_ERR_SSL_BAD_PROTOCOL_VERSION;
-    }
-
     if (ret != 0) {
         goto exit;
     }
@@ -172,36 +160,30 @@ static int ssl_tls13_offered_psks_check_identity_match_ticket(
      * We regard the ticket with incompatible key exchange modes as not match.
      */
     ret = MBEDTLS_ERR_ERROR_GENERIC_ERROR;
-    MBEDTLS_SSL_PRINT_TICKET_FLAGS(4, session->ticket_flags);
-
-    key_exchanges = 0;
-    if (mbedtls_ssl_session_ticket_allow_psk_ephemeral(session) &&
-        ssl_tls13_check_psk_ephemeral_key_exchange(ssl)) {
-        key_exchanges |= MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_EPHEMERAL;
-    }
-    if (mbedtls_ssl_session_ticket_allow_psk(session) &&
-        ssl_tls13_check_psk_key_exchange(ssl)) {
-        key_exchanges |= MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK;
-    }
-
-    if (key_exchanges == 0) {
+    MBEDTLS_SSL_PRINT_TICKET_FLAGS(4,
+                                   session->ticket_flags);
+    if (mbedtls_ssl_tls13_check_kex_modes(
+            ssl,
+            mbedtls_ssl_session_get_ticket_flags(
+                session,
+                MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_ALL))) {
         MBEDTLS_SSL_DEBUG_MSG(3, ("No suitable key exchange mode"));
         goto exit;
     }
 
     ret = MBEDTLS_ERR_SSL_SESSION_TICKET_EXPIRED;
 #if defined(MBEDTLS_HAVE_TIME)
-    now = mbedtls_ms_time();
+    now = mbedtls_time(NULL);
 
-    if (now < session->ticket_creation_time) {
+    if (now < session->start) {
         MBEDTLS_SSL_DEBUG_MSG(
-            3, ("Invalid ticket creation time ( now = %" MBEDTLS_PRINTF_MS_TIME
-                ", creation_time = %" MBEDTLS_PRINTF_MS_TIME " )",
-                now, session->ticket_creation_time));
+            3, ("Invalid ticket start time ( now=%" MBEDTLS_PRINTF_LONGLONG
+                ", start=%" MBEDTLS_PRINTF_LONGLONG " )",
+                (long long) now, (long long) session->start));
         goto exit;
     }
 
-    server_age = now - session->ticket_creation_time;
+    age_in_s = (uint64_t) (now - session->start);
 
     /* RFC 8446 section 4.6.1
      *
@@ -212,11 +194,12 @@ static int ssl_tls13_offered_psks_check_identity_match_ticket(
      * Clients MUST NOT attempt to use tickets which have ages greater than
      * the "ticket_lifetime" value which was provided with the ticket.
      *
+     * For time being, the age MUST be less than 604800 seconds (7 days).
      */
-    if (server_age > MBEDTLS_SSL_TLS1_3_MAX_ALLOWED_TICKET_LIFETIME * 1000) {
+    if (age_in_s > 604800) {
         MBEDTLS_SSL_DEBUG_MSG(
-            3, ("Ticket age exceeds limitation ticket_age = %" MBEDTLS_PRINTF_MS_TIME,
-                server_age));
+            3, ("Ticket age exceeds limitation ticket_age=%lu",
+                (long unsigned int) age_in_s));
         goto exit;
     }
 
@@ -227,19 +210,18 @@ static int ssl_tls13_offered_psks_check_identity_match_ticket(
      * ticket_age_add from PskIdentity.obfuscated_ticket_age modulo 2^32) is
      * within a small tolerance of the time since the ticket was issued.
      *
-     * NOTE: The typical accuracy of an RTC crystal is ±100 to ±20 parts per
-     *       million (360 to 72 milliseconds per hour). Default tolerance
-     *       window is 6s, thus in the worst case clients and servers must
-     *       sync up their system time every 6000/360/2~=8 hours.
+     * NOTE: When `now == session->start`, `age_diff_in_ms` may be negative
+     *       as the age units are different on the server (s) and in the
+     *       client (ms) side. Add a -1000 ms tolerance window to take this
+     *       into account.
      */
-    client_age = obfuscated_ticket_age - session->ticket_age_add;
-    age_diff = server_age - (mbedtls_ms_time_t) client_age;
-    if (age_diff < -MBEDTLS_SSL_TLS1_3_TICKET_AGE_TOLERANCE ||
-        age_diff > MBEDTLS_SSL_TLS1_3_TICKET_AGE_TOLERANCE) {
+    age_diff_in_ms = age_in_s * 1000;
+    age_diff_in_ms -= (obfuscated_ticket_age - session->ticket_age_add);
+    if (age_diff_in_ms <= -1000 ||
+        age_diff_in_ms > MBEDTLS_SSL_TLS1_3_TICKET_AGE_TOLERANCE) {
         MBEDTLS_SSL_DEBUG_MSG(
-            3, ("Ticket age outside tolerance window ( diff = %"
-                MBEDTLS_PRINTF_MS_TIME ")",
-                age_diff));
+            3, ("Ticket age outside tolerance window ( diff=%d )",
+                (int) age_diff_in_ms));
         goto exit;
     }
 
@@ -414,8 +396,7 @@ static int ssl_tls13_select_ciphersuite_for_psk(
         /* MAC of selected ciphersuite MUST be same with PSK binder if exist.
          * Otherwise, client should reject.
          */
-        if (psk_hash_alg ==
-            mbedtls_md_psa_alg_from_type((mbedtls_md_type_t) ciphersuite_info->mac)) {
+        if (psk_hash_alg == mbedtls_md_psa_alg_from_type(ciphersuite_info->mac)) {
             *selected_ciphersuite = cipher_suite;
             *selected_ciphersuite_info = ciphersuite_info;
             return 0;
@@ -472,10 +453,6 @@ static int ssl_tls13_session_copy_ticket(mbedtls_ssl_session *dst,
         return MBEDTLS_ERR_SSL_INTERNAL_ERROR;
     }
     memcpy(dst->resumption_key, src->resumption_key, src->resumption_key_len);
-
-#if defined(MBEDTLS_SSL_EARLY_DATA)
-    dst->max_early_data_size = src->max_early_data_size;
-#endif
 
     return 0;
 }
@@ -625,7 +602,7 @@ static int ssl_tls13_parse_pre_shared_key_ext(
 
         ret = ssl_tls13_offered_psks_check_binder_match(
             ssl, binder, binder_len, psk_type,
-            mbedtls_md_psa_alg_from_type((mbedtls_md_type_t) ciphersuite_info->mac));
+            mbedtls_md_psa_alg_from_type(ciphersuite_info->mac));
         if (ret != SSL_TLS1_3_OFFERED_PSK_MATCH) {
             /* For security reasons, the handshake should be aborted when we
              * fail to validate a binder value. See RFC 8446 section 4.2.11.2
@@ -1001,26 +978,6 @@ static int ssl_tls13_client_hello_has_exts_for_psk_ephemeral_key_exchange(
 }
 #endif /* MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_EPHEMERAL_ENABLED */
 
-#if defined(MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_SOME_PSK_ENABLED)
-MBEDTLS_CHECK_RETURN_CRITICAL
-static int ssl_tls13_ticket_permission_check(mbedtls_ssl_context *ssl,
-                                             unsigned int kex_mode)
-{
-#if defined(MBEDTLS_SSL_SESSION_TICKETS)
-    if (ssl->handshake->resume) {
-        if (mbedtls_ssl_session_check_ticket_flags(
-                ssl->session_negotiate, kex_mode)) {
-            return 0;
-        }
-    }
-#else
-    ((void) ssl);
-    ((void) kex_mode);
-#endif
-    return 1;
-}
-#endif /* MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_SOME_PSK_ENABLED */
-
 MBEDTLS_CHECK_RETURN_CRITICAL
 static int ssl_tls13_check_ephemeral_key_exchange(mbedtls_ssl_context *ssl)
 {
@@ -1037,9 +994,7 @@ MBEDTLS_CHECK_RETURN_CRITICAL
 static int ssl_tls13_check_psk_key_exchange(mbedtls_ssl_context *ssl)
 {
 #if defined(MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_ENABLED)
-    return ssl_tls13_ticket_permission_check(
-        ssl, MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK) &&
-           mbedtls_ssl_conf_tls13_psk_enabled(ssl) &&
+    return mbedtls_ssl_conf_tls13_psk_enabled(ssl) &&
            mbedtls_ssl_tls13_psk_enabled(ssl) &&
            ssl_tls13_client_hello_has_exts_for_psk_key_exchange(ssl);
 #else
@@ -1052,9 +1007,7 @@ MBEDTLS_CHECK_RETURN_CRITICAL
 static int ssl_tls13_check_psk_ephemeral_key_exchange(mbedtls_ssl_context *ssl)
 {
 #if defined(MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_EPHEMERAL_ENABLED)
-    return ssl_tls13_ticket_permission_check(
-        ssl, MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_EPHEMERAL) &&
-           mbedtls_ssl_conf_tls13_psk_ephemeral_enabled(ssl) &&
+    return mbedtls_ssl_conf_tls13_psk_ephemeral_enabled(ssl) &&
            mbedtls_ssl_tls13_psk_ephemeral_enabled(ssl) &&
            ssl_tls13_client_hello_has_exts_for_psk_ephemeral_key_exchange(ssl);
 #else
@@ -1737,8 +1690,9 @@ static int ssl_tls13_parse_client_hello(mbedtls_ssl_context *ssl,
      * - The content up to but excluding the PSK extension, if present.
      */
     /* If we've settled on a PSK-based exchange, parse PSK identity ext */
-    if (ssl_tls13_check_psk_key_exchange(ssl) ||
-        ssl_tls13_check_psk_ephemeral_key_exchange(ssl)) {
+    if (mbedtls_ssl_tls13_some_psk_enabled(ssl) &&
+        mbedtls_ssl_conf_tls13_some_psk_enabled(ssl) &&
+        (handshake->received_extensions & MBEDTLS_SSL_EXT_MASK(PRE_SHARED_KEY))) {
         ret = handshake->update_checksum(ssl, buf,
                                          pre_shared_key_ext - buf);
         if (0 != ret) {
@@ -1782,75 +1736,6 @@ static int ssl_tls13_parse_client_hello(mbedtls_ssl_context *ssl,
     return hrr_required ? SSL_CLIENT_HELLO_HRR_REQUIRED : SSL_CLIENT_HELLO_OK;
 }
 
-#if defined(MBEDTLS_SSL_EARLY_DATA)
-static void ssl_tls13_update_early_data_status(mbedtls_ssl_context *ssl)
-{
-    mbedtls_ssl_handshake_params *handshake = ssl->handshake;
-
-    if ((handshake->received_extensions &
-         MBEDTLS_SSL_EXT_MASK(EARLY_DATA)) == 0) {
-        MBEDTLS_SSL_DEBUG_MSG(
-            1, ("EarlyData: no early data extension received."));
-        ssl->early_data_status = MBEDTLS_SSL_EARLY_DATA_STATUS_NOT_RECEIVED;
-        return;
-    }
-
-    ssl->early_data_status = MBEDTLS_SSL_EARLY_DATA_STATUS_REJECTED;
-
-    if (ssl->conf->early_data_enabled == MBEDTLS_SSL_EARLY_DATA_DISABLED) {
-        MBEDTLS_SSL_DEBUG_MSG(
-            1,
-            ("EarlyData: rejected, feature disabled in server configuration."));
-        return;
-    }
-
-    if (!handshake->resume) {
-        /* We currently support early data only in the case of PSKs established
-           via a NewSessionTicket message thus in the case of a session
-           resumption. */
-        MBEDTLS_SSL_DEBUG_MSG(
-            1, ("EarlyData: rejected, not a session resumption."));
-        return;
-    }
-
-    /* RFC 8446 4.2.10
-     *
-     * In order to accept early data, the server MUST have accepted a PSK cipher
-     * suite and selected the first key offered in the client's "pre_shared_key"
-     * extension. In addition, it MUST verify that the following values are the
-     * same as those associated with the selected PSK:
-     * - The TLS version number
-     * - The selected cipher suite
-     * - The selected ALPN [RFC7301] protocol, if any
-     *
-     * NOTE:
-     *  - The TLS version number is checked in
-     *    ssl_tls13_offered_psks_check_identity_match_ticket().
-     *  - ALPN is not checked for the time being (TODO).
-     */
-
-    if (handshake->selected_identity != 0) {
-        MBEDTLS_SSL_DEBUG_MSG(
-            1, ("EarlyData: rejected, the selected key in "
-                "`pre_shared_key` is not the first one."));
-        return;
-    }
-
-    if (handshake->ciphersuite_info->id !=
-        ssl->session_negotiate->ciphersuite) {
-        MBEDTLS_SSL_DEBUG_MSG(
-            1, ("EarlyData: rejected, the selected ciphersuite is not the one "
-                "of the selected pre-shared key."));
-        return;
-
-    }
-
-
-    ssl->early_data_status = MBEDTLS_SSL_EARLY_DATA_STATUS_ACCEPTED;
-
-}
-#endif /* MBEDTLS_SSL_EARLY_DATA */
-
 /* Update the handshake state machine */
 
 MBEDTLS_CHECK_RETURN_CRITICAL
@@ -1876,11 +1761,6 @@ static int ssl_tls13_postprocess_client_hello(mbedtls_ssl_context *ssl)
                               "mbedtls_ssl_tls1_3_key_schedule_stage_early", ret);
         return ret;
     }
-
-#if defined(MBEDTLS_SSL_EARLY_DATA)
-    /* There is enough information, update early data state. */
-    ssl_tls13_update_early_data_status(ssl);
-#endif /* MBEDTLS_SSL_EARLY_DATA */
 
     return 0;
 
@@ -2507,16 +2387,6 @@ static int ssl_tls13_write_encrypted_extensions_body(mbedtls_ssl_context *ssl,
     p += output_len;
 #endif /* MBEDTLS_SSL_ALPN */
 
-#if defined(MBEDTLS_SSL_EARLY_DATA)
-    if (ssl->early_data_status == MBEDTLS_SSL_EARLY_DATA_STATUS_ACCEPTED) {
-        ret = mbedtls_ssl_tls13_write_early_data_ext(ssl, p, end, &output_len);
-        if (ret != 0) {
-            return ret;
-        }
-        p += output_len;
-    }
-#endif /* MBEDTLS_SSL_EARLY_DATA */
-
     extensions_len = (p - p_extensions_len) - 2;
     MBEDTLS_PUT_UINT16_BE(extensions_len, p_extensions_len, 0);
 
@@ -2878,7 +2748,7 @@ static int ssl_tls13_prepare_new_session_ticket(mbedtls_ssl_context *ssl,
     MBEDTLS_SSL_DEBUG_MSG(2, ("=> prepare NewSessionTicket msg"));
 
 #if defined(MBEDTLS_HAVE_TIME)
-    session->ticket_creation_time = mbedtls_ms_time();
+    session->start = mbedtls_time(NULL);
 #endif
 
     /* Set ticket_flags depends on the advertised psk key exchange mode */
@@ -2911,7 +2781,7 @@ static int ssl_tls13_prepare_new_session_ticket(mbedtls_ssl_context *ssl,
 
     ciphersuite_info =
         (mbedtls_ssl_ciphersuite_t *) ssl->handshake->ciphersuite_info;
-    psa_hash_alg = mbedtls_md_psa_alg_from_type((mbedtls_md_type_t) ciphersuite_info->mac);
+    psa_hash_alg = mbedtls_md_psa_alg_from_type(ciphersuite_info->mac);
     hash_length = PSA_HASH_LENGTH(psa_hash_alg);
     if (hash_length == -1 ||
         (size_t) hash_length > sizeof(session->resumption_key)) {
@@ -3025,8 +2895,8 @@ static int ssl_tls13_write_new_session_ticket_body(mbedtls_ssl_context *ssl,
      *      MAY treat a ticket as valid for a shorter period of time than what
      *      is stated in the ticket_lifetime.
      */
-    if (ticket_lifetime > MBEDTLS_SSL_TLS1_3_MAX_ALLOWED_TICKET_LIFETIME) {
-        ticket_lifetime = MBEDTLS_SSL_TLS1_3_MAX_ALLOWED_TICKET_LIFETIME;
+    if (ticket_lifetime > 604800) {
+        ticket_lifetime = 604800;
     }
     MBEDTLS_PUT_UINT32_BE(ticket_lifetime, p, 0);
     MBEDTLS_SSL_DEBUG_MSG(3, ("ticket_lifetime: %u",
@@ -3133,7 +3003,7 @@ int mbedtls_ssl_tls13_handshake_server_step(mbedtls_ssl_context *ssl)
     }
 
     MBEDTLS_SSL_DEBUG_MSG(2, ("tls13 server state: %s(%d)",
-                              mbedtls_ssl_states_str((mbedtls_ssl_states) ssl->state),
+                              mbedtls_ssl_states_str(ssl->state),
                               ssl->state));
 
     switch (ssl->state) {

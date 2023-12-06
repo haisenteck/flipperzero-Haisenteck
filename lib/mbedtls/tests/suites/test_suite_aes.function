@@ -6,7 +6,6 @@
  * master, enc and dec must be AES context objects. They don't need to
  * be initialized, and are left freed.
  */
-#if !defined(MBEDTLS_BLOCK_CIPHER_NO_DECRYPT)
 static int test_copy(const data_t *key,
                      mbedtls_aes_context *master,
                      mbedtls_aes_context *enc,
@@ -56,7 +55,6 @@ exit:
      * with alternative implementations. */
     return 0;
 }
-#endif
 
 /* END_HEADER */
 
@@ -88,7 +86,7 @@ exit:
 }
 /* END_CASE */
 
-/* BEGIN_CASE depends_on:!MBEDTLS_BLOCK_CIPHER_NO_DECRYPT */
+/* BEGIN_CASE */
 void aes_decrypt_ecb(data_t *key_str, data_t *src_str,
                      data_t *dst, int setkey_result)
 {
@@ -525,7 +523,7 @@ void aes_misc_params()
 }
 /* END_CASE */
 
-/* BEGIN_CASE depends_on:!MBEDTLS_BLOCK_CIPHER_NO_DECRYPT */
+/* BEGIN_CASE */
 void aes_ecb_copy_context(data_t *key)
 {
     /* We test context copying multiple times, with different alignments

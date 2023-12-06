@@ -10,7 +10,7 @@
 #include <furi_hal_power.h>
 #include <locale/locale.h>
 #include <toolbox/crc32_calc.h>
-#include <lib/toolbox/md5.h>
+#include <lib/mbedtls/include/mbedtls/md5.h>
 
 #define SCREEN_SIZE_X 128
 #define SCREEN_SIZE_Y 64
@@ -152,10 +152,10 @@ int32_t flipper_atomicdiceroller_app()
     uint8_t method = 0;
 
     // MD5
-    md5_context* md5_ctx = malloc(sizeof(md5_context));
+    mbedtls_md5_context* md5_ctx = malloc(sizeof(mbedtls_md5_context));
     uint8_t* hash = malloc(sizeof(uint8_t) * 16);
     uint8_t* bufferTim2 = malloc(4);
-    md5_starts(md5_ctx);
+    mbedtls_md5_starts(md5_ctx);
 
     uint8_t pause = 0;
 
@@ -219,7 +219,7 @@ int32_t flipper_atomicdiceroller_app()
                             diceBufferPositionWrite = 0;
                             diceBufferPositionRead = 0;
                             diceBufferCounter = 0;
-                            md5_starts(md5_ctx);
+                            mbedtls_md5_starts(md5_ctx);
                             tickCounter = 0;
                             furi_mutex_acquire(mutexVal.mutex, FuriWaitForever);
                             mutexVal.method = 1;
@@ -301,13 +301,13 @@ int32_t flipper_atomicdiceroller_app()
                         bufferTim2[1] = (uint8_t)(tick >> 16);
                         bufferTim2[2] = (uint8_t)(tick >> 8);
                         bufferTim2[3] = (uint8_t)tick;
-                        md5_update(md5_ctx, bufferTim2, 4);
+                        mbedtls_md5_update(md5_ctx, bufferTim2, 4);
 
                         tickCounter++;
 
                         if (tickCounter == 32)
                         {
-                            md5_finish(md5_ctx, hash);
+                            mbedtls_md5_finish(md5_ctx, hash);
                             uint8_t localDice = 0;
 
                             for (uint8_t i=0;i<16;i++)
@@ -329,7 +329,7 @@ int32_t flipper_atomicdiceroller_app()
                                 }
                             }
 
-                            md5_starts(md5_ctx);
+                            mbedtls_md5_starts(md5_ctx);
                             tickCounter = 0;
                         }
                     }

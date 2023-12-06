@@ -252,10 +252,11 @@ uint32_t mbedtls_ssl_get_extension_mask(unsigned int extension_type);
 #if defined(MBEDTLS_SSL_PROTO_TLS1_2)
 
 /* This macro determines whether CBC is supported. */
-#if defined(MBEDTLS_SSL_HAVE_CBC)      &&                                  \
-    (defined(MBEDTLS_SSL_HAVE_AES)     ||                                  \
-    defined(MBEDTLS_SSL_HAVE_CAMELLIA) ||                                  \
-    defined(MBEDTLS_SSL_HAVE_ARIA))
+#if defined(MBEDTLS_CIPHER_MODE_CBC) &&                               \
+    (defined(MBEDTLS_AES_C)      ||                                  \
+    defined(MBEDTLS_CAMELLIA_C) ||                                  \
+    defined(MBEDTLS_ARIA_C)     ||                                  \
+    defined(MBEDTLS_DES_C))
 #define MBEDTLS_SSL_SOME_SUITES_USE_CBC
 #endif
 
@@ -298,7 +299,7 @@ uint32_t mbedtls_ssl_get_extension_mask(unsigned int extension_type);
 #define MBEDTLS_SSL_MAC_ADD                 16
 #endif
 
-#if defined(MBEDTLS_SSL_HAVE_CBC)
+#if defined(MBEDTLS_CIPHER_MODE_CBC)
 #define MBEDTLS_SSL_PADDING_ADD            256
 #else
 #define MBEDTLS_SSL_PADDING_ADD              0
@@ -1409,7 +1410,7 @@ int mbedtls_ssl_fetch_input(mbedtls_ssl_context *ssl, size_t nb_want);
  * Write handshake message header
  */
 MBEDTLS_CHECK_RETURN_CRITICAL
-int mbedtls_ssl_start_handshake_msg(mbedtls_ssl_context *ssl, unsigned char hs_type,
+int mbedtls_ssl_start_handshake_msg(mbedtls_ssl_context *ssl, unsigned hs_type,
                                     unsigned char **buf, size_t *buf_len);
 
 MBEDTLS_CHECK_RETURN_CRITICAL
@@ -2116,12 +2117,6 @@ int mbedtls_ssl_tls13_write_early_data_ext(mbedtls_ssl_context *ssl,
                                            unsigned char *buf,
                                            const unsigned char *end,
                                            size_t *out_len);
-
-#if defined(MBEDTLS_SSL_SRV_C)
-#define MBEDTLS_SSL_EARLY_DATA_STATUS_NOT_RECEIVED \
-    MBEDTLS_SSL_EARLY_DATA_STATUS_NOT_SENT
-#endif /* MBEDTLS_SSL_SRV_C */
-
 #endif /* MBEDTLS_SSL_EARLY_DATA */
 
 #endif /* MBEDTLS_SSL_PROTO_TLS1_3 */
@@ -2765,34 +2760,11 @@ int mbedtls_ssl_session_set_hostname(mbedtls_ssl_session *session,
 #endif
 
 #if defined(MBEDTLS_SSL_PROTO_TLS1_3) && defined(MBEDTLS_SSL_SESSION_TICKETS)
-
-#define MBEDTLS_SSL_TLS1_3_MAX_ALLOWED_TICKET_LIFETIME (604800)
-
 static inline unsigned int mbedtls_ssl_session_get_ticket_flags(
     mbedtls_ssl_session *session, unsigned int flags)
 {
     return session->ticket_flags &
            (flags & MBEDTLS_SSL_TLS1_3_TICKET_FLAGS_MASK);
-}
-
-static inline unsigned int mbedtls_ssl_session_check_ticket_flags(
-    mbedtls_ssl_session *session, unsigned int flags)
-{
-    return mbedtls_ssl_session_get_ticket_flags(session, flags) == 0;
-}
-
-static inline unsigned int mbedtls_ssl_session_ticket_allow_psk(
-    mbedtls_ssl_session *session)
-{
-    return !mbedtls_ssl_session_check_ticket_flags(session,
-                                                   MBEDTLS_SSL_TLS1_3_TICKET_ALLOW_PSK_RESUMPTION);
-}
-
-static inline unsigned int mbedtls_ssl_session_ticket_allow_psk_ephemeral(
-    mbedtls_ssl_session *session)
-{
-    return !mbedtls_ssl_session_check_ticket_flags(session,
-                                                   MBEDTLS_SSL_TLS1_3_TICKET_ALLOW_PSK_EPHEMERAL_RESUMPTION);
 }
 
 static inline void mbedtls_ssl_session_set_ticket_flags(

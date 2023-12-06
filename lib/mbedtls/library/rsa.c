@@ -1620,12 +1620,12 @@ int mbedtls_rsa_rsaes_oaep_decrypt(mbedtls_rsa_context *ctx,
         goto cleanup;
     }
 
-    if (ilen - ((size_t) (p - buf)) > output_max_len) {
+    if (ilen - (p - buf) > output_max_len) {
         ret = MBEDTLS_ERR_RSA_OUTPUT_TOO_LARGE;
         goto cleanup;
     }
 
-    *olen = ilen - ((size_t) (p - buf));
+    *olen = ilen - (p - buf);
     if (*olen != 0) {
         memcpy(output, p, *olen);
     }
@@ -2191,7 +2191,7 @@ int mbedtls_rsa_rsassa_pss_verify_ext(mbedtls_rsa_context *ctx,
         return MBEDTLS_ERR_RSA_INVALID_PADDING;
     }
 
-    observed_salt_len = (size_t) (hash_start - p);
+    observed_salt_len = hash_start - p;
 
     if (expected_salt_len != MBEDTLS_RSA_SALT_LEN_ANY &&
         observed_salt_len != (size_t) expected_salt_len) {
@@ -2419,6 +2419,7 @@ void mbedtls_rsa_free(mbedtls_rsa_context *ctx)
 
 #if defined(MBEDTLS_SELF_TEST)
 
+#include "mbedtls/md.h"
 
 /*
  * Example RSA-1024 keypair, for test purposes

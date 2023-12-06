@@ -7639,7 +7639,8 @@ void interruptible_signverify_hash_edgecase_tests(int key_type_arg,
      * no reliance on external buffers. */
     psa_interruptible_set_max_ops(PSA_INTERRUPTIBLE_MAX_OPS_UNLIMITED);
 
-    TEST_CALLOC(input_buffer, input_data->len);
+    input_buffer = mbedtls_calloc(1, input_data->len);
+    TEST_ASSERT(input_buffer != NULL);
 
     memcpy(input_buffer, input_data->x, input_data->len);
 
@@ -7656,7 +7657,8 @@ void interruptible_signverify_hash_edgecase_tests(int key_type_arg,
 
     PSA_ASSERT(psa_sign_hash_abort(&sign_operation));
 
-    TEST_CALLOC(input_buffer, input_data->len);
+    input_buffer = mbedtls_calloc(1, input_data->len);
+    TEST_ASSERT(input_buffer != NULL);
 
     memcpy(input_buffer, input_data->x, input_data->len);
 
@@ -7681,7 +7683,6 @@ exit:
 
     psa_destroy_key(key);
     mbedtls_free(signature);
-    mbedtls_free(input_buffer);
     PSA_DONE();
 }
 /* END_CASE */

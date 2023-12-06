@@ -399,7 +399,6 @@ int mbedtls_camellia_setkey_enc(mbedtls_camellia_context *ctx,
 /*
  * Camellia key schedule (decryption)
  */
-#if !defined(MBEDTLS_BLOCK_CIPHER_NO_DECRYPT)
 int mbedtls_camellia_setkey_dec(mbedtls_camellia_context *ctx,
                                 const unsigned char *key,
                                 unsigned int keybits)
@@ -445,7 +444,6 @@ exit:
 
     return ret;
 }
-#endif /* !MBEDTLS_BLOCK_CIPHER_NO_DECRYPT */
 
 /*
  * Camellia-ECB block encryption/decryption
@@ -890,26 +888,14 @@ int mbedtls_camellia_self_test(int verbose)
                            (v == MBEDTLS_CAMELLIA_DECRYPT) ? "dec" : "enc");
         }
 
-#if defined(MBEDTLS_BLOCK_CIPHER_NO_DECRYPT)
-        if (v == MBEDTLS_CAMELLIA_DECRYPT) {
-            if (verbose != 0) {
-                mbedtls_printf("skipped\n");
-            }
-            continue;
-        }
-#endif
-
         for (i = 0; i < CAMELLIA_TESTS_ECB; i++) {
             memcpy(key, camellia_test_ecb_key[u][i], 16 + 8 * u);
 
-#if !defined(MBEDTLS_BLOCK_CIPHER_NO_DECRYPT)
             if (v == MBEDTLS_CAMELLIA_DECRYPT) {
                 mbedtls_camellia_setkey_dec(&ctx, key, 128 + u * 64);
                 memcpy(src, camellia_test_ecb_cipher[u][i], 16);
                 memcpy(dst, camellia_test_ecb_plain[i], 16);
-            } else
-#endif
-            { /* MBEDTLS_CAMELLIA_ENCRYPT */
+            } else { /* MBEDTLS_CAMELLIA_ENCRYPT */
                 mbedtls_camellia_setkey_enc(&ctx, key, 128 + u * 64);
                 memcpy(src, camellia_test_ecb_plain[i], 16);
                 memcpy(dst, camellia_test_ecb_cipher[u][i], 16);

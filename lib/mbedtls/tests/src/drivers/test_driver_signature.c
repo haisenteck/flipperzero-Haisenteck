@@ -21,6 +21,7 @@
 #include "test/drivers/signature.h"
 #include "test/drivers/hash.h"
 
+#include "mbedtls/md.h"
 #include "mbedtls/ecdsa.h"
 
 #include "test/random.h"

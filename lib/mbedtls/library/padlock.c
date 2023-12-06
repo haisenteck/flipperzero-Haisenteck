@@ -96,7 +96,6 @@ int mbedtls_padlock_xcryptecb(mbedtls_aes_context *ctx,
     return 0;
 }
 
-#if defined(MBEDTLS_CIPHER_MODE_CBC)
 /*
  * PadLock AES-CBC buffer en(de)cryption
  */
@@ -150,7 +149,6 @@ int mbedtls_padlock_xcryptcbc(mbedtls_aes_context *ctx,
 
     return 0;
 }
-#endif /* MBEDTLS_CIPHER_MODE_CBC */
 
 #endif /* MBEDTLS_VIA_PADLOCK_HAVE_CODE */
 

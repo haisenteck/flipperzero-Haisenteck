@@ -19,7 +19,7 @@
  * By defining the macros ourselves we gain access to those declarations without
  * requiring -march on the command line.
  *
- * `arm_neon.h` is included by common.h, so we put these defines
+ * `arm_neon.h` could be included by any header file, so we put these defines
  * at the top of this file, before any includes.
  */
 #define __ARM_FEATURE_SHA512 1
@@ -48,7 +48,9 @@
 #  if defined(MBEDTLS_SHA512_USE_A64_CRYPTO_IF_PRESENT) || \
     defined(MBEDTLS_SHA512_USE_A64_CRYPTO_ONLY)
 /* *INDENT-OFF* */
-#   if !defined(MBEDTLS_HAVE_NEON_INTRINSICS)
+#   ifdef __ARM_NEON
+#       include <arm_neon.h>
+#   else
 #       error "Target does not support NEON instructions"
 #   endif
 /*
@@ -107,7 +109,12 @@
 #      include <signal.h>
 #    endif
 #  endif
-#elif !defined(MBEDTLS_PLATFORM_IS_WINDOWS_ON_ARM64)
+#elif defined(_M_ARM64)
+#  if defined(MBEDTLS_SHA512_USE_A64_CRYPTO_IF_PRESENT) || \
+    defined(MBEDTLS_SHA512_USE_A64_CRYPTO_ONLY)
+#    include <arm64_neon.h>
+#  endif
+#else
 #  undef MBEDTLS_SHA512_USE_A64_CRYPTO_ONLY
 #  undef MBEDTLS_SHA512_USE_A64_CRYPTO_IF_PRESENT
 #endif
@@ -135,7 +142,7 @@ static int mbedtls_a64_crypto_sha512_determine_support(void)
                            NULL, 0);
     return ret == 0 && value != 0;
 }
-#elif defined(MBEDTLS_PLATFORM_IS_WINDOWS_ON_ARM64)
+#elif defined(_M_ARM64)
 /*
  * As of March 2022, there don't appear to be any PF_ARM_V8_* flags
  * available to pass to IsProcessorFeaturePresent() to check for

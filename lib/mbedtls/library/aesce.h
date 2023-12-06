@@ -2,7 +2,7 @@
  * \file aesce.h
  *
  * \brief Support hardware AES acceleration on Armv8-A processors with
- *        the Armv8-A Cryptographic Extension.
+ *        the Armv8-A Cryptographic Extension in AArch64 execution state.
  *
  * \warning These functions are only for internal use by other library
  *          functions; you must not call them directly.
@@ -15,18 +15,12 @@
 #define MBEDTLS_AESCE_H
 
 #include "mbedtls/build_info.h"
-#include "common.h"
 
 #include "mbedtls/aes.h"
 
 
-#if defined(MBEDTLS_AESCE_C) \
-    && defined(MBEDTLS_ARCH_IS_ARMV8_A) && defined(MBEDTLS_HAVE_NEON_INTRINSICS) \
-    && (defined(MBEDTLS_COMPILER_IS_GCC) || defined(__clang__) || defined(MSC_VER))
+#if defined(MBEDTLS_AESCE_C) && defined(MBEDTLS_ARCH_IS_ARM64)
 
-/* MBEDTLS_AESCE_HAVE_CODE is defined if we have a suitable target platform, and a
- * potentially suitable compiler (compiler version & flags are not checked when defining
- * this). */
 #define MBEDTLS_AESCE_HAVE_CODE
 
 #ifdef __cplusplus
@@ -93,7 +87,6 @@ void mbedtls_aesce_gcm_mult(unsigned char c[16],
                             const unsigned char b[16]);
 
 
-#if !defined(MBEDTLS_BLOCK_CIPHER_NO_DECRYPT)
 /**
  * \brief           Internal round key inversion. This function computes
  *                  decryption round keys from the encryption round keys.
@@ -105,7 +98,6 @@ void mbedtls_aesce_gcm_mult(unsigned char c[16],
 void mbedtls_aesce_inverse_key(unsigned char *invkey,
                                const unsigned char *fwdkey,
                                int nr);
-#endif /* !MBEDTLS_BLOCK_CIPHER_NO_DECRYPT */
 
 /**
  * \brief           Internal key expansion for encryption
@@ -124,13 +116,6 @@ int mbedtls_aesce_setkey_enc(unsigned char *rk,
 }
 #endif
 
-#else
-
-#if defined(MBEDTLS_AES_USE_HARDWARE_ONLY) && defined(MBEDTLS_ARCH_IS_ARMV8_A)
-#error "AES hardware acceleration not supported on this platform / compiler"
-#endif
-
-#endif /* MBEDTLS_AESCE_C && MBEDTLS_ARCH_IS_ARMV8_A && MBEDTLS_HAVE_NEON_INTRINSICS &&
-          (MBEDTLS_COMPILER_IS_GCC || __clang__ || MSC_VER) */
+#endif /* MBEDTLS_AESCE_C && MBEDTLS_ARCH_IS_ARM64 */
 
 #endif /* MBEDTLS_AESCE_H */

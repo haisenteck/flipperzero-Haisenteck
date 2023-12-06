@@ -9,14 +9,7 @@
 #ifndef PSA_CRYPTO_CORE_H
 #define PSA_CRYPTO_CORE_H
 
-/*
- * Include the build-time configuration information header. Here, we do not
- * include `"mbedtls/build_info.h"` directly but `"psa/build_info.h"`, which
- * is basically just an alias to it. This is to ease the maintenance of the
- * TF-PSA-Crypto repository which has a different build system and
- * configuration.
- */
-#include "psa/build_info.h"
+#include "mbedtls/build_info.h"
 
 #include "psa/crypto.h"
 #include "psa/crypto_se_driver.h"
@@ -33,18 +26,11 @@
  */
 int psa_can_do_hash(psa_algorithm_t hash_alg);
 
-typedef enum {
-    PSA_SLOT_EMPTY = 0,
-    PSA_SLOT_OCCUPIED,
-} psa_key_slot_status_t;
-
 /** The data structure representing a key slot, containing key material
  * and metadata for one key.
  */
 typedef struct {
     psa_core_key_attributes_t attr;
-
-    psa_key_slot_status_t status;
 
     /*
      * Number of locks on the key slot held by the library.
@@ -95,7 +81,7 @@ typedef struct {
  */
 static inline int psa_is_key_slot_occupied(const psa_key_slot_t *slot)
 {
-    return slot->status == PSA_SLOT_OCCUPIED;
+    return slot->attr.type != 0;
 }
 
 /** Test whether a key slot is locked.

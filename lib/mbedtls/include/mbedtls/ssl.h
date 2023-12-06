@@ -613,7 +613,7 @@
  */
 #if defined(MBEDTLS_SSL_PROTO_TLS1_3) && \
     defined(MBEDTLS_SSL_SESSION_TICKETS) && \
-    defined(MBEDTLS_SSL_HAVE_AES) && defined(MBEDTLS_SSL_HAVE_GCM) && \
+    defined(MBEDTLS_AES_C) && defined(MBEDTLS_GCM_C) && \
     defined(MBEDTLS_MD_CAN_SHA384)
 #define MBEDTLS_PSK_MAX_LEN 48 /* 384 bits */
 #else
@@ -1197,7 +1197,7 @@ struct mbedtls_ssl_session {
     mbedtls_ssl_protocol_version MBEDTLS_PRIVATE(tls_version);
 
 #if defined(MBEDTLS_HAVE_TIME)
-    mbedtls_time_t MBEDTLS_PRIVATE(start);       /*!< start time of current session */
+    mbedtls_time_t MBEDTLS_PRIVATE(start);       /*!< starting time      */
 #endif
     int MBEDTLS_PRIVATE(ciphersuite);            /*!< chosen ciphersuite */
     size_t MBEDTLS_PRIVATE(id_len);              /*!< session id length  */
@@ -1234,20 +1234,11 @@ struct mbedtls_ssl_session {
     char *MBEDTLS_PRIVATE(hostname);             /*!< host name binded with tickets */
 #endif /* MBEDTLS_SSL_SERVER_NAME_INDICATION && MBEDTLS_SSL_CLI_C */
 
-#if defined(MBEDTLS_HAVE_TIME)
-#if defined(MBEDTLS_SSL_CLI_C)
-    mbedtls_ms_time_t MBEDTLS_PRIVATE(ticket_reception_time);   /*!< time when ticket was received. */
-#endif
-#if defined(MBEDTLS_SSL_SRV_C)
-    mbedtls_ms_time_t MBEDTLS_PRIVATE(ticket_creation_time);    /*!< time when ticket was created. */
-#endif
-#endif /* MBEDTLS_HAVE_TIME */
+#if defined(MBEDTLS_HAVE_TIME) && defined(MBEDTLS_SSL_CLI_C)
+    mbedtls_time_t MBEDTLS_PRIVATE(ticket_received);        /*!< time ticket was received */
+#endif /* MBEDTLS_HAVE_TIME && MBEDTLS_SSL_CLI_C */
 
 #endif /*  MBEDTLS_SSL_PROTO_TLS1_3 && MBEDTLS_SSL_SESSION_TICKETS */
-
-#if defined(MBEDTLS_SSL_EARLY_DATA)
-    uint32_t MBEDTLS_PRIVATE(max_early_data_size);          /*!< maximum amount of early data in tickets */
-#endif
 
 #if defined(MBEDTLS_SSL_ENCRYPT_THEN_MAC)
     int MBEDTLS_PRIVATE(encrypt_then_mac);       /*!< flag for EtM activation                */
@@ -1837,7 +1828,7 @@ struct mbedtls_ssl_context {
                                              *   and #MBEDTLS_SSL_CID_DISABLED. */
 #endif /* MBEDTLS_SSL_DTLS_CONNECTION_ID */
 
-#if defined(MBEDTLS_SSL_EARLY_DATA)
+#if defined(MBEDTLS_SSL_EARLY_DATA) && defined(MBEDTLS_SSL_CLI_C)
     int MBEDTLS_PRIVATE(early_data_status);
 #endif /* MBEDTLS_SSL_EARLY_DATA && MBEDTLS_SSL_CLI_C */
 
@@ -2009,8 +2000,8 @@ void mbedtls_ssl_conf_authmode(mbedtls_ssl_config *conf, int authmode);
  * \warning This interface is experimental and may change without notice.
  *
  */
-void mbedtls_ssl_conf_early_data(mbedtls_ssl_config *conf,
-                                 int early_data_enabled);
+void mbedtls_ssl_tls13_conf_early_data(mbedtls_ssl_config *conf,
+                                       int early_data_enabled);
 
 #if defined(MBEDTLS_SSL_SRV_C)
 /**
@@ -2035,12 +2026,8 @@ void mbedtls_ssl_conf_early_data(mbedtls_ssl_config *conf,
  *
  * \warning This interface is experimental and may change without notice.
  *
- * \warning This interface DOES NOT influence/limit the amount of early data
- *          that can be received through previously created and issued tickets,
- *          which clients may have stored.
- *
  */
-void mbedtls_ssl_conf_max_early_data_size(
+void mbedtls_ssl_tls13_conf_max_early_data_size(
     mbedtls_ssl_config *conf, uint32_t max_early_data_size);
 #endif /* MBEDTLS_SSL_SRV_C */
 
@@ -5014,10 +5001,6 @@ int mbedtls_ssl_close_notify(mbedtls_ssl_context *ssl);
 
 #if defined(MBEDTLS_SSL_EARLY_DATA)
 
-#define MBEDTLS_SSL_EARLY_DATA_STATUS_NOT_SENT  0
-#define MBEDTLS_SSL_EARLY_DATA_STATUS_ACCEPTED  1
-#define MBEDTLS_SSL_EARLY_DATA_STATUS_REJECTED  2
-
 #if defined(MBEDTLS_SSL_SRV_C)
 /**
  * \brief          Read at most 'len' application data bytes while performing
@@ -5127,6 +5110,9 @@ int mbedtls_ssl_read_early_data(mbedtls_ssl_context *ssl,
 int mbedtls_ssl_write_early_data(mbedtls_ssl_context *ssl,
                                  const unsigned char *buf, size_t len);
 
+#define MBEDTLS_SSL_EARLY_DATA_STATUS_NOT_SENT  0
+#define MBEDTLS_SSL_EARLY_DATA_STATUS_ACCEPTED  1
+#define MBEDTLS_SSL_EARLY_DATA_STATUS_REJECTED  2
 /**
  * \brief Get the status of the negotiation of the use of early data.
  *
