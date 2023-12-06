@@ -4,4 +4,5 @@
 	<li>variazione di svariati parametri per ridurre i tempi morti tra i comandi e la frequenza di base del flipper (a discapito di un consumo leggermente superiore di batteria</li>
 	<li>diverse sistemazioni nel sistema, pulizia generale</li>
 	<li>rimozione di tutte le animazioni e lasciato animazione custom</li>
+	<li>Aggiornato STM32CubeWB da 1.17.3 a 1.18.0</li>
 </ul>
