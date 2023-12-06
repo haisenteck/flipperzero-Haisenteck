@@ -21,18 +21,18 @@
 <tr><td>Dooya</td><td>Statico</td><td>433 Enable, 315 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>FaacSLH</td><td>Dinamico\Rolling Code</td><td>433 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>GateTx</td><td>Statico</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
-<tr><td>Genie</td><td>Dinamico\Rolling Code</td><td>433 Enable, 315 Enable, 868 Enable</td></tr>
-<tr><td>GT_WT02</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM</td></tr>
-<tr><td>GT_WT03</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM</td></tr>
+<tr><td>Genie</td><td>Dinamico\Rolling Code</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
+<tr><td>GT_WT02</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable</td></tr>
+<tr><td>GT_WT03</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable</td></tr>
 <tr><td>Holtek</td><td>Statico</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>HoltekHt12x</td><td>Statico</td><td>433 Enable, 315 Enable, 868 Enable, AM, FM, Save Enable, Send Enable</td></tr>
-<tr><td>Honeywell</td><td>Statico</td><td>433 Enable, 315 Enable, 868 Enable</td></tr>
+<tr><td>Honeywell</td><td>Statico</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>HoneywellWdb</td><td>Statico</td><td>433 Enable, 315 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>HormannHsm</td><td>Statico</td><td>433 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>Ido117/111</td><td>Dinamico\Rolling Code</td><td>433 Enable, AM, Save Enable</td></tr>
 <tr><td>Infactory</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable</td></tr>
 <tr><td>IntertechnoV3</td><td>Statico</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
-<tr><td>Keeloq</td><td>Dinamico\Rolling Code</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
+<tr><td>Keeloq</td><td>Dinamico\Rolling Code</td><td>433 Enable, 315 Enable, 868 Enable</td></tr>
 <tr><td>Kia</td><td>Dinamico\Rolling Code</td><td>433 Enable, FM, Save Enable</td></tr>
 <tr><td>KingGatesStylo4k</td><td>Dinamico\Rolling Code</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>LaCrosse_TX</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>

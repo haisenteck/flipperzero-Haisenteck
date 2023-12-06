@@ -1,8 +1,8 @@
 </a>
 <h3>Haisenteck - Flipper zero firmware Mod</h3><br>
-Link all'installazione dell'ultima release tramite Web Updater:<a href='https://lab.flipper.net/?url=https://rawcdn.githack.com/haisenteck/flipperzero-Haisenteck/2454efe49a365e6dba319b35f71290191fc1eb69/dist/release/flipper-z-f7-update-Haisenteck_V1.2.6.tgz&channel=Haisenteck_V1.2.6&version=V1.2.6&channel=Haisenteck_V1.2.6&version=V1.2.6' target='_blank'>WEB UPDATER - RELEASE</a><br>
-link al file di installazione stabile: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/releases/tag/V1.2.6' target='_blank'>Versione STABILE</a><br>
-Link al file di installazione DEV build: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/blob/dev/dist/f7-C/flipper-z-f7-update-Haisenteck_V1.2.6.tgz' target='_blank'>Versione DEV Build</a><br>
+Link all'installazione dell'ultima release tramite Web Updater:<a href='https://lab.flipper.net/?url=https://rawcdn.githack.com/haisenteck/flipperzero-Haisenteck/7389d20c14d8a025b15ed7b2f73057e1c85f27ae/dist/release/flipper-z-f7-update-Haisenteck_V1.2.7.tgz&channel=Haisenteck_V1.2.7&version=V1.2.7' target='_blank'>WEB UPDATER - RELEASE</a><br>
+link al file di installazione stabile: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/releases/tag/V1.2.7' target='_blank'>Versione STABILE</a><br>
+Link al file di installazione DEV build: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/blob/dev/dist/f7-C/flipper-z-f7-update-Haisenteck_V1.2.7.tgz' target='_blank'>Versione DEV Build</a><br>
 Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/Flipper_MicroSD' target='_blank'>Contenuti Extra per Micro SD</a><br>
 <br>
 # Novità<br>
@@ -28,6 +28,7 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
  	<li>aggiunto codici riconoscimento carte EMV</li>
 	<li>aggiunta lettura credito chiavette Coges grazie al contributo di un utente Telegram.</li>
 	<li>aggiunto parser di carte russe dei trasporti e altre modifiche scritte da unleashed.</li>
+	<li>aggiunti parser Mizip (by zProAle), Microel (by zProAle), kazan (by noproto), saflok (by noproto)</li>
 </ul>- **Sub-GHz**<br>
 <ul>
 	<li>Aggiunto AM_Q ai preset di utilizzo</li>
@@ -61,18 +62,18 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 <tr><td>Dooya</td><td>Statico</td><td>433 Enable, 315 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>FaacSLH</td><td>Dinamico\Rolling Code</td><td>433 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>GateTx</td><td>Statico</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
-<tr><td>Genie</td><td>Dinamico\Rolling Code</td><td>433 Enable, 315 Enable, 868 Enable</td></tr>
-<tr><td>GT_WT02</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM</td></tr>
-<tr><td>GT_WT03</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM</td></tr>
+<tr><td>Genie</td><td>Dinamico\Rolling Code</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
+<tr><td>GT_WT02</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable</td></tr>
+<tr><td>GT_WT03</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable</td></tr>
 <tr><td>Holtek</td><td>Statico</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>HoltekHt12x</td><td>Statico</td><td>433 Enable, 315 Enable, 868 Enable, AM, FM, Save Enable, Send Enable</td></tr>
-<tr><td>Honeywell</td><td>Statico</td><td>433 Enable, 315 Enable, 868 Enable</td></tr>
+<tr><td>Honeywell</td><td>Statico</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>HoneywellWdb</td><td>Statico</td><td>433 Enable, 315 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>HormannHsm</td><td>Statico</td><td>433 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>Ido117/111</td><td>Dinamico\Rolling Code</td><td>433 Enable, AM, Save Enable</td></tr>
 <tr><td>Infactory</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable</td></tr>
 <tr><td>IntertechnoV3</td><td>Statico</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
-<tr><td>Keeloq</td><td>Dinamico\Rolling Code</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
+<tr><td>Keeloq</td><td>Dinamico\Rolling Code</td><td>433 Enable, 315 Enable, 868 Enable</td></tr>
 <tr><td>Kia</td><td>Dinamico\Rolling Code</td><td>433 Enable, FM, Save Enable</td></tr>
 <tr><td>KingGatesStylo4k</td><td>Dinamico\Rolling Code</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>LaCrosse_TX</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
@@ -116,6 +117,7 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 	<li>variazione di svariati parametri per ridurre i tempi morti tra i comandi e la frequenza di base del flipper (a discapito di un consumo leggermente superiore di batteria</li>
 	<li>diverse sistemazioni nel sistema, pulizia generale</li>
 	<li>rimozione di tutte le animazioni e lasciato animazione custom</li>
+	<li>Aggiornato STM32CubeWB da 1.17.3 a 1.18.0</li>
 </ul>- **FAP**<br><ul>
 Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\applications_user\fz_dope
 <br>GPIO:<br>
