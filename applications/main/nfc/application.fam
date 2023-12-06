@@ -6,7 +6,7 @@ App(
     entry_point="nfc_app",
     icon="A_NFC_14",
     stack_size=5 * 1024,
-    order=454,
+    order=30,
     resources="resources",
     sources=[
         "*.c",
@@ -84,6 +84,15 @@ App(
 )
 
 App(
+    appid="social_moscow_parser",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="social_moscow_plugin_ep",
+    targets=["f7"],
+    requires=["nfc"],
+    sources=["plugins/supported_cards/social_moscow.c"],
+)
+
+App(
     appid="plantain_parser",
     apptype=FlipperAppType.PLUGIN,
     entry_point="plantain_plugin_ep",
@@ -102,10 +111,47 @@ App(
 )
 
 App(
+    appid="umarsh_parser",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="umarsh_plugin_ep",
+    targets=["f7"],
+    requires=["nfc"],
+    sources=["plugins/supported_cards/umarsh.c"],
+)
+
+App(
+    appid="kazan_parser",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="kazan_plugin_ep",
+    targets=["f7"],
+    requires=["nfc"],
+    sources=["plugins/supported_cards/kazan.c"],
+)
+
+App(
+    appid="metromoney_parser",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="metromoney_plugin_ep",
+    targets=["f7"],
+    requires=["nfc"],
+    sources=["plugins/supported_cards/metromoney.c"],
+)
+
+App(
+    appid="saflok_parser",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="saflok_plugin_ep",
+    targets=["f7"],
+    requires=["nfc"],
+    sources=["plugins/supported_cards/saflok.c"],
+)
+
+
+App(
     appid="nfc_start",
     targets=["f7"],
     apptype=FlipperAppType.STARTUP,
     entry_point="nfc_on_system_start",
     sources=["nfc_cli.c"],
-    order=454,
+    order=30,
 )
