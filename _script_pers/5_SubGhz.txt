@@ -9,3 +9,4 @@
 	<li>Subghz Shapshup - app aggiunta e corretto alcune parti di codice</li>
 	<li>aggiunto ulteriori protocolli ed effettuato un altro porting di protocollo weather station (2023/11/27)</li>
 	<li>correzione di protocolli subghz durante test approfonditi</li>
+	<li>update aggiornamento protocollo oregon2 da fap weather station 2023/12/09</li>
