@@ -67,8 +67,6 @@ const SubGhzProtocol* subghz_protocol_registry_items[] = {
 	&subghz_protocol_genie,
 	&subghz_protocol_auriol_ahfl,
 	&subghz_protocol_auriol_th,
-	//&subghz_protocol_yale_hsa,
-	//&subghz_protocol_baldr_rain,
 	//&subghz_protocol_raw,
 	&subghz_protocol_bin_raw,
 };

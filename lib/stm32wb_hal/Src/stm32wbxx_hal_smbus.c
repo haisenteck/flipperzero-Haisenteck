@@ -926,7 +926,6 @@ HAL_StatusTypeDef HAL_SMBUS_Master_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint
                                                uint8_t *pData, uint16_t Size, uint32_t XferOptions)
 {
   uint32_t tmp;
-  uint32_t sizetoxfer;
 
   /* Check the parameters */
   assert_param(IS_SMBUS_TRANSFER_OPTIONS_REQUEST(XferOptions));
@@ -959,35 +958,11 @@ HAL_StatusTypeDef HAL_SMBUS_Master_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint
       hsmbus->XferSize = Size;
     }
 
-    sizetoxfer = hsmbus->XferSize;
-    if ((sizetoxfer > 0U) && ((XferOptions == SMBUS_FIRST_FRAME) ||
-                              (XferOptions == SMBUS_FIRST_AND_LAST_FRAME_NO_PEC) ||
-                              (XferOptions == SMBUS_FIRST_FRAME_WITH_PEC) ||
-                              (XferOptions == SMBUS_FIRST_AND_LAST_FRAME_WITH_PEC)))
-    {
-      if (hsmbus->pBuffPtr != NULL)
-      {
-        /* Preload TX register */
-        /* Write data to TXDR */
-        hsmbus->Instance->TXDR = *hsmbus->pBuffPtr;
-
-        /* Increment Buffer pointer */
-        hsmbus->pBuffPtr++;
-
-        hsmbus->XferCount--;
-        hsmbus->XferSize--;
-      }
-      else
-      {
-        return HAL_ERROR;
-      }
-    }
-
     /* Send Slave Address */
     /* Set NBYTES to write and reload if size > MAX_NBYTE_SIZE and generate RESTART */
-    if ((sizetoxfer < hsmbus->XferCount) && (sizetoxfer == MAX_NBYTE_SIZE))
+    if ((hsmbus->XferSize < hsmbus->XferCount) && (hsmbus->XferSize == MAX_NBYTE_SIZE))
     {
-      SMBUS_TransferConfig(hsmbus, DevAddress, (uint8_t)sizetoxfer,
+      SMBUS_TransferConfig(hsmbus, DevAddress, (uint8_t)hsmbus->XferSize,
                            SMBUS_RELOAD_MODE | (hsmbus->XferOptions & SMBUS_SENDPEC_MODE),
                            SMBUS_GENERATE_START_WRITE);
     }
@@ -1002,7 +977,7 @@ HAL_StatusTypeDef HAL_SMBUS_Master_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint
       if ((hsmbus->PreviousState == HAL_SMBUS_STATE_MASTER_BUSY_TX) && \
           (IS_SMBUS_TRANSFER_OTHER_OPTIONS_REQUEST(tmp) == 0))
       {
-        SMBUS_TransferConfig(hsmbus, DevAddress, (uint8_t)sizetoxfer, hsmbus->XferOptions,
+        SMBUS_TransferConfig(hsmbus, DevAddress, (uint8_t)hsmbus->XferSize, hsmbus->XferOptions,
                              SMBUS_NO_STARTSTOP);
       }
       /* Else transfer direction change, so generate Restart with new transfer direction */
@@ -1012,7 +987,7 @@ HAL_StatusTypeDef HAL_SMBUS_Master_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint
         SMBUS_ConvertOtherXferOptions(hsmbus);
 
         /* Handle Transfer */
-        SMBUS_TransferConfig(hsmbus, DevAddress, (uint8_t)sizetoxfer,
+        SMBUS_TransferConfig(hsmbus, DevAddress, (uint8_t)hsmbus->XferSize,
                              hsmbus->XferOptions,
                              SMBUS_GENERATE_START_WRITE);
       }
@@ -1021,15 +996,8 @@ HAL_StatusTypeDef HAL_SMBUS_Master_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint
       /* PEC byte is automatically sent by HW block, no need to manage it in Transmit process */
       if (SMBUS_GET_PEC_MODE(hsmbus) != 0UL)
       {
-        if (hsmbus->XferSize > 0U)
-        {
-          hsmbus->XferSize--;
-          hsmbus->XferCount--;
-        }
-        else
-        {
-          return HAL_ERROR;
-        }
+        hsmbus->XferSize--;
+        hsmbus->XferCount--;
       }
     }
 

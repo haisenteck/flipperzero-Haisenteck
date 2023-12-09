@@ -11,7 +11,6 @@
 #include "ansonic.h"
 #include "auriol_ahfl.h"
 #include "auriol_hg0601a.h"
-//#include "baldr_rain.h"
 #include "bett.h"
 #include "bin_raw.h"
 #include "came.h"
@@ -70,4 +69,3 @@
 #include "tx_8300.h"
 #include "wendox_w6726.h"
 #include "x10.h"
-//#include "yale_hsa.h"
