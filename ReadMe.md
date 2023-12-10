@@ -1,8 +1,8 @@
 </a>
 <h3>Haisenteck - Flipper zero firmware Mod</h3><br>
-Link all'installazione dell'ultima release tramite Web Updater:<a href='https://lab.flipper.net/?url=https://rawcdn.githack.com/haisenteck/flipperzero-Haisenteck/7389d20c14d8a025b15ed7b2f73057e1c85f27ae/dist/release/flipper-z-f7-update-Haisenteck_V1.2.7.tgz&channel=Haisenteck_V1.2.7&version=V1.2.7' target='_blank'>WEB UPDATER - RELEASE</a><br>
-link al file di installazione stabile: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/releases/tag/V1.2.7' target='_blank'>Versione STABILE</a><br>
-Link al file di installazione DEV build: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/blob/dev/dist/f7-C/flipper-z-f7-update-Haisenteck_V1.2.7.tgz' target='_blank'>Versione DEV Build</a><br>
+Link all'installazione dell'ultima release tramite Web Updater:<a href='https://lab.flipper.net/?url=https://rawcdn.githack.com/haisenteck/flipperzero-Haisenteck/acf759d9d5120806adf98ea99e2b03487caf99a3/dist/release/flipper-z-f7-update-Haisenteck_V1.2.9.tgz&channel=Haisenteck_V1.2.9&version=V1.2.9' target='_blank'>WEB UPDATER - RELEASE</a><br>
+link al file di installazione stabile: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/releases/tag/V1.2.9' target='_blank'>Versione STABILE</a><br>
+Link al file di installazione DEV build: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/blob/dev/dist/f7-C/flipper-z-f7-update-Haisenteck_V1.2.9.tgz' target='_blank'>Versione DEV Build</a><br>
 Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/Flipper_MicroSD' target='_blank'>Contenuti Extra per Micro SD</a><br>
 <br>
 # Novit�<br>
@@ -16,7 +16,7 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 	<li> Ble Spam adattato da Xtreme Firmware</li>
 	<del><li>modifica a libreria di base per inclusione di diverse modalità del bluetooth notification per presentare il flipper come dispositivo Apple.</li></del>
 	<del><li>creato app per la gestione, si chiama FRUTTIVENDOLO.<br></del> App rimossa in quanto non più necessaria.</li>
-	
+	<li>09/12/2023 - provato e testato ble stack full, attualmente ancora in test, mentre su versione pubblicata in uso la light.</li>
 </ul>- **NFC**<br>
 <ul>	
 	<li> NFC REFACTOR
@@ -39,7 +39,8 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 	<li>SubGhz Rolling Flaws - app aggiunta grazie a https://github.com/jamisonderek/flipper-zero-tutorials </li>
 	<li>Subghz Shapshup - app aggiunta e corretto alcune parti di codice</li>
 	<li>aggiunto ulteriori protocolli ed effettuato un altro porting di protocollo weather station (2023/11/27)</li>
-	<li>correzione di protocolli subghz durante test approfonditi</li><table>
+	<li>correzione di protocolli subghz durante test approfonditi</li>
+	<li>update aggiornamento protocollo oregon2 da fap weather station 2023/12/09</li><table>
 <tr><th>Tag</th><th>Type</th><th>Flag</th></tr>
 <tr><td>Acurite_592TXR</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable</td></tr>
 <tr><td>Acurite_606TX</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
@@ -50,7 +51,6 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 <tr><td>Ansonic</td><td>Statico</td><td>433 Enable, 315 Enable, FM, Save Enable, Send Enable</td></tr>
 <tr><td>auriol_ahfl</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>Auriol_TH</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
-<tr><td>_baldr_rain</td><td>Statico</td><td>433 Enable, FM, Save Enable, Send Enable</td></tr>
 <tr><td>Bett</td><td>Statico</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>BinRaw</td><td>SubGhzProtocolTypeBinRAW,</td><td>433 Enable, 315 Enable, 868 Enable, AM, FM, Save Enable, Send Enable</td></tr>
 <tr><td>Came</td><td>Statico</td><td>433 Enable, 315 Enable, AM, Save Enable, Send Enable</td></tr>
@@ -89,7 +89,7 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 <tr><td>Nexus_TH</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>NiceFlo</td><td>Statico</td><td>433 Enable, 315 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>NiceFlorS</td><td>Dinamico\Rolling Code</td><td>433 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
-<tr><td>Oregon2</td><td>Statico</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
+<tr><td>Oregon2</td><td>WeatherStation</td><td>433 Enable, AM</td></tr>
 <tr><td>Oregon3</td><td>WeatherStation</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>Oregon_V1</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>PhoenixV2</td><td>Statico</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
@@ -109,7 +109,6 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 <tr><td>TX_8300</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>WendoxW6726</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>X10</td><td>Dinamico\Rolling Code</td><td>315 Enable, AM, Save Enable, Send Enable</td></tr>
-<tr><td>YaleHSA</td><td>Statico</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
 </table>
 - **VARIE**<br>
 <ul>
@@ -118,6 +117,8 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 	<li>diverse sistemazioni nel sistema, pulizia generale</li>
 	<li>rimozione di tutte le animazioni e lasciato animazione custom</li>
 	<li>Aggiornato STM32CubeWB da 1.17.3 a 1.18.0</li>
+	<li>Aggiornato STM32WBXX_HALL da V1.13.0 a V1.14.1</li>
+	<li>riportato in compatibilità con store fap da app smartphone il firmware</li>
 </ul>- **FAP**<br><ul>
 Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\applications_user\fz_dope
 <br>GPIO:<br>
@@ -238,7 +239,7 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
     <li> FAP Version: 1.0</li>
 --------------------------------------------------
     <li> Name: spi</li>
-    <li> FAP Version: 1.1</li>
+    <li> FAP Version: 1.2</li>
 --------------------------------------------------
     <li> Name: SWD Probe</li>
     <li> FAP Version: 1.0</li>
@@ -430,6 +431,9 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
 --------------------------------------------------
     <li> Name: CLI-GUI Bridge</li>
 --------------------------------------------------
+    <li> Name: Clock</li>
+    <li> FAP Version: 1.0</li>
+--------------------------------------------------
     <li> Name: Count Down Timer</li>
     <li> FAP Version: 1.1</li>
 --------------------------------------------------
@@ -599,10 +603,10 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
     <li> FAP Version: 1.1</li>
 --------------------------------------------------
     <li> Name: magic</li>
-    <li> FAP Version: 1.2</li>
+    <li> FAP Version: 1.3</li>
 --------------------------------------------------
     <li> Name: loclass</li>
-    <li> FAP Version: 1.8</li>
+    <li> FAP Version: 1.9</li>
 --------------------------------------------------
     <li> Name: asn1</li>
     <li> FAP Version: 2.0</li>

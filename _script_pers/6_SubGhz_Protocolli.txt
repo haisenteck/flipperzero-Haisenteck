@@ -9,7 +9,6 @@
 <tr><td>Ansonic</td><td>Statico</td><td>433 Enable, 315 Enable, FM, Save Enable, Send Enable</td></tr>
 <tr><td>auriol_ahfl</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>Auriol_TH</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
-<tr><td>_baldr_rain</td><td>Statico</td><td>433 Enable, FM, Save Enable, Send Enable</td></tr>
 <tr><td>Bett</td><td>Statico</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>BinRaw</td><td>SubGhzProtocolTypeBinRAW,</td><td>433 Enable, 315 Enable, 868 Enable, AM, FM, Save Enable, Send Enable</td></tr>
 <tr><td>Came</td><td>Statico</td><td>433 Enable, 315 Enable, AM, Save Enable, Send Enable</td></tr>
@@ -48,7 +47,7 @@
 <tr><td>Nexus_TH</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>NiceFlo</td><td>Statico</td><td>433 Enable, 315 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>NiceFlorS</td><td>Dinamico\Rolling Code</td><td>433 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
-<tr><td>Oregon2</td><td>Statico</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
+<tr><td>Oregon2</td><td>WeatherStation</td><td>433 Enable, AM</td></tr>
 <tr><td>Oregon3</td><td>WeatherStation</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>Oregon_V1</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>PhoenixV2</td><td>Statico</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
@@ -68,5 +67,4 @@
 <tr><td>TX_8300</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>WendoxW6726</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>X10</td><td>Dinamico\Rolling Code</td><td>315 Enable, AM, Save Enable, Send Enable</td></tr>
-<tr><td>YaleHSA</td><td>Statico</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
 </table>

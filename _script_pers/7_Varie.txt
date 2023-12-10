@@ -5,4 +5,6 @@
 	<li>diverse sistemazioni nel sistema, pulizia generale</li>
 	<li>rimozione di tutte le animazioni e lasciato animazione custom</li>
 	<li>Aggiornato STM32CubeWB da 1.17.3 a 1.18.0</li>
+	<li>Aggiornato STM32WBXX_HALL da V1.13.0 a V1.14.1</li>
+	<li>riportato in compatibilità con store fap da app smartphone il firmware</li>
 </ul>
