@@ -1,9 +1,5 @@
-//#include "../../../lib/subghz/protocols/protocol_items.h"
-//#include "../../../firmware//targets/f7/furi_hal/furi_hal_subghz.h"
 #include <furi/core/check.h>
-//#include "../../../furi/core/check.h"
-// furi/core/check.h
-#include <applications/drivers/subghz/cc1101_ext/cc1101_ext_interconnect.h>
+#include <applications/main/subghz/cc1101_ext/cc1101_ext_interconnect.h>
 #include <lib/subghz/devices/cc1101_int/cc1101_int_interconnect.h>
 #include <applications/main/subghz/helpers/subghz_types.h>
 #include <lib/subghz/devices/devices.h>

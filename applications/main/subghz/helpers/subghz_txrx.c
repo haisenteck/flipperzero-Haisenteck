@@ -1,7 +1,7 @@
 #include "subghz_txrx_i.h"
 
 #include <lib/subghz/protocols/protocol_items.h>
-#include <applications/drivers/subghz/cc1101_ext/cc1101_ext_interconnect.h>
+#include <applications/main/subghz/cc1101_ext/cc1101_ext_interconnect.h>
 #include <lib/subghz/devices/cc1101_int/cc1101_int_interconnect.h>
 #include <lib/subghz/blocks/custom_btn.h>
 
@@ -61,8 +61,7 @@ SubGhzTxRx* subghz_txrx_alloc() {
     //set default device External
     subghz_devices_init();
     instance->radio_device_type = SubGhzRadioDeviceTypeInternal;
-    instance->radio_device_type =
-        subghz_txrx_radio_device_set(instance, SubGhzRadioDeviceTypeExternalCC1101);
+    instance->radio_device_type = subghz_txrx_radio_device_set(instance, SubGhzRadioDeviceTypeExternalCC1101);
 
     return instance;
 }

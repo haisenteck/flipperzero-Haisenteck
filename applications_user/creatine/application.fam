@@ -1,0 +1,12 @@
+App(
+    appid="creatine",
+    name="Creatine",
+    apptype=FlipperAppType.EXTERNAL,
+    entry_point="creatine_app",
+    requires=["gui"],
+    stack_size=2 * 1024,
+    order=0,
+    fap_icon="ico.png",
+    fap_category="Misc",
+    fap_icon_assets="icons",
+)

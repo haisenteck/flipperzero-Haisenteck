@@ -1,6 +1,6 @@
 #include "radio_device_loader.h"
 
-#include <applications/drivers/subghz/cc1101_ext/cc1101_ext_interconnect.h>
+#include <applications/main/subghz/cc1101_ext/cc1101_ext_interconnect.h>
 #include <lib/subghz/devices/cc1101_int/cc1101_int_interconnect.h>
 
 static void radio_device_loader_power_on() {

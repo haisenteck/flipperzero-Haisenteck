@@ -1,7 +1,7 @@
 #include "../subghz_i.h"
 #include "../helpers/subghz_custom_event.h"
 #include <lib/toolbox/value_index.h>
-#include <applications/drivers/subghz/cc1101_ext/cc1101_ext_interconnect.h>
+#include <applications/main/subghz/cc1101_ext/cc1101_ext_interconnect.h>
 
 #define RADIO_DEVICE_COUNT 2
 const char* const radio_device_text[RADIO_DEVICE_COUNT] = {

@@ -1,6 +1,6 @@
 entry,status,name,type,params
-Version,+,49.1,,
-Header,+,applications/drivers/subghz/cc1101_ext/cc1101_ext_interconnect.h,,
+Version,+,49.2,,
+Header,+,applications/main/subghz/cc1101_ext/cc1101_ext_interconnect.h,,
 Header,+,applications/services/bt/bt_service/bt.h,,
 Header,+,applications/services/cli/cli.h,,
 Header,+,applications/services/cli/cli_vcp.h,,
