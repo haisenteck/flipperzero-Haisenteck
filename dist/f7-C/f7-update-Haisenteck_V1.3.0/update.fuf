@@ -4,7 +4,7 @@ Info: V1.3.0
 Target: 7
 Loader: updater.bin
 # little-endian hex!
-Loader CRC: FD 5B 88 0E
+Loader CRC: 06 20 EE BA
 Firmware: firmware.dfu
 Radio: radio.bin
 Radio address: 00 70 0D 08
