@@ -275,8 +275,6 @@ static void subghz_setting_load_default_region(
 
     subghz_setting_load_default_preset(
         instance, "AM270", subghz_device_cc1101_preset_ook_270khz_async_regs);
-	subghz_setting_load_default_preset(
-        instance, "AM_Q", subghz_device_cc1101_preset_ook_650khz_async_regs_better_q);
     subghz_setting_load_default_preset(
         instance, "AM650", subghz_device_cc1101_preset_ook_650khz_async_regs);
 	subghz_setting_load_default_preset(
