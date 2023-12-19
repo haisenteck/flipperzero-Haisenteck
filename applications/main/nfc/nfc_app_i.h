@@ -80,7 +80,7 @@ typedef enum {
 } NfcRpcState;
 
 typedef struct {
-    NfcDict* dict;
+    KeysDict* dict;
     uint8_t sectors_total;
     uint8_t sectors_read;
     uint8_t current_sector;
