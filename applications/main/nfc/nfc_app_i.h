@@ -52,7 +52,7 @@
 
 #include <nfc/nfc_device.h>
 #include <nfc/helpers/nfc_data_generator.h>
-#include <nfc/helpers/nfc_dict.h>
+#include <toolbox/keys_dict.h>
 
 #include <gui/modules/validators.h>
 #include <toolbox/path.h>
