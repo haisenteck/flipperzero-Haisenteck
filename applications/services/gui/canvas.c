@@ -150,7 +150,7 @@ void canvas_set_font(Canvas* canvas, Font font) {
 void canvas_set_custom_u8g2_font(Canvas* canvas, const uint8_t* font) {
     furi_assert(canvas);
     u8g2_SetFontMode(&canvas->fb, 1);
-    u8g2_SetFont(&canvas->fb, font);
+    u8g2_DrawUTF8(&canvas->fb, x, y, str);
 }
 
 void canvas_draw_str(Canvas* canvas, uint8_t x, uint8_t y, const char* str) {
@@ -177,10 +177,10 @@ void canvas_draw_str_aligned(
     case AlignLeft:
         break;
     case AlignRight:
-        x -= u8g2_GetStrWidth(&canvas->fb, str);
+        x -= u8g2_GetUTF8Width(&canvas->fb, str);
         break;
     case AlignCenter:
-        x -= (u8g2_GetStrWidth(&canvas->fb, str) / 2);
+        x -= (u8g2_GetUTF8Width(&canvas->fb, str) / 2);
         break;
     default:
         furi_crash(NULL);
@@ -201,13 +201,13 @@ void canvas_draw_str_aligned(
         break;
     }
 
-    u8g2_DrawStr(&canvas->fb, x, y, str);
+    u8g2_DrawUTF8(&canvas->fb, x, y, str);
 }
 
 uint16_t canvas_string_width(Canvas* canvas, const char* str) {
     furi_assert(canvas);
     if(!str) return 0;
-    return u8g2_GetStrWidth(&canvas->fb, str);
+    return u8g2_GetUTF8Width(&canvas->fb, str);
 }
 
 uint8_t canvas_glyph_width(Canvas* canvas, uint16_t symbol) {
