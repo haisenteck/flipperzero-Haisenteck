@@ -146,6 +146,14 @@ App(
     sources=["plugins/supported_cards/saflok.c"],
 )
 
+App(
+    appid="hi_parser",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="hi_plugin_ep",
+    targets=["f7"],
+    requires=["nfc"],
+    sources=["plugins/supported_cards/hi.c"],
+)
 
 App(
     appid="nfc_start",
