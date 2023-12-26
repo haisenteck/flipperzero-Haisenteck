@@ -22,7 +22,7 @@ class ApplicationsCGenerator:
         FlipperAppType.SERVICE: ("FlipperInternalApplication", "FLIPPER_SERVICES"),
         FlipperAppType.SYSTEM: ("FlipperInternalApplication", "FLIPPER_SYSTEM_APPS"),
         FlipperAppType.APP: ("FlipperInternalApplication", "FLIPPER_APPS"),
-        FlipperAppType.DEBUG: ("FlipperInternalApplication", "FLIPPER_DEBUG_APPS"),
+        #FlipperAppType.DEBUG: ("FlipperInternalApplication", "FLIPPER_DEBUG_APPS"),
         FlipperAppType.SETTINGS: (
             "FlipperInternalApplication",
             "FLIPPER_SETTINGS_APPS",
