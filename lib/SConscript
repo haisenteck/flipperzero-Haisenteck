@@ -25,7 +25,7 @@ libs = env.BuildModules(
         "fatfs",
         "flipper_format",
         "one_wire",
-        "ibutton",
+        #"ibutton",
         "infrared",
         "littlefs",
         "subghz",

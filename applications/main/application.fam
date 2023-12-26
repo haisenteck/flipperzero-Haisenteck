@@ -4,7 +4,6 @@ App(
     apptype=FlipperAppType.METAPACKAGE,
     provides=[
         "gpio",
-        "ibutton",
         "infrared",
         "lfrfid",
         "nfc",
@@ -22,7 +21,6 @@ App(
     name="On start hooks",
     apptype=FlipperAppType.METAPACKAGE,
     provides=[
-        "ibutton_start",
         "onewire_start",
         "subghz_start",
         "infrared_start",
