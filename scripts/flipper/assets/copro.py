@@ -117,7 +117,8 @@ class Copro:
         self.addFile(
             manifest["copro"]["radio"]["files"],
             stack_file_name,
-            address=f"0x{stack_addr:X}",
+            #address=f"0x{stack_addr:X}",
+            address="0x080CE000",
         )
 
         # Save manifest

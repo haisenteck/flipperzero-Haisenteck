@@ -36,7 +36,6 @@
         "appframe",
         "assets",
         "one_wire",
-        "ibutton",
         "music_worker",
         "mbedtls",
         "lfrfid",
