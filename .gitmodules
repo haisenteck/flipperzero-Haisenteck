@@ -23,9 +23,6 @@
 [submodule "lib/heatshrink"]
 	path = lib/heatshrink
 	url = https://github.com/flipperdevices/heatshrink.git
-[submodule "lib/st_cmsis_device_wb"]
-	path = lib/stm32wb_cmsis
-	url = https://github.com/STMicroelectronics/cmsis_device_wb
 [submodule "lib/stm32wb_copro"]
 	path = lib/stm32wb_copro
 	url = https://github.com/flipperdevices/stm32wb_copro.git
