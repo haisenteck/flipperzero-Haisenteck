@@ -305,9 +305,6 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
 <br>Bluetooth:<br>
     <li> Name: Bad BT</li>
 --------------------------------------------------
-    <li> Name: BLE Spam</li>
-    <li> FAP Version: 4.2</li>
---------------------------------------------------
     <li> Name: BT Serial App</li>
 --------------------------------------------------
     <li> Name: TikTok Remote</li>
