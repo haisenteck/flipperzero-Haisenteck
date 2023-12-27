@@ -1,6 +1,6 @@
 </a>
 <h3>Haisenteck - Flipper zero firmware Mod</h3><br>
-Link all'installazione dell'ultima release tramite Web Updater:<a href='https://lab.flipper.net/?url=https://rawcdn.githack.com/haisenteck/flipperzero-Haisenteck/ac6e0d2cc4a1faa706e9b2b09ad6eda30a901a9e/dist/release/flipper-z-f7-update-Haisenteck_V1.3.0.tgz&channel=Haisenteck_V1.3.0&version=V1.3.0' target='_blank'>WEB UPDATER - RELEASE</a><br>
+Link all'installazione dell'ultima release tramite Web Updater:<a href='https://lab.flipper.net/?url=https://rawcdn.githack.com/haisenteck/flipperzero-Haisenteck/00e01947452b4cdc5887f5504fcd81f9384cfb82/dist/release/flipper-z-f7-update-Haisenteck_V1.3.0.tgz&channel=Haisenteck_V1.3.0&version=V1.3.0' target='_blank'>WEB UPDATER - RELEASE</a><br>
 link al file di installazione stabile: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/releases/tag/V1.3.0' target='_blank'>Versione STABILE</a><br>
 Link al file di installazione DEV build: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/blob/dev/dist/f7-C/flipper-z-f7-update-Haisenteck_V1.3.0.tgz' target='_blank'>Versione DEV Build</a><br>
 Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/Flipper_MicroSD' target='_blank'>Contenuti Extra per Micro SD</a><br>
@@ -435,9 +435,6 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
 --------------------------------------------------
 <br>Bluetooth:<br>
     <li> Name: Bad BT</li>
---------------------------------------------------
-    <li> Name: BLE Spam</li>
-    <li> FAP Version: 4.2</li>
 --------------------------------------------------
     <li> Name: BT Serial App</li>
 --------------------------------------------------
