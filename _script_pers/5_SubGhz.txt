@@ -10,3 +10,6 @@
 	<li>aggiunto ulteriori protocolli ed effettuato un altro porting di protocollo weather station (2023/11/27)</li>
 	<li>correzione di protocolli subghz durante test approfonditi</li>
 	<li>update aggiornamento protocollo oregon2 da fap weather station 2023/12/09</li>
+	<li>Modifica driver CC1101 da Driver esterni a parser della fap principale Subghz velocizzando il tutto e riducendo alcune ridondanze di caricamento.</li>
+	<li>sistemazione protocollo Oregon2 con errori e crash del flipper in fase di ricezione</li>
+	

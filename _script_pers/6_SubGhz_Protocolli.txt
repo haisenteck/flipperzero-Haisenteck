@@ -47,7 +47,7 @@
 <tr><td>Nexus_TH</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>NiceFlo</td><td>Statico</td><td>433 Enable, 315 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>NiceFlorS</td><td>Dinamico\Rolling Code</td><td>433 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
-<tr><td>Oregon2</td><td>WeatherStation</td><td>433 Enable, AM</td></tr>
+<tr><td>Oregon2</td><td>WeatherStation</td><td>433 Enable, AM, Save Enable</td></tr>
 <tr><td>Oregon3</td><td>WeatherStation</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>Oregon_V1</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>PhoenixV2</td><td>Statico</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>

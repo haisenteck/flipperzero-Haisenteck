@@ -9,5 +9,6 @@
  	<li>aggiunto codici riconoscimento carte EMV</li>
 	<li>aggiunta lettura credito chiavette Coges grazie al contributo di un utente Telegram.</li>
 	<li>aggiunto parser di carte russe dei trasporti e altre modifiche scritte da unleashed.</li>
-	<li>aggiunti parser Mizip (by zProAle), Microel (by zProAle), kazan (by noproto), saflok (by noproto)</li>
+	<li>aggiunti parser Mizip (by @zProAle), Microel (by @zProAle), kazan (by @noproto), saflok (by @noproto)</li>
+	<li>aggiunti parser Hi (by @zProAle), PoC Skylander (by @bettse),  Hid (by @bettse), SoniCare (by @Sil333033)
 </ul>

@@ -16,13 +16,15 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
     <li> Name: free-dap</li>
     <li> FAP Version: 1.1</li>
 --------------------------------------------------
-    <li> Name: [MAYHEM] Camera</li>
+    <li> Name: [MAYHEM] Camera v1.0.0</li>
 --------------------------------------------------
-    <li> Name: [MAYHEM] Motion detection</li>
+    <li> Name: [MAYHEM] Morse Flasher v0.1</li>
 --------------------------------------------------
-    <li> Name: [MAYHEM] Nanny Cam</li>
+    <li> Name: [MAYHEM] Motion detection v0.1</li>
 --------------------------------------------------
-    <li> Name: [MAYHEM] QR Code</li>
+    <li> Name: [MAYHEM] Nanny Cam v0.1</li>
+--------------------------------------------------
+    <li> Name: [MAYHEM] QR Code v0.1</li>
 --------------------------------------------------
     <li> Name: [ESP32] Gravity</li>
     <li> FAP Version: 0.2.1</li>
@@ -33,6 +35,9 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
     <li> Name: Flipagotchi</li>
 --------------------------------------------------
     <li> Name: Flip Pirate</li>
+--------------------------------------------------
+    <li> Name: [RCWL0516] Radar Scan</li>
+    <li> FAP Version: 2.0</li>
 --------------------------------------------------
     <li> Name: Scope</li>
     <li> FAP Version: 0.2</li>
@@ -87,6 +92,23 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
 --------------------------------------------------
     <li> Name: LoRA_Terminal</li>
 --------------------------------------------------
+    <li> Name: [MALVEKE] GAME BOY ADVANCE Cartridge</li>
+    <li> FAP Version: [1,0]</li>
+--------------------------------------------------
+    <li> Name: [MALVEKE] GAME BOY Cartridge (GB/GBC)</li>
+    <li> FAP Version: [1,0]</li>
+--------------------------------------------------
+    <li> Name: [MALVEKE] GAME BOY Link-Camera</li>
+    <li> FAP Version: [1,0]</li>
+--------------------------------------------------
+    <li> Name: [MALVEKE] GB Live Camera</li>
+    <li> FAP Version: [1,0]</li>
+--------------------------------------------------
+    <li> Name: [MALVEKE] PIN Test</li>
+--------------------------------------------------
+    <li> Name: [MALVEKE] Pokemon Trading</li>
+    <li> FAP Version: [1,4]</li>
+--------------------------------------------------
     <li> Name: [Mx2125] Accelerometer</li>
 --------------------------------------------------
     <li> Name: [MH-Z19] CO2 sensor</li>
@@ -99,9 +121,6 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
     <li> Name: nrf24</li>
 --------------------------------------------------
     <li> Name: nrf24</li>
-    <li> FAP Version: 1.0</li>
---------------------------------------------------
-    <li> Name: [RCWL0516] Radar Scan</li>
     <li> FAP Version: 1.0</li>
 --------------------------------------------------
     <li> Name: RC2014 ColecoVision</li>
@@ -175,6 +194,9 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
     <li> FAP Version: (1, 9)</li>
 --------------------------------------------------
     <li> Name: Chess Clock</li>
+    <li> FAP Version: 1.0</li>
+--------------------------------------------------
+    <li> Name: Connect Wires</li>
     <li> FAP Version: 1.0</li>
 --------------------------------------------------
     <li> Name: DOOM</li>
@@ -310,9 +332,6 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
 --------------------------------------------------
     <li> Name: CLI-GUI Bridge</li>
 --------------------------------------------------
-    <li> Name: Clock</li>
-    <li> FAP Version: 1.0</li>
---------------------------------------------------
     <li> Name: Count Down Timer</li>
     <li> FAP Version: 1.1</li>
 --------------------------------------------------
@@ -328,8 +347,8 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
     <li> Name: Nightstand Clock</li>
     <li> FAP Version: 1.0</li>
 --------------------------------------------------
-    <li> Name: QR Code</li>
-    <li> FAP Version: (1, 1)</li>
+    <li> Name: QRCode</li>
+    <li> FAP Version: (2,0)</li>
 --------------------------------------------------
     <li> Name: Pomodoro Timer</li>
 --------------------------------------------------
@@ -360,6 +379,9 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
 --------------------------------------------------
     <li> Name: wolfssl</li>
     <li> FAP Version: 5.50</li>
+--------------------------------------------------
+    <li> Name: WHC SWIO Flasher</li>
+    <li> FAP Version: 1.0</li>
 --------------------------------------------------
 <br>Media:<br>
     <li> Name: BPM Tapper</li>
@@ -413,6 +435,21 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
     <li> Name: Coges</li>
     <li> FAP Version: 1.0</li>
 --------------------------------------------------
+<br>Misc:<br>
+    <li> Name: Creatine</li>
+--------------------------------------------------
+    <li> Name: Airmon</li>
+--------------------------------------------------
+    <li> Name: Bad Apple</li>
+--------------------------------------------------
+    <li> Name: jClock settings</li>
+--------------------------------------------------
+    <li> Name: LED Pulsator</li>
+--------------------------------------------------
+<br>CAN:<br>
+    <li> Name: CANUtils",  # Displayed in menus</li>
+    <li> FAP Version: 0.1</li>
+--------------------------------------------------
 <br>Infrared:<br>
     <li> Name: Xbox Controller</li>
     <li> FAP Version: 1.0</li>
@@ -427,15 +464,6 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
 --------------------------------------------------
     <li> Name: IR Scope</li>
     <li> FAP Version: 1.2</li>
---------------------------------------------------
-<br>Misc:<br>
-    <li> Name: Airmon</li>
---------------------------------------------------
-    <li> Name: Bad Apple</li>
---------------------------------------------------
-    <li> Name: jClock settings</li>
---------------------------------------------------
-    <li> Name: LED Pulsator</li>
 --------------------------------------------------
 <br>Sub-GHz:<br>
     <li> Name: ShapShup</li>

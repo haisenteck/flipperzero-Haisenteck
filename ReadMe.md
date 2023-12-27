@@ -1,8 +1,8 @@
 </a>
 <h3>Haisenteck - Flipper zero firmware Mod</h3><br>
-Link all'installazione dell'ultima release tramite Web Updater:<a href='https://lab.flipper.net/?url=https://rawcdn.githack.com/haisenteck/flipperzero-Haisenteck/acf759d9d5120806adf98ea99e2b03487caf99a3/dist/release/flipper-z-f7-update-Haisenteck_V1.2.9.tgz&channel=Haisenteck_V1.2.9&version=V1.2.9' target='_blank'>WEB UPDATER - RELEASE</a><br>
-link al file di installazione stabile: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/releases/tag/V1.2.9' target='_blank'>Versione STABILE</a><br>
-Link al file di installazione DEV build: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/blob/dev/dist/f7-C/flipper-z-f7-update-Haisenteck_V1.2.9.tgz' target='_blank'>Versione DEV Build</a><br>
+Link all'installazione dell'ultima release tramite Web Updater:<a href='https://lab.flipper.net/?url=https://rawcdn.githack.com/haisenteck/flipperzero-Haisenteck/ac6e0d2cc4a1faa706e9b2b09ad6eda30a901a9e/dist/release/flipper-z-f7-update-Haisenteck_V1.3.0.tgz&channel=Haisenteck_V1.3.0&version=V1.3.0' target='_blank'>WEB UPDATER - RELEASE</a><br>
+link al file di installazione stabile: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/releases/tag/V1.3.0' target='_blank'>Versione STABILE</a><br>
+Link al file di installazione DEV build: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/blob/dev/dist/f7-C/flipper-z-f7-update-Haisenteck_V1.3.0.tgz' target='_blank'>Versione DEV Build</a><br>
 Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/Flipper_MicroSD' target='_blank'>Contenuti Extra per Micro SD</a><br>
 <br>
 # Novit�<br>
@@ -17,6 +17,7 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 	<del><li>modifica a libreria di base per inclusione di diverse modalità del bluetooth notification per presentare il flipper come dispositivo Apple.</li></del>
 	<del><li>creato app per la gestione, si chiama FRUTTIVENDOLO.<br></del> App rimossa in quanto non più necessaria.</li>
 	<li>09/12/2023 - provato e testato ble stack full, attualmente ancora in test, mentre su versione pubblicata in uso la light.</li>
+	<li>27/12/2023 - integrato Ble Full Stack comprensivo di installazione pulita senza errori.</li>
 </ul>- **NFC**<br>
 <ul>	
 	<li> NFC REFACTOR
@@ -28,7 +29,8 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
  	<li>aggiunto codici riconoscimento carte EMV</li>
 	<li>aggiunta lettura credito chiavette Coges grazie al contributo di un utente Telegram.</li>
 	<li>aggiunto parser di carte russe dei trasporti e altre modifiche scritte da unleashed.</li>
-	<li>aggiunti parser Mizip (by zProAle), Microel (by zProAle), kazan (by noproto), saflok (by noproto)</li>
+	<li>aggiunti parser Mizip (by @zProAle), Microel (by @zProAle), kazan (by @noproto), saflok (by @noproto)</li>
+	<li>aggiunti parser Hi (by @zProAle), PoC Skylander (by @bettse),  Hid (by @bettse), SoniCare (by @Sil333033)
 </ul>- **Sub-GHz**<br>
 <ul>
 	<li>Aggiunto AM_Q ai preset di utilizzo</li>
@@ -40,7 +42,10 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 	<li>Subghz Shapshup - app aggiunta e corretto alcune parti di codice</li>
 	<li>aggiunto ulteriori protocolli ed effettuato un altro porting di protocollo weather station (2023/11/27)</li>
 	<li>correzione di protocolli subghz durante test approfonditi</li>
-	<li>update aggiornamento protocollo oregon2 da fap weather station 2023/12/09</li><table>
+	<li>update aggiornamento protocollo oregon2 da fap weather station 2023/12/09</li>
+	<li>Modifica driver CC1101 da Driver esterni a parser della fap principale Subghz velocizzando il tutto e riducendo alcune ridondanze di caricamento.</li>
+	<li>sistemazione protocollo Oregon2 con errori e crash del flipper in fase di ricezione</li>
+	<table>
 <tr><th>Tag</th><th>Type</th><th>Flag</th></tr>
 <tr><td>Acurite_592TXR</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable</td></tr>
 <tr><td>Acurite_606TX</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
@@ -89,7 +94,7 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 <tr><td>Nexus_TH</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>NiceFlo</td><td>Statico</td><td>433 Enable, 315 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>NiceFlorS</td><td>Dinamico\Rolling Code</td><td>433 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
-<tr><td>Oregon2</td><td>WeatherStation</td><td>433 Enable, AM</td></tr>
+<tr><td>Oregon2</td><td>WeatherStation</td><td>433 Enable, AM, Save Enable</td></tr>
 <tr><td>Oregon3</td><td>WeatherStation</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>Oregon_V1</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
 <tr><td>PhoenixV2</td><td>Statico</td><td>433 Enable, AM, Save Enable, Send Enable</td></tr>
@@ -119,6 +124,11 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 	<li>Aggiornato STM32CubeWB da 1.17.3 a 1.18.0</li>
 	<li>Aggiornato STM32WBXX_HALL da V1.13.0 a V1.14.1</li>
 	<li>riportato in compatibilità con store fap da app smartphone il firmware</li>
+	<li>27/12/2023 - RIMOSSO IButton in quanto reputato inutile occupazione di spazio per funzioni in Italia mai usate</li>
+	<li>27/12/2023 - alleggerimento del firmware</li>
+	<li>27/12/2023 - modifica al submodulo cmsis per adattamento al full ble stack.</li>
+	<li>27/12/2023 - rimosso fap Ble Spam, inutile fap andata di moda ora inutile e noiosa (come dall'inizio).</li>
+	<li>27/12/2023 - aggiornato diverse fap e aggiunto fap "connect wire" e fap provenienti da Malwekem e altre.</li>
 </ul>- **FAP**<br><ul>
 Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\applications_user\fz_dope
 <br>GPIO:<br>
@@ -137,13 +147,15 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
     <li> Name: free-dap</li>
     <li> FAP Version: 1.1</li>
 --------------------------------------------------
-    <li> Name: [MAYHEM] Camera</li>
+    <li> Name: [MAYHEM] Camera v1.0.0</li>
 --------------------------------------------------
-    <li> Name: [MAYHEM] Motion detection</li>
+    <li> Name: [MAYHEM] Morse Flasher v0.1</li>
 --------------------------------------------------
-    <li> Name: [MAYHEM] Nanny Cam</li>
+    <li> Name: [MAYHEM] Motion detection v0.1</li>
 --------------------------------------------------
-    <li> Name: [MAYHEM] QR Code</li>
+    <li> Name: [MAYHEM] Nanny Cam v0.1</li>
+--------------------------------------------------
+    <li> Name: [MAYHEM] QR Code v0.1</li>
 --------------------------------------------------
     <li> Name: [ESP32] Gravity</li>
     <li> FAP Version: 0.2.1</li>
@@ -154,6 +166,9 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
     <li> Name: Flipagotchi</li>
 --------------------------------------------------
     <li> Name: Flip Pirate</li>
+--------------------------------------------------
+    <li> Name: [RCWL0516] Radar Scan</li>
+    <li> FAP Version: 2.0</li>
 --------------------------------------------------
     <li> Name: Scope</li>
     <li> FAP Version: 0.2</li>
@@ -208,6 +223,23 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
 --------------------------------------------------
     <li> Name: LoRA_Terminal</li>
 --------------------------------------------------
+    <li> Name: [MALVEKE] GAME BOY ADVANCE Cartridge</li>
+    <li> FAP Version: [1,0]</li>
+--------------------------------------------------
+    <li> Name: [MALVEKE] GAME BOY Cartridge (GB/GBC)</li>
+    <li> FAP Version: [1,0]</li>
+--------------------------------------------------
+    <li> Name: [MALVEKE] GAME BOY Link-Camera</li>
+    <li> FAP Version: [1,0]</li>
+--------------------------------------------------
+    <li> Name: [MALVEKE] GB Live Camera</li>
+    <li> FAP Version: [1,0]</li>
+--------------------------------------------------
+    <li> Name: [MALVEKE] PIN Test</li>
+--------------------------------------------------
+    <li> Name: [MALVEKE] Pokemon Trading</li>
+    <li> FAP Version: [1,4]</li>
+--------------------------------------------------
     <li> Name: [Mx2125] Accelerometer</li>
 --------------------------------------------------
     <li> Name: [MH-Z19] CO2 sensor</li>
@@ -220,9 +252,6 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
     <li> Name: nrf24</li>
 --------------------------------------------------
     <li> Name: nrf24</li>
-    <li> FAP Version: 1.0</li>
---------------------------------------------------
-    <li> Name: [RCWL0516] Radar Scan</li>
     <li> FAP Version: 1.0</li>
 --------------------------------------------------
     <li> Name: RC2014 ColecoVision</li>
@@ -296,6 +325,9 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
     <li> FAP Version: (1, 9)</li>
 --------------------------------------------------
     <li> Name: Chess Clock</li>
+    <li> FAP Version: 1.0</li>
+--------------------------------------------------
+    <li> Name: Connect Wires</li>
     <li> FAP Version: 1.0</li>
 --------------------------------------------------
     <li> Name: DOOM</li>
@@ -431,9 +463,6 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
 --------------------------------------------------
     <li> Name: CLI-GUI Bridge</li>
 --------------------------------------------------
-    <li> Name: Clock</li>
-    <li> FAP Version: 1.0</li>
---------------------------------------------------
     <li> Name: Count Down Timer</li>
     <li> FAP Version: 1.1</li>
 --------------------------------------------------
@@ -449,8 +478,8 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
     <li> Name: Nightstand Clock</li>
     <li> FAP Version: 1.0</li>
 --------------------------------------------------
-    <li> Name: QR Code</li>
-    <li> FAP Version: (1, 1)</li>
+    <li> Name: QRCode</li>
+    <li> FAP Version: (2,0)</li>
 --------------------------------------------------
     <li> Name: Pomodoro Timer</li>
 --------------------------------------------------
@@ -481,6 +510,9 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
 --------------------------------------------------
     <li> Name: wolfssl</li>
     <li> FAP Version: 5.50</li>
+--------------------------------------------------
+    <li> Name: WHC SWIO Flasher</li>
+    <li> FAP Version: 1.0</li>
 --------------------------------------------------
 <br>Media:<br>
     <li> Name: BPM Tapper</li>
@@ -534,6 +566,21 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
     <li> Name: Coges</li>
     <li> FAP Version: 1.0</li>
 --------------------------------------------------
+<br>Misc:<br>
+    <li> Name: Creatine</li>
+--------------------------------------------------
+    <li> Name: Airmon</li>
+--------------------------------------------------
+    <li> Name: Bad Apple</li>
+--------------------------------------------------
+    <li> Name: jClock settings</li>
+--------------------------------------------------
+    <li> Name: LED Pulsator</li>
+--------------------------------------------------
+<br>CAN:<br>
+    <li> Name: CANUtils",  # Displayed in menus</li>
+    <li> FAP Version: 0.1</li>
+--------------------------------------------------
 <br>Infrared:<br>
     <li> Name: Xbox Controller</li>
     <li> FAP Version: 1.0</li>
@@ -548,15 +595,6 @@ Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\appl
 --------------------------------------------------
     <li> Name: IR Scope</li>
     <li> FAP Version: 1.2</li>
---------------------------------------------------
-<br>Misc:<br>
-    <li> Name: Airmon</li>
---------------------------------------------------
-    <li> Name: Bad Apple</li>
---------------------------------------------------
-    <li> Name: jClock settings</li>
---------------------------------------------------
-    <li> Name: LED Pulsator</li>
 --------------------------------------------------
 <br>Sub-GHz:<br>
     <li> Name: ShapShup</li>
