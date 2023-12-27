@@ -5,4 +5,5 @@
 	<del><li>modifica a libreria di base per inclusione di diverse modalità del bluetooth notification per presentare il flipper come dispositivo Apple.</li></del>
 	<del><li>creato app per la gestione, si chiama FRUTTIVENDOLO.<br></del> App rimossa in quanto non più necessaria.</li>
 	<li>09/12/2023 - provato e testato ble stack full, attualmente ancora in test, mentre su versione pubblicata in uso la light.</li>
+	<li>27/12/2023 - integrato Ble Full Stack comprensivo di installazione pulita senza errori.</li>
 </ul>

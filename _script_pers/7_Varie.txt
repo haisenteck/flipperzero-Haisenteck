@@ -7,4 +7,9 @@
 	<li>Aggiornato STM32CubeWB da 1.17.3 a 1.18.0</li>
 	<li>Aggiornato STM32WBXX_HALL da V1.13.0 a V1.14.1</li>
 	<li>riportato in compatibilità con store fap da app smartphone il firmware</li>
+	<li>27/12/2023 - RIMOSSO IButton in quanto reputato inutile occupazione di spazio per funzioni in Italia mai usate</li>
+	<li>27/12/2023 - alleggerimento del firmware</li>
+	<li>27/12/2023 - modifica al submodulo cmsis per adattamento al full ble stack.</li>
+	<li>27/12/2023 - rimosso fap Ble Spam, inutile fap andata di moda ora inutile e noiosa (come dall'inizio).</li>
+	
 </ul>
