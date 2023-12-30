@@ -2,7 +2,9 @@
 
 #include <ble/core/ble_defs.h>
 
-#define CFG_TX_POWER (0x19) /* +0dBm */
+//#define CFG_TX_POWER (0x19) /* +0dBm */
+#define CFG_TX_POWER (0x1F) /* +6dBm */
+
 
 #define CFG_IDENTITY_ADDRESS GAP_PUBLIC_ADDR
 
@@ -46,7 +48,7 @@
  * Maximum number of simultaneous connections that the device will support.
  * Valid values are from 1 to 8
  */
-#define CFG_BLE_NUM_LINK 1
+#define CFG_BLE_NUM_LINK 2
 
 /**
  * Maximum number of Services that can be stored in the GATT database.
@@ -171,7 +173,7 @@
  */
 #define CFG_BLE_OPTIONS                                                                 \
     (SHCI_C2_BLE_INIT_OPTIONS_LL_HOST | SHCI_C2_BLE_INIT_OPTIONS_WITH_SVC_CHANGE_DESC | \
-     SHCI_C2_BLE_INIT_OPTIONS_DEVICE_NAME_RO | SHCI_C2_BLE_INIT_OPTIONS_EXT_ADV |       \
+     SHCI_C2_BLE_INIT_OPTIONS_DEVICE_NAME_RW | SHCI_C2_BLE_INIT_OPTIONS_EXT_ADV |       \
      SHCI_C2_BLE_INIT_OPTIONS_CS_ALGO2 | SHCI_C2_BLE_INIT_OPTIONS_POWER_CLASS_2_3)
 
 /**
