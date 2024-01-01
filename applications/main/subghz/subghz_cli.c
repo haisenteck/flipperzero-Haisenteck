@@ -674,7 +674,8 @@ static void subghz_cli_command_encrypt_raw(Cli* cli, FuriString* args) {
     furi_string_free(source);
 }
 
-static void subghz_cli_command_chat(Cli* cli, FuriString* args) {
+static void subghz_cli_command_chat(Cli* cli, FuriString* args, void* context) {
+    UNUSED(context);
     uint32_t frequency = 433920000;
     uint32_t device_ind = 0; // 0 - CC1101_INT, 1 - CC1101_EXT
 
@@ -877,7 +878,7 @@ static void subghz_cli_command(Cli* cli, FuriString* args, void* context) {
         }
 
         if(furi_string_cmp_str(cmd, "chat") == 0) {
-            subghz_cli_command_chat(cli, args);
+            subghz_cli_command_chat(cli, args, NULL);
             break;
         }
 
@@ -935,6 +936,8 @@ void subghz_on_system_start() {
 
     cli_add_command(cli, "subghz", CliCommandFlagDefault, subghz_cli_command, NULL);
 
+	cli_add_command(cli, "chat", CliCommandFlagDefault, subghz_cli_command_chat, NULL);
+	
     furi_record_close(RECORD_CLI);
 #else
     UNUSED(subghz_cli_command);

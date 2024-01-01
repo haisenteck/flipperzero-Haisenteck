@@ -1,10 +1,10 @@
 Filetype: Flipper firmware upgrade configuration
 Version: 2
-Info: V1.3.0
+Info: V1.3.1
 Target: 7
 Loader: updater.bin
 # little-endian hex!
-Loader CRC: 54 19 3D 82
+Loader CRC: C1 C0 CC E8
 Firmware: firmware.dfu
 Radio: radio.bin
 Radio address: 00 E0 0C 08

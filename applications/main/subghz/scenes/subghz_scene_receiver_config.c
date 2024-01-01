@@ -127,10 +127,7 @@ SubGhzHopperState subghz_scene_receiver_config_hopper_value_index(void* context)
     if(subghz_txrx_hopper_get_state(subghz->txrx) == SubGhzHopperStateOFF) {
         return SubGhzHopperStateOFF;
     } else {
-        variable_item_set_current_value_text(
-            (VariableItem*)scene_manager_get_scene_state(
-                subghz->scene_manager, SubGhzSceneReceiverConfig),
-            " -----");
+        variable_item_set_current_value_text((VariableItem*)scene_manager_get_scene_state(subghz->scene_manager, SubGhzSceneReceiverConfig)," -----");
         return SubGhzHopperStateRunning;
     }
 }
@@ -156,6 +153,8 @@ static void subghz_scene_receiver_config_set_frequency(VariableItem* item) {
             subghz->txrx,
             furi_string_get_cstr(preset.name),
             frequency,
+            0,
+            0,
             preset.data,
             preset.data_size);
 
@@ -182,6 +181,8 @@ static void subghz_scene_receiver_config_set_preset(VariableItem* item) {
         subghz->txrx,
         preset_name,
         preset.frequency,
+        0,
+        0,
         subghz_setting_get_preset_data(setting, index),
         subghz_setting_get_preset_data_size(setting, index));
     subghz->last_settings->preset_index = index;
@@ -191,8 +192,7 @@ static void subghz_scene_receiver_config_set_hopping_running(VariableItem* item)
     SubGhz* subghz = variable_item_get_context(item);
     SubGhzHopperState index = variable_item_get_current_value_index(item);
     SubGhzSetting* setting = subghz_txrx_get_setting(subghz->txrx);
-    VariableItem* frequency_item = (VariableItem*)scene_manager_get_scene_state(
-        subghz->scene_manager, SubGhzSceneReceiverConfig);
+    VariableItem* frequency_item = (VariableItem*)scene_manager_get_scene_state(subghz->scene_manager, SubGhzSceneReceiverConfig);
 
     variable_item_set_current_value_text(item, combobox_text[(uint8_t)index]);
 
@@ -214,6 +214,8 @@ static void subghz_scene_receiver_config_set_hopping_running(VariableItem* item)
             subghz->txrx,
             furi_string_get_cstr(preset.name),
             frequency,
+            0,
+            0,
             preset.data,
             preset.data_size);
         variable_item_set_current_value_index(
@@ -532,6 +534,7 @@ bool subghz_scene_receiver_config_on_event(void* context, SceneManagerEvent even
 
 void subghz_scene_receiver_config_on_exit(void* context) {
     SubGhz* subghz = context;
+
     variable_item_list_set_selected_item(subghz->variable_item_list, 0);
     variable_item_list_reset(subghz->variable_item_list);
 #ifdef FURI_DEBUG

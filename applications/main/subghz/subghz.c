@@ -5,7 +5,7 @@
 #include <subghz/types.h>
 #include <lib/toolbox/path.h>
 #include <float_tools.h>
-#include "subghz_i.h"
+#include "subghz_i.h"						  
 
 #define TAG "SubGhzApp"
 
@@ -262,6 +262,12 @@ SubGhz* subghz_alloc(bool alloc_for_tx_only) {
     //Init Error_str
     subghz->error_str = furi_string_alloc();
 
+    subghz->gps = subghz_gps_init();
+    if(subghz->last_settings->gps_baudrate != 0) {
+        subghz_gps_set_baudrate(subghz->last_settings->gps_baudrate);
+        subghz_gps_start(subghz->gps);
+    }
+
     return subghz;
 }
 
@@ -357,6 +363,12 @@ void subghz_free(SubGhz* subghz, bool alloc_for_tx_only) {
     // Path strings
     furi_string_free(subghz->file_path);
     furi_string_free(subghz->file_path_tmp);
+
+    // GPS
+    if(subghz->last_settings->gps_baudrate != 0) {
+        subghz_gps_stop(subghz->gps);
+    }
+    subghz_gps_deinit(subghz->gps);
 
     // The rest
     free(subghz);
