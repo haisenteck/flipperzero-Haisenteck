@@ -13,10 +13,3 @@ typedef struct {
     UARTChannel uart_general_channel;
     UARTChannel uart_esp_channel;
 } Gps_nm;
-/*
-Gps_nm gps_settings = {
-    .uart_esp_channel = UARTDefault,
-    .uart_nmea_channel = UARTDefault,
-    .uart_general_channel = UARTDefault,
-};
-*/

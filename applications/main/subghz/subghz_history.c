@@ -205,10 +205,7 @@ void subghz_history_get_time_item_menu(SubGhzHistory* instance, FuriString* outp
     furi_string_printf(output, "%.2d:%.2d:%.2d ", t->hour, t->minute, t->second);
 }
 
-bool subghz_history_add_to_history(
-    SubGhzHistory* instance,
-    void* context,
-    SubGhzRadioPreset* preset) {
+bool subghz_history_add_to_history(SubGhzHistory* instance,void* context,SubGhzRadioPreset* preset) {
     furi_assert(instance);
     furi_assert(context);
 
@@ -216,9 +213,7 @@ bool subghz_history_add_to_history(
     if(instance->last_index_write >= SUBGHZ_HISTORY_MAX) return false;
 
     SubGhzProtocolDecoderBase* decoder_base = context;
-    if((instance->code_last_hash_data ==
-        subghz_protocol_decoder_base_get_hash_data(decoder_base)) &&
-       ((furi_get_tick() - instance->last_update_timestamp) < 500)) {
+    if((instance->code_last_hash_data == subghz_protocol_decoder_base_get_hash_data(decoder_base)) && ((furi_get_tick() - instance->last_update_timestamp) < 500)) {
         instance->last_update_timestamp = furi_get_tick();
         return false;
     }
