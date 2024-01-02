@@ -28,6 +28,11 @@
 #define SUBGHZ_NICE_FLOR_S_DIR_NAME EXT_PATH("subghz/assets/nice_flor_s")
 #define SUBGHZ_ALUTECH_AT_4N_DIR_NAME EXT_PATH("subghz/assets/alutech_at_4n")
 
+//GPS
+#define SUBGHZ_GPS_TESTO "\nCOORDINATE GPS"
+#define SUBGHZ_GPS_LATITUDINE "\nLatitude: "
+#define SUBGHZ_GPS_LONGITUDINE "\nLongitudine: "
+
 typedef struct SubGhzProtocolRegistry SubGhzProtocolRegistry;
 typedef struct SubGhzEnvironment SubGhzEnvironment;
 

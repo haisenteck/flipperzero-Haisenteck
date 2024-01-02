@@ -5,7 +5,7 @@
 #include <subghz/types.h>
 #include <lib/toolbox/path.h>
 #include <float_tools.h>
-#include "subghz_i.h"						  
+#include "subghz_i.h"
 
 #define TAG "SubGhzApp"
 
@@ -226,8 +226,7 @@ SubGhz* subghz_alloc(bool alloc_for_tx_only) {
 #endif
     if(!alloc_for_tx_only) {
 #if SUBGHZ_LAST_SETTING_SAVE_PRESET
-        subghz_txrx_set_preset_internal(
-            subghz->txrx, subghz->last_settings->frequency, subghz->last_settings->preset_index);
+        subghz_txrx_set_preset_internal(subghz->txrx, subghz->last_settings->frequency, subghz->last_settings->preset_index);
 #else
         subghz_txrx_set_default_preset(subghz->txrx, subghz->last_settings->frequency);
 #endif
