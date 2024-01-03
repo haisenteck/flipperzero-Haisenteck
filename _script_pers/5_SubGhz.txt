@@ -12,4 +12,4 @@
 	<li>update aggiornamento protocollo oregon2 da fap weather station 2023/12/09</li>
 	<li>Modifica driver CC1101 da Driver esterni a parser della fap principale Subghz velocizzando il tutto e riducendo alcune ridondanze di caricamento.</li>
 	<li>sistemazione protocollo Oregon2 con errori e crash del flipper in fase di ricezione</li>
-	
+	<li>03/01/2024 - aggiunto gestione gps nel subghz (idea riadattata da progetto xtreme), abilitato salvataggio in file separato delle coordinate gps</li>

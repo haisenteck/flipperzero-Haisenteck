@@ -1,8 +1,8 @@
 </a>
 <h3>Haisenteck - Flipper zero firmware Mod</h3><br>
-Link all'installazione dell'ultima release tramite Web Updater:<a href='https://lab.flipper.net/?url=https://rawcdn.githack.com/haisenteck/flipperzero-Haisenteck/00e01947452b4cdc5887f5504fcd81f9384cfb82/dist/release/flipper-z-f7-update-Haisenteck_V1.3.0.tgz&channel=Haisenteck_V1.3.0&version=V1.3.0' target='_blank'>WEB UPDATER - RELEASE</a><br>
-link al file di installazione stabile: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/releases/tag/V1.3.0' target='_blank'>Versione STABILE</a><br>
-Link al file di installazione DEV build: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/blob/dev/dist/f7-C/flipper-z-f7-update-Haisenteck_V1.3.0.tgz' target='_blank'>Versione DEV Build</a><br>
+Link all'installazione dell'ultima release tramite Web Updater:<a href='https://lab.flipper.net/?url=https://rawcdn.githack.com/haisenteck/flipperzero-Haisenteck/a74a03e7ea54fe2f4b9c593438610eaf2c18be53/dist/release/flipper-z-f7-update-Haisenteck_V1.3.1.tgz&channel=Haisenteck_V1.3.2&version=V1.3.2' target='_blank'>WEB UPDATER - RELEASE</a><br>
+link al file di installazione stabile: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/releases/tag/V1.3.2' target='_blank'>Versione STABILE</a><br>
+Link al file di installazione DEV build: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/blob/dev/dist/f7-C/flipper-z-f7-update-Haisenteck_V1.3.2.tgz' target='_blank'>Versione DEV Build</a><br>
 Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/Flipper_MicroSD' target='_blank'>Contenuti Extra per Micro SD</a><br>
 <br>
 # Novità<br>
@@ -30,7 +30,8 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 	<li>aggiunta lettura credito chiavette Coges grazie al contributo di un utente Telegram.</li>
 	<li>aggiunto parser di carte russe dei trasporti e altre modifiche scritte da unleashed.</li>
 	<li>aggiunti parser Mizip (by @zProAle), Microel (by @zProAle), kazan (by @noproto), saflok (by @noproto)</li>
-	<li>aggiunti parser Hi (by @zProAle), PoC Skylander (by @bettse),  Hid (by @bettse), SoniCare (by @Sil333033)
+	<li>aggiunti parser Hi (by @zProAle), PoC Skylander (by @bettse),  Hid (by @bettse), SoniCare (by @Sil333033)</li>
+	<li>aggiunto parser credit (by @Esonhugh)</li>
 </ul>- **Sub-GHz**<br>
 <ul>
 	<li>Aggiunto AM_Q ai preset di utilizzo</li>
@@ -45,7 +46,7 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 	<li>update aggiornamento protocollo oregon2 da fap weather station 2023/12/09</li>
 	<li>Modifica driver CC1101 da Driver esterni a parser della fap principale Subghz velocizzando il tutto e riducendo alcune ridondanze di caricamento.</li>
 	<li>sistemazione protocollo Oregon2 con errori e crash del flipper in fase di ricezione</li>
-	<table>
+	<li>03/01/2024 - aggiunto gestione gps nel subghz (idea riadattata da progetto xtreme), abilitato salvataggio in file separato delle coordinate gps</li><table>
 <tr><th>Tag</th><th>Type</th><th>Flag</th></tr>
 <tr><td>Acurite_592TXR</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable</td></tr>
 <tr><td>Acurite_606TX</td><td>WeatherStation</td><td>433 Enable, 315 Enable, 868 Enable, AM, Save Enable, Send Enable</td></tr>
@@ -129,6 +130,7 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 	<li>27/12/2023 - modifica al submodulo cmsis per adattamento al full ble stack.</li>
 	<li>27/12/2023 - rimosso fap Ble Spam, inutile fap andata di moda ora inutile e noiosa (come dall'inizio).</li>
 	<li>27/12/2023 - aggiornato diverse fap e aggiunto fap "connect wire" e fap provenienti da Malwekem e altre.</li>
+	<li>03/01/2024 - risolto bug relativo a percentuale batteria mostrato su desktop</li>
 </ul>- **FAP**<br><ul>
 Missing data in folder: D:\xxx_flipper_code\firmware\flipperzero-Haisenteck\applications_user\fz_dope
 <br>GPIO:<br>

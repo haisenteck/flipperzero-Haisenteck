@@ -12,4 +12,5 @@
 	<li>27/12/2023 - modifica al submodulo cmsis per adattamento al full ble stack.</li>
 	<li>27/12/2023 - rimosso fap Ble Spam, inutile fap andata di moda ora inutile e noiosa (come dall'inizio).</li>
 	<li>27/12/2023 - aggiornato diverse fap e aggiunto fap "connect wire" e fap provenienti da Malwekem e altre.</li>
+	<li>03/01/2024 - risolto bug relativo a percentuale batteria mostrato su desktop</li>
 </ul>
