@@ -318,6 +318,8 @@ bool subghz_save_protocol_to_file(SubGhz* subghz, FlipperFormat* flipper_format,
 	
     furi_string_free(file_dir);
     furi_record_close(RECORD_STORAGE);
+	
+	
     return saved;
 }
 
