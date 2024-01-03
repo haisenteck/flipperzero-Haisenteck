@@ -35,6 +35,7 @@ static const uint32_t subghz_frequency_list[] = {
     434420000,
     434775000, /* LPD433 last channels */
     438900000,
+	439987500, //POCSAG
 
     /* 779 - 928 */
     868350000,
@@ -51,6 +52,7 @@ static const uint32_t subghz_hopper_frequency_list[] = {
     390000000,
 	433650000,
     433920000,
+	439987500, //POCSAG
     868350000,
     0,
 };
