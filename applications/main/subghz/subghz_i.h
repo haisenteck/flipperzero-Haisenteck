@@ -115,6 +115,7 @@ bool subghz_save_protocol_to_file(
     FlipperFormat* flipper_format,
     const char* dev_file_name);
 void subghz_save_to_file(void* context);
+void subghz_autosave_enabled(void* context);
 bool subghz_load_protocol_from_file(SubGhz* subghz);
 bool subghz_rename_file(SubGhz* subghz);
 bool subghz_file_available(SubGhz* subghz);

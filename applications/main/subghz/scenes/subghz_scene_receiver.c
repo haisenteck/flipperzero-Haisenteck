@@ -6,32 +6,25 @@
 
 const NotificationSequence subghz_sequence_rx = {
     &message_green_255,
-
     &message_display_backlight_on,
-
     &message_vibro_on,
     &message_note_c6,
     &message_delay_50,
     &message_sound_off,
     &message_vibro_off,
-
     &message_delay_50,
     NULL,
 };
 
 const NotificationSequence subghz_sequence_rx_locked = {
     &message_green_255,
-
     &message_display_backlight_on,
-
     &message_vibro_on,
     &message_note_c6,
     &message_delay_50,
     &message_sound_off,
     &message_vibro_off,
-
     &message_delay_500,
-
     &message_display_backlight_off,
     NULL,
 };
@@ -97,13 +90,9 @@ void subghz_scene_receiver_callback(SubGhzCustomEvent event, void* context) {
     view_dispatcher_send_custom_event(subghz->view_dispatcher, event);
 }
 
-static void subghz_scene_add_to_history_callback(
-    SubGhzReceiver* receiver,
-    SubGhzProtocolDecoderBase* decoder_base,
-    void* context) {
-    furi_assert(context);
-    SubGhz* subghz = context;
-
+static void subghz_scene_add_to_history_callback(SubGhzReceiver* receiver, SubGhzProtocolDecoderBase* decoder_base, void* context) {
+	furi_assert(context);
+	SubGhz* subghz = context;
     // The check can be moved to /lib/subghz/receiver.c, but may result in false positives
     if((decoder_base->protocol->flag & subghz->ignore_filter) == 0) {
         SubGhzHistory* history = subghz->history;
@@ -133,6 +122,11 @@ static void subghz_scene_add_to_history_callback(
                 notification_message(subghz->notifications, &sequence_error);
             }
         }
+		//-----------------
+		if(subghz->last_settings->autosave_text == true) {
+			subghz_autosave_enabled(context);
+		}
+		//-----------------
         subghz_receiver_reset(receiver);
         furi_string_free(item_name);
         furi_string_free(item_time);

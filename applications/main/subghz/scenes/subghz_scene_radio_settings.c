@@ -20,6 +20,12 @@ const char* const timestamp_names_text[TIMESTAMP_NAMES_COUNT] = {
     "ON",
 };
 
+#define AUTOSAVE_COUNT 2
+const char* const autosave_text[AUTOSAVE_COUNT] = {
+    "OFF",
+    "ON",
+};
+
 #define EXT_MOD_POWER_AMP_COUNT 2
 const char* const ext_mod_power_amp_text[EXT_MOD_POWER_AMP_COUNT] = {
     "OFF",
@@ -73,7 +79,6 @@ const uint32_t debug_counter_val[DEBUG_COUNTER_COUNT] = {
     -5,
     -10,
 };
-
 
 static void subghz_scene_radio_settings_set_device(VariableItem* item) {
     SubGhz* subghz = variable_item_get_context(item);
@@ -173,6 +178,16 @@ static void subghz_scene_receiver_config_set_timestamp_file_names(VariableItem* 
     subghz_last_settings_save(subghz->last_settings);
 }
 
+static void subghz_scene_receiver_config_set_autosave(VariableItem* item) {
+    SubGhz* subghz = variable_item_get_context(item);
+    uint8_t index = variable_item_get_current_value_index(item);
+
+    variable_item_set_current_value_text(item, autosave_text[index]);
+
+    subghz->last_settings->autosave_text = (index == 1);
+    subghz_last_settings_save(subghz->last_settings);
+}
+
 void subghz_scene_radio_settings_on_enter(void* context) {
     SubGhz* subghz = context;
 
@@ -227,7 +242,17 @@ void subghz_scene_radio_settings_on_enter(void* context) {
     value_index = subghz->last_settings->timestamp_file_names;
     variable_item_set_current_value_index(item, value_index);
     variable_item_set_current_value_text(item, timestamp_names_text[value_index]);
-
+//--------------------------------
+	item = variable_item_list_add(
+        variable_item_list,
+        "Autosave",
+        AUTOSAVE_COUNT,
+        subghz_scene_receiver_config_set_autosave,
+        subghz);
+    value_index = subghz->last_settings->autosave_text;
+    variable_item_set_current_value_index(item, value_index);
+    variable_item_set_current_value_text(item, autosave_text[value_index]);
+//--------------------------------
     item = variable_item_list_add(
         variable_item_list,
         "Counter Incr.",

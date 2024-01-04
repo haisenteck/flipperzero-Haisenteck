@@ -14,10 +14,7 @@ void subghz_scene_save_name_text_input_callback(void* context) {
     view_dispatcher_send_custom_event(subghz->view_dispatcher, SubGhzCustomEventSceneSaveName);
 }
 
-void subghz_scene_save_name_get_timefilename(
-    FuriString* name,
-    const char* proto_name,
-    bool fulldate) {
+void subghz_scene_save_name_get_timefilename(FuriString* name, const char* proto_name, bool fulldate) {
     FuriHalRtcDateTime datetime = {0};
     furi_hal_rtc_get_datetime(&datetime);
     if(fulldate) {
@@ -112,10 +109,6 @@ void subghz_scene_save_name_on_enter(void* context) {
 }
 
 bool subghz_scene_save_name_on_event(void* context, SceneManagerEvent event) {
-	int BUFFER= 30;
-	char content[BUFFER];
-	bool result;
-	int snprintf_result;
 	SubGhz* subghz = context;
     if(event.type == SceneManagerEventTypeBack) {
         if(!(strcmp(subghz->file_name_tmp, "") == 0) || scene_manager_get_scene_state(subghz->scene_manager, SubGhzSceneReadRAW) != SubGhzCustomEventManagerNoSet) {
@@ -146,50 +139,6 @@ bool subghz_scene_save_name_on_event(void* context, SceneManagerEvent event) {
                         scene_manager_set_scene_state(subghz->scene_manager, SubGhzSceneSetType, SubGhzCustomEventManagerNoSet);
                     } else {
 							subghz_save_protocol_to_file(subghz, subghz_history_get_raw_data(subghz->history, subghz->idx_menu_chosen), furi_string_get_cstr(subghz->file_path));
-							//-----------------------
-							if(subghz->last_settings->gps_baudrate != 0) {
-								Storage* storage = furi_record_open(RECORD_STORAGE);
-								File* file = storage_file_alloc(storage);
-								char filename[256];
-								snprintf(filename, sizeof(filename), "%s.gps", furi_string_get_cstr(subghz->file_path));
-								if (storage_file_exists(storage, filename)) {
-									result = storage_file_open(file, filename, FSAM_WRITE, FSOM_OPEN_ALWAYS);
-								} else {
-									result = storage_file_open(file, filename, FSAM_WRITE, FSOM_OPEN_ALWAYS);
-								}
-								if (result) {
-									storage_file_seek(file, 0, SEEK_END);
-									snprintf_result = snprintf(content, BUFFER, "%s", "Latitudine: ");
-									if (snprintf_result >= 0 && snprintf_result < BUFFER) {
-										storage_file_write(file, content, strlen(content));
-									}
-									snprintf_result = snprintf(content, BUFFER, "%f", (double)subghz->gps->latitude);
-									if (snprintf_result >= 0 && snprintf_result < BUFFER) {
-										storage_file_write(file, content, strlen(content));
-										storage_file_write(file, "\n", 1);
-									}
-									snprintf_result = snprintf(content, BUFFER, "%s", "Longitudine: ");
-									if (snprintf_result >= 0 && snprintf_result < BUFFER) {
-										storage_file_write(file, content, strlen(content));
-									}
-									snprintf_result = snprintf(content, BUFFER, "%f", (double)subghz->gps->longitude);
-									if (snprintf_result >= 0 && snprintf_result < BUFFER) {
-										storage_file_write(file, content, strlen(content));
-										storage_file_write(file, "\n", 1);
-									}
-									snprintf_result = snprintf(content, BUFFER, "%s", "Satelliti: ");
-									if (snprintf_result >= 0 && snprintf_result < BUFFER) {
-										storage_file_write(file, content, strlen(content));
-									}
-									snprintf_result = snprintf(content, BUFFER, "%d", (int)subghz->gps->satellites);
-									if (snprintf_result >= 0 && snprintf_result < BUFFER) {
-										storage_file_write(file, content, strlen(content));
-									}
-									storage_file_close(file);
-									storage_file_free(file);
-								}
-							}
-							//-----------------------
 						}
 					}
 					if(scene_manager_get_scene_state(subghz->scene_manager, SubGhzSceneReadRAW) != SubGhzCustomEventManagerNoSet) {

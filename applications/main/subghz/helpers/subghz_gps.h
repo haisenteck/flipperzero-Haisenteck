@@ -1,4 +1,3 @@
-#pragma once
 #include <furi_hal.h>
 #include <applications/main/subghz/subghz.h>
 
