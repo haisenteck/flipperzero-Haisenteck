@@ -330,8 +330,7 @@ void subghz_save_to_file(void* context) {
 //-------------------------------------
 void subghz_autosave_enabled(void* context) {
 	SubGhz* subghz = context;
-	
-	
+	scene_manager_next_scene(subghz->scene_manager, SubGhzSceneSaveName);
 	
 }
 //-------------------------------------
