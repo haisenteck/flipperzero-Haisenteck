@@ -39,12 +39,30 @@ App(
 )
 
 App(
+    appid="washcity_parser",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="washcity_plugin_ep",
+    targets=["f7"],
+    requires=["nfc"],
+    sources=["plugins/supported_cards/washcity.c"],
+)
+
+App(
     appid="sonicare_parser",
     apptype=FlipperAppType.PLUGIN,
     entry_point="sonicare_plugin_ep",
     targets=["f7"],
     requires=["nfc"],
     sources=["plugins/supported_cards/sonicare.c"],
+)
+
+App(
+    appid="zolotaya_korona_parser",
+    apptype=FlipperAppType.PLUGIN,
+    entry_point="zolotaya_korona_plugin_ep",
+    targets=["f7"],
+    requires=["nfc"],
+    sources=["plugins/supported_cards/zolotaya_korona.c"],
 )
 
 
