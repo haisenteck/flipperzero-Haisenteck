@@ -128,7 +128,7 @@ static void subghz_scene_add_to_history_callback(SubGhzReceiver* receiver, SubGh
 		
 	//-----------------------------------------------------------------------------------------------------------------------
 		if(subghz->last_settings->autosave_text == true) {
-			scene_manager_next_scene(subghz->scene_manager, SubGhzSceneReceiverInfo);
+			view_dispatcher_send_custom_event(subghz->view_dispatcher, SubGhzCustomEventViewReceiverOK);
 		}
 	//-----------------------------------------------------------------------------------------------------------------------
     } else {
