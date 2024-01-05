@@ -7,7 +7,6 @@
 void subghz_scene_receiver_info_callback(GuiButtonType result, InputType type, void* context) {
     furi_assert(context);
     SubGhz* subghz = context;
-
     if((result == GuiButtonTypeCenter) && (type == InputTypePress)) {
         view_dispatcher_send_custom_event(
             subghz->view_dispatcher, SubGhzCustomEventSceneReceiverInfoTxStart);
@@ -27,15 +26,11 @@ void subghz_scene_receiver_info_callback(GuiButtonType result, InputType type, v
 
 static bool subghz_scene_receiver_info_update_parser(void* context) {
     SubGhz* subghz = context;
-
     if(subghz_txrx_load_decoder_by_name_protocol(
            subghz->txrx,
            subghz_history_get_protocol_name(subghz->history, subghz->idx_menu_chosen))) {
-        // we are trying to deserialize without checking for errors, since it is assumed that we just received this chignal
-        subghz_protocol_decoder_base_deserialize(
-            subghz_txrx_get_decoder(subghz->txrx),
-            subghz_history_get_raw_data(subghz->history, subghz->idx_menu_chosen));
-
+        // we are trying to deserialize without checking for errors, since it is assumed that we just received this signal
+        subghz_protocol_decoder_base_deserialize(subghz_txrx_get_decoder(subghz->txrx), subghz_history_get_raw_data(subghz->history, subghz->idx_menu_chosen));
         SubGhzRadioPreset* preset = subghz_history_get_radio_preset(subghz->history, subghz->idx_menu_chosen);
         subghz_txrx_set_preset(
             subghz->txrx,
@@ -121,14 +116,16 @@ void subghz_scene_receiver_info_draw_widget(SubGhz* subghz) {
 
 void subghz_scene_receiver_info_on_enter(void* context) {
     SubGhz* subghz = context;
-
     subghz_custom_btns_reset();
-
     subghz_scene_receiver_info_draw_widget(subghz);
-
     if(!subghz_history_get_text_space_left(subghz->history, NULL, 0)) {
         subghz->state_notifications = SubGhzNotificationStateRx;
     }
+	//-----------------------------------------------------------------------------------------------------------------------
+	if(subghz->last_settings->autosave_text == true) {
+		view_dispatcher_send_custom_event(subghz->view_dispatcher, SubGhzCustomEventSceneReceiverInfoSave);
+	}
+	//-----------------------------------------------------------------------------------------------------------------------
 }
 
 bool subghz_scene_receiver_info_on_event(void* context, SceneManagerEvent event) {

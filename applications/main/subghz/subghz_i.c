@@ -327,43 +327,27 @@ void subghz_save_to_file(void* context) {
     }
 }
 
-//-------------------------------------
-void subghz_autosave_enabled(void* context) {
-	SubGhz* subghz = context;
-	scene_manager_next_scene(subghz->scene_manager, SubGhzSceneSaveName);
-	
-}
-//-------------------------------------
-
 bool subghz_load_protocol_from_file(SubGhz* subghz) {
     furi_assert(subghz);
-
     FuriString* file_path = furi_string_alloc();
-
     DialogsFileBrowserOptions browser_options;
     dialog_file_browser_set_basic_options(
         &browser_options, SUBGHZ_APP_FILENAME_EXTENSION, &I_sub1_10px);
     browser_options.base_path = SUBGHZ_APP_FOLDER;
-
     // Input events and views are managed by file_select
     bool res = dialog_file_browser_show(
         subghz->dialogs, subghz->file_path, subghz->file_path, &browser_options);
-
     if(res) {
         res = subghz_key_load(subghz, furi_string_get_cstr(subghz->file_path), true);
     }
-
     furi_string_free(file_path);
-
     return res;
 }
 
 bool subghz_rename_file(SubGhz* subghz) {
     furi_assert(subghz);
     bool ret = true;
-
     Storage* storage = furi_record_open(RECORD_STORAGE);
-
     if(furi_string_cmp(subghz->file_path_tmp, subghz->file_path)) {
         FS_Error fs_result = storage_common_rename(
             storage,
@@ -376,7 +360,6 @@ bool subghz_rename_file(SubGhz* subghz) {
         }
     }
     furi_record_close(RECORD_STORAGE);
-
     return ret;
 }
 
@@ -384,7 +367,6 @@ bool subghz_file_available(SubGhz* subghz) {
     furi_assert(subghz);
     bool ret = true;
     Storage* storage = furi_record_open(RECORD_STORAGE);
-
     FS_Error fs_result =
         storage_common_stat(storage, furi_string_get_cstr(subghz->file_path), NULL);
 
@@ -392,20 +374,16 @@ bool subghz_file_available(SubGhz* subghz) {
         dialog_message_show_storage_error(subghz->dialogs, "File not available\n file/directory");
         ret = false;
     }
-
     furi_record_close(RECORD_STORAGE);
     return ret;
 }
 
 bool subghz_delete_file(SubGhz* subghz) {
     furi_assert(subghz);
-
     Storage* storage = furi_record_open(RECORD_STORAGE);
     bool result = storage_simply_remove(storage, furi_string_get_cstr(subghz->file_path_tmp));
     furi_record_close(RECORD_STORAGE);
-
     subghz_file_name_clear(subghz);
-
     return result;
 }
 
