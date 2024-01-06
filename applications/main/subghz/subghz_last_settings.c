@@ -60,7 +60,7 @@ void subghz_last_settings_load(SubGhzLastSettings* instance, size_t preset_count
     bool frequency_analyzer_trigger_was_read = false;
 
     uint32_t temp_gps_baudrate = 0;
-
+	
     if(FSE_OK == storage_sd_status(storage) && SUBGHZ_LAST_SETTINGS_PATH &&
        flipper_format_file_open_existing(fff_data_file, SUBGHZ_LAST_SETTINGS_PATH)) {
         preset_was_read = flipper_format_read_uint32(

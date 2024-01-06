@@ -106,7 +106,7 @@ void subghz_scene_save_name_on_enter(void* context) {
 	furi_string_free(file_name);
 	furi_string_free(dir_name);
 	//-----------------------------------------------------------------------------------------------------------------------
-	if(subghz->last_settings->autosave_text == true) {
+	if(subghz->last_settings->autosave_text == true && subghz->last_settings->autosave_auto == true) {
 		view_dispatcher_send_custom_event(subghz->view_dispatcher, SubGhzCustomEventSceneSaveName);
 	}else{
 		view_dispatcher_switch_to_view(subghz->view_dispatcher, SubGhzViewIdTextInput);

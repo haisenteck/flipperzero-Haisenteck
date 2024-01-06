@@ -127,7 +127,9 @@ static void subghz_scene_add_to_history_callback(SubGhzReceiver* receiver, SubGh
         subghz_rx_key_state_set(subghz, SubGhzRxKeyStateAddKey);
 		
 	//-----------------------------------------------------------------------------------------------------------------------
+		
 		if(subghz->last_settings->autosave_text == true) {
+			subghz->last_settings->autosave_auto = true;
 			view_dispatcher_send_custom_event(subghz->view_dispatcher, SubGhzCustomEventViewReceiverOK);
 		}
 	//-----------------------------------------------------------------------------------------------------------------------

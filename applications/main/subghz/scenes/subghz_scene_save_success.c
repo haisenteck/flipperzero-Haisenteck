@@ -13,8 +13,9 @@ void subghz_scene_save_success_on_enter(void* context) {
     Popup* popup = subghz->popup;
     popup_set_icon(popup, 32, 5, &I_DolphinNice_96x59);
     popup_set_header(popup, "Saved!", 13, 22, AlignLeft, AlignBottom);
-	if(subghz->last_settings->autosave_text == true) {
+	if(subghz->last_settings->autosave_text == true && subghz->last_settings->autosave_auto == true) {
 		popup_set_timeout(popup, 500);
+		subghz->last_settings->autosave_auto = false;
     } else {
 		popup_set_timeout(popup, 1500);
 	}

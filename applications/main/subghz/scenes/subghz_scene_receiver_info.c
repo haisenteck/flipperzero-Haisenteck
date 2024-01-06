@@ -122,7 +122,7 @@ void subghz_scene_receiver_info_on_enter(void* context) {
         subghz->state_notifications = SubGhzNotificationStateRx;
     }
 	//-----------------------------------------------------------------------------------------------------------------------
-	if(subghz->last_settings->autosave_text == true) {
+	if(subghz->last_settings->autosave_text == true && subghz->last_settings->autosave_auto == true) {
 		view_dispatcher_send_custom_event(subghz->view_dispatcher, SubGhzCustomEventSceneReceiverInfoSave);
 	}
 	//-----------------------------------------------------------------------------------------------------------------------
