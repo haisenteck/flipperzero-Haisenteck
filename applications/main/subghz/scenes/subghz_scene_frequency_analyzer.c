@@ -22,12 +22,8 @@ void subghz_scene_frequency_analyzer_callback(SubGhzCustomEvent event, void* con
 
 void subghz_scene_frequency_analyzer_on_enter(void* context) {
     SubGhz* subghz = context;
-    subghz_frequency_analyzer_set_callback(
-        subghz->subghz_frequency_analyzer, subghz_scene_frequency_analyzer_callback, subghz);
-    subghz_frequency_analyzer_feedback_level(
-        subghz->subghz_frequency_analyzer,
-        subghz->last_settings->frequency_analyzer_feedback_level,
-        true);
+    subghz_frequency_analyzer_set_callback(subghz->subghz_frequency_analyzer, subghz_scene_frequency_analyzer_callback, subghz);
+    subghz_frequency_analyzer_feedback_level(subghz->subghz_frequency_analyzer, subghz->last_settings->frequency_analyzer_feedback_level, true);
     view_dispatcher_switch_to_view(subghz->view_dispatcher, SubGhzViewIdFrequencyAnalyzer);
 }
 
@@ -56,8 +52,7 @@ bool subghz_scene_frequency_analyzer_on_event(void* context, SceneManagerEvent e
             return true;
         } else if(event.event == SubGhzCustomEventViewFreqAnalOkShort) {
             notification_message(subghz->notifications, &sequence_saved);
-            uint32_t frequency =
-                subghz_frequency_analyzer_get_frequency_to_save(subghz->subghz_frequency_analyzer);
+            uint32_t frequency = subghz_frequency_analyzer_get_frequency_to_save(subghz->subghz_frequency_analyzer);
             if(frequency > 0) {
                 subghz->last_settings->frequency = frequency;
 #ifdef FURI_DEBUG
@@ -84,9 +79,8 @@ void subghz_scene_frequency_analyzer_on_exit(void* context) {
     SubGhz* subghz = context;
     notification_message(subghz->notifications, &sequence_reset_rgb);
 
-    subghz->last_settings->frequency_analyzer_feedback_level =
-        subghz_frequency_analyzer_feedback_level(subghz->subghz_frequency_analyzer, 0, false);
-    subghz->last_settings->frequency_analyzer_trigger =
-        subghz_frequency_analyzer_get_trigger_level(subghz->subghz_frequency_analyzer);
+    subghz->last_settings->frequency_analyzer_feedback_level = subghz_frequency_analyzer_feedback_level(subghz->subghz_frequency_analyzer, 0, false);
+    subghz->last_settings->frequency_analyzer_trigger = subghz_frequency_analyzer_get_trigger_level(subghz->subghz_frequency_analyzer);
+	subghz->last_settings->rssi = -90.0;
     subghz_last_settings_save(subghz->last_settings);
 }

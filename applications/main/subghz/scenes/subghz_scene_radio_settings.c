@@ -232,7 +232,7 @@ void subghz_scene_radio_settings_on_enter(void* context) {
         GPS_COUNT);
     variable_item_set_current_value_index(item, value_index);
     variable_item_set_current_value_text(item, gps_text[value_index]);
-
+	
     item = variable_item_list_add(
         variable_item_list,
         "Protocol Names",
