@@ -79,8 +79,8 @@ const SubGhzProtocolEncoder subghz_protocol_auriol_th_encoder = {
 
 const SubGhzProtocol subghz_protocol_auriol_th = {
     .name = SUBGHZ_PROTOCOL_AURIOL_TH_NAME,
-    //.type = SubGhzProtocolWeatherStation,
-    .type = SubGhzProtocolTypeStatic,
+    .type = SubGhzProtocolWeatherStation,
+    //.type = SubGhzProtocolTypeStatic,
     .flag = SubGhzProtocolFlag_433 | SubGhzProtocolFlag_315 | SubGhzProtocolFlag_868 | SubGhzProtocolFlag_AM | SubGhzProtocolFlag_Decodable | SubGhzProtocolFlag_Load | SubGhzProtocolFlag_Save | SubGhzProtocolFlag_Send,
 
     .decoder = &subghz_protocol_auriol_th_decoder,
@@ -95,7 +95,7 @@ void* subghz_protocol_encoder_auriol_th_alloc(SubGhzEnvironment* environment) {
     instance->generic.protocol_name = instance->base.protocol->name;
 
     instance->encoder.repeat = 10;
-    instance->encoder.size_upload = 52;
+    instance->encoder.size_upload = 37;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
     return instance;

@@ -83,8 +83,8 @@ const SubGhzProtocolEncoder subghz_protocol_ambient_weather_encoder = {
 
 const SubGhzProtocol subghz_protocol_ambient_weather = {
     .name = subghz_protocol_AMBIENT_WEATHER_NAME,
-    //.type = SubGhzProtocolWeatherStation,
-    .type = SubGhzProtocolTypeStatic,
+    .type = SubGhzProtocolWeatherStation,
+    //.type = SubGhzProtocolTypeStatic,
     .flag = SubGhzProtocolFlag_433 | SubGhzProtocolFlag_315 | SubGhzProtocolFlag_868 | SubGhzProtocolFlag_AM | SubGhzProtocolFlag_Decodable | SubGhzProtocolFlag_Load | SubGhzProtocolFlag_Save | SubGhzProtocolFlag_Send,
 
     .decoder = &subghz_protocol_ambient_weather_decoder,
@@ -98,8 +98,8 @@ void* subghz_protocol_encoder_ambient_weather_alloc(SubGhzEnvironment* environme
     instance->base.protocol = &subghz_protocol_ambient_weather;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 10;
-    instance->encoder.size_upload = 52;
+    instance->encoder.repeat = 3;
+    instance->encoder.size_upload = 48;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
     return instance;

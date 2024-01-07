@@ -108,8 +108,8 @@ const SubGhzProtocolEncoder subghz_protocol_gt_wt_03_encoder = {
 
 const SubGhzProtocol subghz_protocol_gt_wt_03 = {
     .name = subghz_protocol_GT_WT_03_NAME,
-    //.type = SubGhzProtocolWeatherStation,
-    .type = SubGhzProtocolTypeStatic,
+    .type = SubGhzProtocolWeatherStation,
+    //.type = SubGhzProtocolTypeStatic,
     .flag = SubGhzProtocolFlag_433 | SubGhzProtocolFlag_315 | SubGhzProtocolFlag_868 | SubGhzProtocolFlag_AM | SubGhzProtocolFlag_Decodable | SubGhzProtocolFlag_Load | SubGhzProtocolFlag_Save,
 
     .decoder = &subghz_protocol_gt_wt_03_decoder,
@@ -123,8 +123,8 @@ void* subghz_protocol_encoder_gt_wt_03_alloc(SubGhzEnvironment* environment) {
     instance->base.protocol = &subghz_protocol_gt_wt_03;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 10;
-    instance->encoder.size_upload = 52;
+    instance->encoder.repeat = 23;
+    instance->encoder.size_upload = 41;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
     return instance;

@@ -90,8 +90,8 @@ void* subghz_protocol_encoder_lacrosse_tx141thbv2_alloc(SubGhzEnvironment* envir
     instance->base.protocol = &subghz_protocol_lacrosse_tx141thbv2;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 10;
-    instance->encoder.size_upload = 52;
+    instance->encoder.repeat = 2;
+    instance->encoder.size_upload = 40;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
     return instance;

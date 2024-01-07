@@ -366,8 +366,8 @@ struct subghz_protocol_encoder_oregon3 {
 
 const SubGhzProtocol subghz_protocol_oregon3 = {
     .name = SUBGHZ_PROTOCOL_OREGON3_NAME,
-    //.type = SubGhzProtocolWeatherStation,
-    .type = SubGhzProtocolTypeStatic,
+    .type = SubGhzProtocolWeatherStation,
+    //.type = SubGhzProtocolTypeStatic,
     .flag = SubGhzProtocolFlag_433 | SubGhzProtocolFlag_AM | SubGhzProtocolFlag_Decodable | SubGhzProtocolFlag_Load | SubGhzProtocolFlag_Save | SubGhzProtocolFlag_Send,
 
     .decoder = &subghz_protocol_oregon3_decoder,
@@ -391,8 +391,8 @@ void* subghz_protocol_encoder_oregon3_alloc(SubGhzEnvironment* environment) {
     instance->base.protocol = &subghz_protocol_oregon3;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 10;
-    instance->encoder.size_upload = 52;
+    instance->encoder.repeat = 2;
+    instance->encoder.size_upload = 32;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
     return instance;

@@ -83,12 +83,12 @@ const SubGhzProtocolDecoder subghz_protocol_infactory_decoder = {
 };
 
 const SubGhzProtocolEncoder subghz_protocol_infactory_encoder = {
-    .alloc = NULL,
-    .free = NULL,
+    .alloc = subghz_protocol_encoder_infactory_alloc,
+    .free = subghz_protocol_encoder_infactory_free,
 
-    .deserialize = NULL,
-    .stop = NULL,
-    .yield = NULL,
+    .deserialize = subghz_protocol_encoder_infactory_deserialize,
+    .stop = subghz_protocol_encoder_infactory_stop,
+    .yield = subghz_protocol_encoder_infactory_yield,
 };
 
 const SubGhzProtocol subghz_protocol_infactory = {
@@ -109,7 +109,7 @@ void* subghz_protocol_encoder_infactory_alloc(SubGhzEnvironment* environment) {
     instance->generic.protocol_name = instance->base.protocol->name;
 
     instance->encoder.repeat = 10;
-    instance->encoder.size_upload = 52;
+    instance->encoder.size_upload = 40;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
     return instance;

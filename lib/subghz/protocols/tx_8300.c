@@ -79,18 +79,18 @@ const SubGhzProtocolDecoder subghz_protocol_tx_8300_decoder = {
 };
 
 const SubGhzProtocolEncoder subghz_protocol_tx_8300_encoder = {
-    .alloc = NULL,
-    .free = NULL,
+    .alloc = subghz_protocol_encoder_tx_8300_alloc,
+    .free = subghz_protocol_encoder_tx_8300_free,
 
-    .deserialize = NULL,
-    .stop = NULL,
-    .yield = NULL,
+    .deserialize = subghz_protocol_encoder_tx_8300_deserialize,
+    .stop = subghz_protocol_encoder_tx_8300_stop,
+    .yield = subghz_protocol_encoder_tx_8300_yield,
 };
 
 const SubGhzProtocol subghz_protocol_tx_8300 = {
     .name = subghz_protocol_TX_8300_NAME,
-    //.type = SubGhzProtocolWeatherStation,
-    .type = SubGhzProtocolTypeStatic,
+    .type = SubGhzProtocolWeatherStation,
+    //.type = SubGhzProtocolTypeStatic,
     .flag = SubGhzProtocolFlag_433 | SubGhzProtocolFlag_315 | SubGhzProtocolFlag_868 | SubGhzProtocolFlag_AM | SubGhzProtocolFlag_Decodable | SubGhzProtocolFlag_Load | SubGhzProtocolFlag_Save | SubGhzProtocolFlag_Send,
 
     .decoder = &subghz_protocol_tx_8300_decoder,
@@ -105,7 +105,7 @@ void* subghz_protocol_encoder_tx_8300_alloc(SubGhzEnvironment* environment) {
     instance->generic.protocol_name = instance->base.protocol->name;
 
     instance->encoder.repeat = 10;
-    instance->encoder.size_upload = 52;
+    instance->encoder.size_upload = 72;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
     return instance;

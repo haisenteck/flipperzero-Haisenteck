@@ -69,8 +69,8 @@ const SubGhzProtocolEncoder subghz_protocol_acurite_609txc_encoder = {
 
 const SubGhzProtocol subghz_protocol_acurite_609txc = {
     .name = subghz_protocol_ACURITE_609TXC_NAME,
-    //.type = SubGhzProtocolWeatherStation,
-    .type = SubGhzProtocolTypeStatic,
+    .type = SubGhzProtocolWeatherStation,
+    //.type = SubGhzProtocolTypeStatic,
     .flag = SubGhzProtocolFlag_433 | SubGhzProtocolFlag_315 | SubGhzProtocolFlag_868 | SubGhzProtocolFlag_AM | SubGhzProtocolFlag_Decodable | SubGhzProtocolFlag_Load | SubGhzProtocolFlag_Save | SubGhzProtocolFlag_Send,
 
     .decoder = &subghz_protocol_acurite_609txc_decoder,
@@ -84,8 +84,8 @@ void* subghz_protocol_encoder_acurite_609txc_alloc(SubGhzEnvironment* environmen
     instance->base.protocol = &subghz_protocol_acurite_609txc;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 10;
-    instance->encoder.size_upload = 52;
+    instance->encoder.repeat = 1;
+    instance->encoder.size_upload = 40;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
     return instance;
