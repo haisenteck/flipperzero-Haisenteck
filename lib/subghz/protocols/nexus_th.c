@@ -96,8 +96,8 @@ void* subghz_protocol_encoder_nexus_th_alloc(SubGhzEnvironment* environment) {
     instance->base.protocol = &subghz_protocol_nexus_th;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 10;
-    instance->encoder.size_upload = 52;
+    instance->encoder.repeat = 12;
+    instance->encoder.size_upload = 36;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
     return instance;
