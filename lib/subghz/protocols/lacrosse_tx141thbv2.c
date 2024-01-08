@@ -75,8 +75,8 @@ const SubGhzProtocolEncoder subghz_protocol_lacrosse_tx141thbv2_encoder = {
 
 const SubGhzProtocol subghz_protocol_lacrosse_tx141thbv2 = {
     .name = subghz_protocol_LACROSSE_TX141THBV2_NAME,
-    //.type = SubGhzProtocolWeatherStation,
-    .type = SubGhzProtocolTypeStatic,
+    .type = SubGhzProtocolWeatherStation,
+    //.type = SubGhzProtocolTypeStatic,
     .flag = SubGhzProtocolFlag_433 | SubGhzProtocolFlag_315 | SubGhzProtocolFlag_868 | SubGhzProtocolFlag_AM | SubGhzProtocolFlag_Decodable | SubGhzProtocolFlag_Load | SubGhzProtocolFlag_Save | SubGhzProtocolFlag_Send,
 
     .decoder = &subghz_protocol_lacrosse_tx141thbv2_decoder,

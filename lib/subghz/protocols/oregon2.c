@@ -430,8 +430,8 @@ struct subghz_protocol_encoder_oregon2 {
 
 const SubGhzProtocol subghz_protocol_oregon2 = {
     .name = SUBGHZ_PROTOCOL_OREGON2_NAME,
-    .type = SubGhzProtocolWeatherStation,
-    //.type = SubGhzProtocolTypeStatic,
+    //.type = SubGhzProtocolWeatherStation,
+    .type = SubGhzProtocolTypeStatic,
 	.flag = SubGhzProtocolFlag_433 | SubGhzProtocolFlag_AM | SubGhzProtocolFlag_Decodable | SubGhzProtocolFlag_Save,
 
     .decoder = &subghz_protocol_oregon2_decoder,

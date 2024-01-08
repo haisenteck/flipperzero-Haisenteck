@@ -108,8 +108,8 @@ const SubGhzProtocolEncoder subghz_protocol_gt_wt_03_encoder = {
 
 const SubGhzProtocol subghz_protocol_gt_wt_03 = {
     .name = subghz_protocol_GT_WT_03_NAME,
-    .type = SubGhzProtocolWeatherStation,
-    //.type = SubGhzProtocolTypeStatic,
+    //.type = SubGhzProtocolWeatherStation,
+    .type = SubGhzProtocolTypeStatic,
     .flag = SubGhzProtocolFlag_433 | SubGhzProtocolFlag_315 | SubGhzProtocolFlag_868 | SubGhzProtocolFlag_AM | SubGhzProtocolFlag_Decodable | SubGhzProtocolFlag_Load | SubGhzProtocolFlag_Save,
 
     .decoder = &subghz_protocol_gt_wt_03_decoder,
