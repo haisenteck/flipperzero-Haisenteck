@@ -84,7 +84,7 @@ void* subghz_protocol_encoder_acurite_609txc_alloc(SubGhzEnvironment* environmen
     instance->base.protocol = &subghz_protocol_acurite_609txc;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 1;
+    instance->encoder.repeat = 3;
     instance->encoder.size_upload = 40;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
