@@ -19,7 +19,7 @@ PLACE_IN_SECTION("MB_MEM2") ALIGN(4) static uint32_t ble_app_nvm[BLE_NVM_SRAM_SI
 
 _Static_assert(
     sizeof(SHCI_C2_Ble_Init_Cmd_Packet_t) == 58,
-    "Ble stack config structure size mismatch (check new config options - last updated for v.1.17.3)");
+    "Ble stack config structure size mismatch (check new config options - last updated for v.1.18.0)");
 
 typedef struct {
     FuriMutex* hci_mtx;
@@ -77,8 +77,8 @@ static const SHCI_C2_Ble_Init_Cmd_Packet_t ble_init_cmd_packet = {
         .rx_path_compens = 0, // RF RX Path Compensation, * 0.1 dB
         .ble_core_version = SHCI_C2_BLE_INIT_BLE_CORE_5_4,
         /*15.0->17.0*/
-        .Options_extension = SHCI_C2_BLE_INIT_OPTIONS_ENHANCED_ATT_NOTSUPPORTED |
-                             SHCI_C2_BLE_INIT_OPTIONS_APPEARANCE_READONLY,
+        //.Options_extension = SHCI_C2_BLE_INIT_OPTIONS_ENHANCED_ATT_NOTSUPPORTED | SHCI_C2_BLE_INIT_OPTIONS_APPEARANCE_READONLY,
+		.Options_extension = SHCI_C2_BLE_INIT_OPTIONS_ENHANCED_ATT_SUPPORTED | SHCI_C2_BLE_INIT_OPTIONS_APPEARANCE_WRITABLE,
     }};
 
 bool ble_app_init() {

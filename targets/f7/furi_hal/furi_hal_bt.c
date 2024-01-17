@@ -18,9 +18,6 @@
 
 #define TAG "FuriHalBt"
 
-									  
-										  
-
 /* Time, in ms, to wait for mode transition before crashing */
 #define C2_MODE_SWITCH_TIMEOUT 10000
 
@@ -232,17 +229,6 @@ bool furi_hal_bt_start_app(FuriHalBtProfile profile, GapEventCallback event_cb, 
             FURI_LOG_E(TAG, "Can't start Ble App - unsupported radio stack");
             break;
         }
-						  
-			   
-													   
-										   
-																
-							 
-				
-													
-															 
-												 
-						
         GapConfig* config = &profile_config[profile].config;
         // Configure GAP
         if(profile == FuriHalBtProfileSerial) {
