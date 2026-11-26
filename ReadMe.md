@@ -1,11 +1,11 @@
 </a>
 <h3>Haisenteck - Flipper zero firmware Mod</h3><br>
-Link all'installazione dell'ultima release tramite Web Updater:<a href='https://lab.flipper.net/?url=https://rawcdn.githack.com/haisenteck/flipperzero-Haisenteck/a74a03e7ea54fe2f4b9c593438610eaf2c18be53/dist/release/flipper-z-f7-update-Haisenteck_V1.3.1.tgz&channel=Haisenteck_V1.3.2&version=V1.3.2' target='_blank'>WEB UPDATER - RELEASE</a><br>
+Link all'installazione dell'ultima release tramite Web Updater:<a href='https://lab.flipper.net/?url=https://rawcdn.githack.com/haisenteck/flipperzero-Haisenteck/9e8f4d76bfe5e0e8003012b96412abb78b591df7/dist/f7-C/flipper-z-f7-update-Haisenteck_V1.3.2.tgz&channel=Haisenteck_V1.3.2&version=V1.3.2' target='_blank'>WEB UPDATER - RELEASE</a><br>
 link al file di installazione stabile: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/releases/tag/V1.3.2' target='_blank'>Versione STABILE</a><br>
 Link al file di installazione DEV build: <a href='https://github.com/haisenteck/flipperzero-Haisenteck/blob/dev/dist/f7-C/flipper-z-f7-update-Haisenteck_V1.3.2.tgz' target='_blank'>Versione DEV Build</a><br>
 Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/Flipper_MicroSD' target='_blank'>Contenuti Extra per Micro SD</a><br>
 <br>
-# Novit�<br>
+# Novità<br>
 - **FreeRTOS**<br>
 <ul>
 	<li>Upgrade da versione v10.6.0 a v10.6.1</li>
@@ -14,8 +14,8 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 <ul>
 	<li> Ble Spam FAP attiva</li>
 	<li> Ble Spam adattato da Xtreme Firmware</li>
-	<del><li>modifica a libreria di base per inclusione di diverse modalità del bluetooth notification per presentare il flipper come dispositivo Apple.</li></del>
-	<del><li>creato app per la gestione, si chiama FRUTTIVENDOLO.<br></del> App rimossa in quanto non più necessaria.</li>
+	<del><li>modifica a libreria di base per inclusione di diverse modalitÃ  del bluetooth notification per presentare il flipper come dispositivo Apple.</li></del>
+	<del><li>creato app per la gestione, si chiama FRUTTIVENDOLO.<br></del> App rimossa in quanto non piÃ¹ necessaria.</li>
 	<li>09/12/2023 - provato e testato ble stack full, attualmente ancora in test, mentre su versione pubblicata in uso la light.</li>
 	<li>27/12/2023 - integrato Ble Full Stack comprensivo di installazione pulita senza errori.</li>
 </ul>- **NFC**<br>
@@ -124,7 +124,7 @@ Link al repository dei contenuti extra: <a href='https://github.com/haisenteck/F
 	<li>rimozione di tutte le animazioni e lasciato animazione custom</li>
 	<li>Aggiornato STM32CubeWB da 1.17.3 a 1.18.0</li>
 	<li>Aggiornato STM32WBXX_HALL da V1.13.0 a V1.14.1</li>
-	<li>riportato in compatibilità con store fap da app smartphone il firmware</li>
+	<li>riportato in compatibilitÃ  con store fap da app smartphone il firmware</li>
 	<li>27/12/2023 - RIMOSSO IButton in quanto reputato inutile occupazione di spazio per funzioni in Italia mai usate</li>
 	<li>27/12/2023 - alleggerimento del firmware</li>
 	<li>27/12/2023 - modifica al submodulo cmsis per adattamento al full ble stack.</li>
